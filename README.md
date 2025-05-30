@@ -172,6 +172,33 @@ pnpm check          # Run all checks (typecheck + lint + format:check)
 pnpm check:fix      # Run all checks and fix issues
 ```
 
+## 🐳 Docker Deployment
+
+Build and run the application using Docker:
+
+```bash
+# Quick start with the build script
+./docker-build.sh
+
+# Or use Docker commands directly
+docker build -f Dockerfile -t kleverconnect-starter .
+docker run -d -p 3000:80 --name kleverconnect-app kleverconnect-starter
+
+# Or use Docker Compose
+docker-compose up -d
+```
+
+The application will be available at http://localhost:3000
+
+### Docker Features:
+- **Multi-stage build** for optimized image size (~50MB)
+- **Nginx** web server for production-ready serving
+- **Gzip compression** for better performance
+- **Security headers** configured
+- **Client-side routing** support
+- **Health checks** included
+- **Cache optimization** for static assets
+
 ## 💻 Usage Examples
 
 ### Basic Wallet Connection

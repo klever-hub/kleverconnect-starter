@@ -1,0 +1,44 @@
+name: Docker Release
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+    tags:
+      - 'v*'
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deployment environment'
+        required: false
+        type: choice
+        options:
+          - staging
+          - production
+        default: staging
+
+jobs:
+  docker-build:
+    uses: klever-labs/workflows/.github/workflows/docker-build.yml@main
+    with:
+      environment: ${{ github.event.inputs.environment || (github.ref == 'refs/heads/main' && 'production' || 'staging') }}
+      flavor: javascript
+      registry_name: gcr.io
+      build_dir: .
+      pre_build: false
+      use_default_dockerfiles: true
+      download_configs: false
+      runs_on: ubuntu-latest
+      context_path: .
+      platforms: linux/amd64,linux/arm64
+      cache_from: type=gha
+      cache_to: type=gha,mode=max
+    secrets:
+      registry_user: ${{ github.actor }}
+      registry_pass: ${{ secrets.GIT_PASS }}
+      git_pass: ${{ secrets.GIT_PASS }}
+      gcp_cloud_run_sa: ${{ secrets.GCP_CLOUD_RUN_SA }}
