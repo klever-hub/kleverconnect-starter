@@ -17,7 +17,9 @@
 /* Light theme */
 :root.light {
   --bg-primary: #ffffff;
+  --bg-primary-rgb: 255, 255, 255;
   --bg-secondary: #f7f7f8;
+  --bg-secondary-rgb: 247, 247, 248;
   --bg-tertiary: #e9e9eb;
   --text-primary: #1a1a1a;
   --text-secondary: #6b7280;
@@ -31,7 +33,9 @@
 /* Dark theme */
 :root.dark {
   --bg-primary: #0a0a0b;
+  --bg-primary-rgb: 10, 10, 11;
   --bg-secondary: #18181b;
+  --bg-secondary-rgb: 24, 24, 27;
   --bg-tertiary: #27272a;
   --text-primary: #fafafa;
   --text-secondary: #a1a1aa;
@@ -125,28 +129,58 @@ button {
 /* Theme toggle button */
 .theme-toggle {
   position: fixed;
-  top: 1rem;
-  right: 1rem;
+  bottom: 2rem;
+  right: 2rem;
   background-color: var(--bg-secondary);
   border: 1px solid var(--border-color);
-  width: 3rem;
-  height: 3rem;
+  width: 3.5rem;
+  height: 3.5rem;
   padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
   z-index: 50;
+  box-shadow: var(--shadow-lg);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  background-color: rgba(var(--bg-secondary-rgb), 0.9);
 }
 
 .theme-toggle:hover {
   background-color: var(--bg-tertiary);
+  transform: scale(1.1);
+  box-shadow: 0 8px 32px rgba(139, 92, 246, 0.2);
+}
+
+.theme-toggle:active {
+  transform: scale(0.95);
 }
 
 .theme-toggle svg {
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 1.75rem;
+  height: 1.75rem;
   color: var(--text-primary);
+  transition: transform 0.3s ease;
+}
+
+.theme-toggle:hover svg {
+  transform: rotate(15deg);
+}
+
+/* Mobile adjustments */
+@media (max-width: 640px) {
+  .theme-toggle {
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 3rem;
+    height: 3rem;
+  }
+  
+  .theme-toggle svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
 }
 
 /* Container */

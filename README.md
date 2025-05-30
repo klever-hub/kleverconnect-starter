@@ -286,7 +286,7 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ## 🔗 Resources
 
-- [Klever Documentation](https://docs.klever.io)
+- [Klever Documentation](https://docs.klever.org)
 - [Klever Extension](https://klever.io/en/wallet)
 - [Vite Documentation](https://vitejs.dev)
 - [React Documentation](https://react.dev)

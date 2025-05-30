@@ -1,0 +1,179 @@
+/* Network Badge Styles */
+.network-badge-container {
+  position: relative;
+  display: inline-block;
+}
+
+/* Floating Network Badge */
+.network-badge-container.floating {
+  position: fixed;
+  bottom: 2rem;
+  left: 2rem;
+  z-index: 50;
+}
+
+.network-badge-container.floating .network-badge {
+  box-shadow: var(--shadow-lg);
+  backdrop-filter: blur(10px);
+  background-color: rgba(var(--bg-secondary-rgb), 0.9);
+}
+
+.network-badge-container.floating .network-badge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+/* Mobile adjustments for floating */
+@media (max-width: 640px) {
+  .network-badge-container.floating {
+    bottom: 1.5rem;
+    left: 1.5rem;
+  }
+}
+
+.network-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.network-badge:hover {
+  background-color: var(--bg-tertiary);
+}
+
+.network-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.network-label {
+  color: var(--text-primary);
+}
+
+.network-chevron {
+  transition: transform 0.2s ease;
+  color: var(--text-secondary);
+}
+
+.network-chevron.open {
+  transform: rotate(180deg);
+}
+
+/* Network Colors */
+.network-mainnet .network-dot,
+.network-dot.network-mainnet {
+  background-color: #10b981; /* Green for mainnet */
+}
+
+.network-testnet .network-dot,
+.network-dot.network-testnet {
+  background-color: #f59e0b; /* Orange for testnet */
+}
+
+.network-devnet .network-dot,
+.network-dot.network-devnet {
+  background-color: #8b5cf6; /* Purple for devnet */
+}
+
+/* Dropdown */
+.network-dropdown {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  min-width: 150px;
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  z-index: 50;
+  animation: fadeIn 0.2s ease;
+}
+
+/* Floating dropdown adjustments */
+.network-badge-container.floating .network-dropdown {
+  bottom: calc(100% + 0.5rem);
+  top: auto;
+  left: 0;
+  right: auto;
+  animation: fadeInUp 0.2s ease;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.network-option {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: transparent;
+  border: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  text-align: left;
+}
+
+.network-option:hover {
+  background-color: var(--bg-secondary);
+}
+
+.network-option.active {
+  background-color: var(--bg-secondary);
+  color: var(--klever-purple);
+  font-weight: 600;
+}
+
+.network-option:not(:last-child) {
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* Mobile Responsive */
+@media (max-width: 640px) {
+  .network-badge {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8125rem;
+  }
+
+  .network-dropdown {
+    min-width: 120px;
+  }
+
+  .network-option {
+    padding: 0.625rem 0.875rem;
+    font-size: 0.8125rem;
+  }
+}

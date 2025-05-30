@@ -1,11 +1,35 @@
 import { ThemeToggle } from './ThemeToggle';
+import { ConnectWallet } from './ConnectWallet';
+import { NetworkBadge } from './NetworkBadge';
+import { Balance } from './Balance';
+import { useToast } from '../hooks/useToast';
+import { useKlever } from '../hooks/useKlever';
 import './LandingPage.css';
 
 export const LandingPage = () => {
+  const toast = useToast();
+  const { network } = useKlever();
   
   return (
     <div className="landing-page">
       <ThemeToggle />
+      <NetworkBadge floating />
+      
+      {/* Header */}
+      <header className="header">
+        <div className="container">
+          <div className="header-content">
+            <div className="header-logo">
+              <img src="/kleverlabs_logo_transparent.png" alt="Klever" width="40" height="40" />
+              <span className="header-title">KleverConnect</span>
+            </div>
+            <div className="header-actions">
+              <Balance />
+              <ConnectWallet />
+            </div>
+          </div>
+        </div>
+      </header>
       
       {/* Hero Section */}
       <section className="hero">
@@ -23,9 +47,15 @@ export const LandingPage = () => {
               A lightweight React starter kit for seamless Klever Wallet integration.
               Perfect for developers who need fast, clean Web3 connectivity.
             </p>
+            <div className="network-indicator">
+              <span className="network-label">Currently on</span>
+              <span className={`network-name network-${network}`}>
+                {network.charAt(0).toUpperCase() + network.slice(1)}
+              </span>
+            </div>
             <div className="hero-buttons">
-              <button className="btn-primary">
-                Connect Wallet
+              <button className="btn-primary" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+                Get Started
               </button>
               <a href="https://github.com/klever-labs/kleverconnect-starter" target="_blank" rel="noopener noreferrer">
                 <button className="btn-secondary">
@@ -113,8 +143,13 @@ const { connect, address } = useKlever();`}</code>
           <h2 className="mb-4">Ready to Build?</h2>
           <p className="mb-6">Join the Klever ecosystem and start building Web3 applications today</p>
           <div className="cta-buttons">
-            <button className="btn-primary">Start Building</button>
-            <a href="https://docs.klever.io" target="_blank" rel="noopener noreferrer">
+            <button 
+              className="btn-primary"
+              onClick={() => toast.info('Coming Soon', 'Full documentation will be available soon!')}
+            >
+              Start Building
+            </button>
+            <a href="https://docs.klever.org" target="_blank" rel="noopener noreferrer">
               <button className="btn-secondary">Read Docs</button>
             </a>
           </div>

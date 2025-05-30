@@ -1,0 +1,45 @@
+/* Balance Component Styles */
+.balance-container {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.875rem;
+  padding: 0.5rem 1rem;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 9999px;
+  min-height: 36px;
+  min-width: 100px;
+  justify-content: center;
+}
+
+.balance-value {
+  color: var(--klever-purple);
+  font-weight: 600;
+}
+
+.balance-loading {
+  color: var(--text-tertiary);
+  font-style: italic;
+}
+
+.balance-empty {
+  color: var(--text-tertiary);
+}
+
+.balance-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Mobile Responsive */
+@media (max-width: 640px) {
+  .balance-container {
+    font-size: 0.8125rem;
+    padding: 0.4rem 0.8rem;
+    min-width: 80px;
+  }
+  
+  .balance-hidden {
+    display: none;
+  }
+}
