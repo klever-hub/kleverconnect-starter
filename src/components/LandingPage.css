@@ -4,66 +4,6 @@
   overflow-x: hidden;
 }
 
-/* Header */
-.header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  background-color: var(--bg-primary);
-  border-bottom: 1px solid var(--border-color);
-  z-index: 40;
-  backdrop-filter: blur(10px);
-  background-color: rgba(var(--bg-primary-rgb), 0.8);
-  min-height: 80px;
-}
-
-:root.light {
-  --bg-primary-rgb: 255, 255, 255;
-}
-
-:root.dark {
-  --bg-primary-rgb: 10, 10, 11;
-}
-
-.header-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 0;
-  min-height: 80px;
-}
-
-.header-logo {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.header-logo img {
-  filter: drop-shadow(0 0 10px rgba(139, 92, 246, 0.3));
-}
-
-.header-title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  background: var(--klever-gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.header-actions {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-@media (max-width: 640px) {
-  .header-actions {
-    gap: 0.5rem;
-  }
-}
 
 /* Hero Section */
 .hero {
@@ -71,7 +11,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 6rem 0 2rem;
+  padding: calc(60px + 2rem) 0 2rem;
   background: radial-gradient(circle at 30% 50%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
               radial-gradient(circle at 70% 50%, rgba(255, 59, 157, 0.1) 0%, transparent 50%);
 }
@@ -83,8 +23,8 @@
 }
 
 .logo-hero {
-  width: 120px;
-  height: 120px;
+  width: 200px;
+  height: 200px;
   margin-bottom: 2rem;
   filter: drop-shadow(0 0 30px rgba(139, 92, 246, 0.3));
 }
@@ -161,7 +101,7 @@
 
 /* Features Section */
 .features {
-  padding: 5rem 0;
+  padding: 4rem 0;
   background-color: var(--bg-secondary);
 }
 
@@ -203,7 +143,7 @@
 
 /* Getting Started Section */
 .getting-started {
-  padding: 5rem 0;
+  padding: 4rem 0;
   background-color: var(--bg-primary);
 }
 
@@ -256,6 +196,10 @@
 
 /* Responsive */
 @media (max-width: 768px) {
+  .hero {
+    padding: calc(56px + 0.5rem) 0 1rem;
+  }
+  
   .hero-title {
     font-size: 2.5rem;
   }
@@ -265,8 +209,9 @@
   }
   
   .logo-hero {
-    width: 80px;
-    height: 80px;
+    width: 140px;
+    height: 140px;
+    margin-bottom: 1.25rem;
   }
   
   .features-grid {

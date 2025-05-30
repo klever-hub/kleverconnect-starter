@@ -1,9 +1,8 @@
-import { ThemeToggle } from './ThemeToggle';
-import { ConnectWallet } from './ConnectWallet';
-import { NetworkBadge } from './NetworkBadge';
-import { Balance } from './Balance';
 import { useToast } from '../hooks/useToast';
 import { useKlever } from '../hooks/useKlever';
+import { Header } from './Header';
+import { ThemeToggle } from './ThemeToggle';
+import { NetworkBadge } from './NetworkBadge';
 import './LandingPage.css';
 
 export const LandingPage = () => {
@@ -14,22 +13,7 @@ export const LandingPage = () => {
     <div className="landing-page">
       <ThemeToggle />
       <NetworkBadge floating />
-      
-      {/* Header */}
-      <header className="header">
-        <div className="container">
-          <div className="header-content">
-            <div className="header-logo">
-              <img src="/kleverlabs_logo_transparent.png" alt="Klever" width="40" height="40" />
-              <span className="header-title">KleverConnect</span>
-            </div>
-            <div className="header-actions">
-              <Balance />
-              <ConnectWallet />
-            </div>
-          </div>
-        </div>
-      </header>
+      <Header />
       
       {/* Hero Section */}
       <section className="hero">
