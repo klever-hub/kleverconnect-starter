@@ -27,7 +27,6 @@ docker rm kleverconnect-app 2>/dev/null || true
 # Run the container
 if docker run -d \
     --name kleverconnect-app \
-    --rm \
     -p 3000:80 \
     --restart unless-stopped \
     kleverconnect-starter:latest; then
