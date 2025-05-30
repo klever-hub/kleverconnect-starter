@@ -9,7 +9,9 @@ export interface ToastContextType {
   clearToasts: () => void;
 }
 
-export const ToastContext = createContext<ToastContextType | undefined>(undefined);
+const ToastContext = createContext<ToastContextType | undefined>(undefined);
+
+export { ToastContext };
 
 interface ToastProviderProps {
   children: ReactNode;
@@ -17,10 +19,10 @@ interface ToastProviderProps {
 
 export const ToastProvider = ({ children }: ToastProviderProps) => {
   const [toasts, setToasts] = useState<Toast[]>([]);
-  const removeToastRef = useRef<(id: string) => void>();
+  const removeToastRef = useRef<(id: string) => void | undefined>(undefined);
 
   const removeToast = useCallback((id: string) => {
-    setToasts(prev => prev.filter(toast => toast.id !== id));
+    setToasts((prev) => prev.filter((toast) => toast.id !== id));
   }, []);
 
   useEffect(() => {
@@ -35,10 +37,10 @@ export const ToastProvider = ({ children }: ToastProviderProps) => {
       title: options.title,
       message: options.message,
       duration: options.duration || 5000,
-      action: options.action
+      action: options.action,
     };
 
-    setToasts(prev => [...prev, toast]);
+    setToasts((prev) => [...prev, toast]);
 
     // Auto remove toast after duration
     if (toast.duration && toast.duration > 0) {
@@ -56,12 +58,8 @@ export const ToastProvider = ({ children }: ToastProviderProps) => {
     toasts,
     addToast,
     removeToast,
-    clearToasts
+    clearToasts,
   };
 
-  return (
-    <ToastContext.Provider value={value}>
-      {children}
-    </ToastContext.Provider>
-  );
+  return <ToastContext.Provider value={value}>{children}</ToastContext.Provider>;
 };

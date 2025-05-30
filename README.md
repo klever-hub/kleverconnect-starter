@@ -86,6 +86,37 @@ pnpm dev
 
 Your app will be running at `http://localhost:5173` 🎉
 
+### 🧪 Code Quality & Testing
+
+Run the same checks locally that run in CI:
+
+```bash
+# Run all checks (typecheck, lint, format)
+pnpm check
+
+# Run checks and auto-fix issues
+pnpm check:fix
+
+# Individual commands
+pnpm typecheck      # TypeScript type checking
+pnpm lint           # ESLint
+pnpm format:check   # Check formatting
+pnpm format         # Auto-format code
+```
+
+### 🔄 CI/CD
+
+This project uses GitHub Actions for continuous integration:
+- **Automated checks** on every push and PR
+- **Node.js matrix testing** (18.x, 20.x)
+- **Code quality checks**: TypeScript, ESLint, Prettier
+- **Build verification** to ensure production builds work
+
+The workflow runs automatically when you:
+- Push to `main` or `develop` branches
+- Open a pull request
+- All checks must pass before merging
+
 ## 📁 Project Structure
 
 ### Current Structure
@@ -125,17 +156,20 @@ src/
 ## 🔧 Available Scripts
 
 ```bash
-# Development server with hot reload
-pnpm dev
+# Development
+pnpm dev            # Start development server (port 5173)
+pnpm build          # Build for production
+pnpm preview        # Preview production build
 
-# Build for production
-pnpm build
+# Code Quality
+pnpm lint           # Run ESLint
+pnpm typecheck      # Run TypeScript type checking
+pnpm format         # Format code with Prettier
+pnpm format:check   # Check code formatting
 
-# Preview production build
-pnpm preview
-
-# Run ESLint
-pnpm lint
+# Combined Commands
+pnpm check          # Run all checks (typecheck + lint + format:check)
+pnpm check:fix      # Run all checks and fix issues
 ```
 
 ## 💻 Usage Examples

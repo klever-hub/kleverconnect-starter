@@ -1,5 +1,5 @@
-import { LandingPage } from './components/LandingPage'
-import { ToastContainer } from './components/ToastContainer'
+import { LandingPage } from './components/LandingPage';
+import { ToastContainer } from './components/ToastContainer';
 
 function App() {
   return (
@@ -7,7 +7,7 @@ function App() {
       <LandingPage />
       <ToastContainer />
     </>
-  )
+  );
 }
 
-export default App
+export default App;

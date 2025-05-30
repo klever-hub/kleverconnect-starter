@@ -36,6 +36,6 @@ export const useToast = () => {
     success,
     error,
     warning,
-    info
+    info,
   };
 };

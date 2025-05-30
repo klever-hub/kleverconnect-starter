@@ -15,13 +15,12 @@ export const ConnectWallet = () => {
     searchingExtension,
     connect,
     disconnect,
-    error
+    error,
   } = useKlever();
 
   const formatAddress = (addr: string) => {
     return `${addr.slice(0, 6)}...${addr.slice(-4)}`;
   };
-
 
   const copyToClipboard = async (text: string) => {
     try {
@@ -69,29 +68,26 @@ export const ConnectWallet = () => {
   if (isConnected && address) {
     return (
       <div className="wallet-connected">
-        <button 
+        <button
           className="wallet-address"
           onClick={() => copyToClipboard(address)}
           title="Click to copy address"
         >
           <span className="address-value">{formatAddress(address)}</span>
-          <svg 
-            className="copy-icon" 
-            width="14" 
-            height="14" 
-            viewBox="0 0 24 24" 
-            fill="none" 
-            stroke="currentColor" 
+          <svg
+            className="copy-icon"
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
             strokeWidth="2"
           >
             <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
             <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
           </svg>
         </button>
-        <button 
-          onClick={handleDisconnect}
-          className="btn-disconnect"
-        >
+        <button onClick={handleDisconnect} className="btn-disconnect">
           Disconnect
         </button>
       </div>
@@ -112,14 +108,8 @@ export const ConnectWallet = () => {
   if (extensionInstalled === false) {
     return (
       <div className="wallet-connect">
-        <a 
-          href="https://klever.io/en/wallet" 
-          target="_blank" 
-          rel="noopener noreferrer"
-        >
-          <button className="btn-connect">
-            Install Klever Extension
-          </button>
+        <a href="https://klever.io/en/wallet" target="_blank" rel="noopener noreferrer">
+          <button className="btn-connect">Install Klever Extension</button>
         </a>
       </div>
     );
@@ -127,11 +117,7 @@ export const ConnectWallet = () => {
 
   return (
     <div className="wallet-connect">
-      <button
-        onClick={handleConnect}
-        disabled={isConnecting}
-        className="btn-connect"
-      >
+      <button onClick={handleConnect} disabled={isConnecting} className="btn-connect">
         {isConnecting ? (
           <>
             <span className="connecting-spinner"></span>
@@ -139,7 +125,14 @@ export const ConnectWallet = () => {
           </>
         ) : (
           <>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
               <path d="M20.4 11H3M8.5 11L3 5.5M8.5 11L3 16.5M9 21H21V3H9" />
             </svg>
             Connect Wallet

@@ -23,13 +23,13 @@ export const Header = () => {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
-  
+
   const [isSpinning, setIsSpinning] = useState(false);
-  
+
   const handleLogoClick = () => {
     setIsSpinning(true);
     toggleMenu();
-    
+
     // Reset spinning state after animation completes
     setTimeout(() => {
       setIsSpinning(false);
@@ -46,9 +46,7 @@ export const Header = () => {
               alt="Klever Labs"
               className={`header-logo ${isSpinning ? 'spinning' : ''}`}
             />
-            {!isMobile && (
-              <span className="header-title">KleverConnect Starter</span>
-            )}
+            {!isMobile && <span className="header-title">KleverConnect Starter</span>}
           </div>
 
           <div className="header-right">
@@ -70,7 +68,7 @@ export const Header = () => {
               ×
             </button>
           </div>
-          
+
           <div className="nav-menu-items">
             <nav className="nav-links">
               <a href="#" className="nav-link" onClick={toggleMenu}>
@@ -82,14 +80,24 @@ export const Header = () => {
               <a href="#getting-started" className="nav-link" onClick={toggleMenu}>
                 Getting Started
               </a>
-              <a href="https://docs.klever.org" target="_blank" rel="noopener noreferrer" className="nav-link">
+              <a
+                href="https://docs.klever.org"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="nav-link"
+              >
                 Documentation
               </a>
-              <a href="https://github.com/klever-labs/kleverconnect-starter" target="_blank" rel="noopener noreferrer" className="nav-link">
+              <a
+                href="https://github.com/klever-labs/kleverconnect-starter"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="nav-link"
+              >
                 GitHub
               </a>
             </nav>
-            
+
             {address && isMobile && (
               <div className="nav-menu-section balance-section">
                 <Balance />
@@ -97,13 +105,9 @@ export const Header = () => {
             )}
           </div>
         </div>
-        
-        <div 
-          className="nav-menu-overlay"
-          onClick={toggleMenu}
-        />
+
+        <div className="nav-menu-overlay" onClick={toggleMenu} />
       </div>
     </>
   );
 };
-

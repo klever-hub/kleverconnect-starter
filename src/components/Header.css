@@ -67,7 +67,6 @@
   gap: 1.5rem;
 }
 
-
 /* Navigation Menu */
 .nav-menu {
   position: fixed;
@@ -81,7 +80,10 @@
   opacity: 0;
   visibility: hidden;
   transform: translateY(-10px);
-  transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
+  transition:
+    opacity 0.2s ease,
+    visibility 0.2s ease,
+    transform 0.2s ease;
 }
 
 .nav-menu.desktop.open {
@@ -151,7 +153,9 @@
   background-color: rgba(0, 0, 0, 0.5);
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease;
 }
 
 .nav-menu.mobile.open .nav-menu-overlay {
@@ -207,7 +211,6 @@
   margin-bottom: 0;
 }
 
-
 /* Navigation Links */
 .nav-links {
   display: flex;
@@ -259,11 +262,11 @@
   .app-header {
     padding: 0 0.75rem;
   }
-  
+
   .header-content {
     height: 56px;
   }
-  
+
   .header-logo {
     height: 36px;
   }
@@ -273,11 +276,11 @@
   .header-content {
     height: 52px;
   }
-  
+
   .header-logo {
     height: 32px;
   }
-  
+
   .mobile-menu-content {
     width: 100%;
     max-width: 100%;

@@ -4,7 +4,6 @@
   overflow-x: hidden;
 }
 
-
 /* Hero Section */
 .hero {
   min-height: 100vh;
@@ -12,8 +11,9 @@
   align-items: center;
   justify-content: center;
   padding: calc(60px + 2rem) 0 2rem;
-  background: radial-gradient(circle at 30% 50%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
-              radial-gradient(circle at 70% 50%, rgba(255, 59, 157, 0.1) 0%, transparent 50%);
+  background:
+    radial-gradient(circle at 30% 50%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 70% 50%, rgba(255, 59, 157, 0.1) 0%, transparent 50%);
 }
 
 .hero-content {
@@ -32,7 +32,13 @@
 .hero-title {
   margin-bottom: 1.5rem;
   font-size: 4rem;
-  background: linear-gradient(to right, var(--text-primary) 0%, var(--text-primary) 50%, var(--klever-pink) 50%, var(--klever-purple) 100%);
+  background: linear-gradient(
+    to right,
+    var(--text-primary) 0%,
+    var(--text-primary) 50%,
+    var(--klever-pink) 50%,
+    var(--klever-purple) 100%
+  );
   background-size: 200% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -41,9 +47,15 @@
 }
 
 @keyframes gradientSlide {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .hero-subtitle {
@@ -199,26 +211,26 @@
   .hero {
     padding: calc(56px + 0.5rem) 0 1rem;
   }
-  
+
   .hero-title {
     font-size: 2.5rem;
   }
-  
+
   .hero-subtitle {
     font-size: 1.1rem;
   }
-  
+
   .logo-hero {
     width: 140px;
     height: 140px;
     margin-bottom: 1.25rem;
   }
-  
+
   .features-grid {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
-  
+
   .code-blocks {
     grid-template-columns: 1fr;
   }

@@ -7,12 +7,8 @@ export const ToastContainer = () => {
 
   return (
     <div className="toast-container">
-      {toasts.map(toast => (
-        <Toast 
-          key={toast.id} 
-          toast={toast} 
-          onRemove={removeToast}
-        />
+      {toasts.map((toast) => (
+        <Toast key={toast.id} toast={toast} onRemove={removeToast} />
       ))}
     </div>
   );

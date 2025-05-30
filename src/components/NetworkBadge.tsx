@@ -63,26 +63,31 @@ export const NetworkBadge = ({ floating = false }: NetworkBadgeProps) => {
     }
   };
 
-
   return (
     <div className={`network-badge-container ${floating ? 'floating' : ''}`} ref={dropdownRef}>
-        <button
-          className={`network-badge ${getNetworkColor()}`}
-          onClick={() => setIsOpen(!isOpen)}
-          aria-label="Switch network"
+      <button
+        className={`network-badge ${getNetworkColor()}`}
+        onClick={() => setIsOpen(!isOpen)}
+        aria-label="Switch network"
+      >
+        <span className="network-dot"></span>
+        <span className="network-label">{getNetworkLabel()}</span>
+        <svg
+          className={`network-chevron ${isOpen ? 'open' : ''}`}
+          width="12"
+          height="12"
+          viewBox="0 0 12 12"
+          fill="none"
         >
-          <span className="network-dot"></span>
-          <span className="network-label">{getNetworkLabel()}</span>
-          <svg 
-            className={`network-chevron ${isOpen ? 'open' : ''}`} 
-            width="12" 
-            height="12" 
-            viewBox="0 0 12 12" 
-            fill="none"
-          >
-            <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-        </button>
+          <path
+            d="M3 4.5L6 7.5L9 4.5"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </button>
 
       {isOpen && (
         <div className="network-dropdown">
