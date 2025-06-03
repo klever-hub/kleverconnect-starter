@@ -31,7 +31,7 @@ jobs:
       - name: Build services configuration
         id: build-config
         env:
-          GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+          GCP_PROJECT_ID: ${{ vars.GCP_PROJECT_ID }}
           IMAGE_TAG: ${{ github.event.inputs.image_tag || github.event.workflow_run.head_sha || github.sha }}
           ENVIRONMENT: ${{ github.event.inputs.environment || (github.event.workflow_run.head_branch == 'main' && 'prod' || 'staging') }}
           FQDN: ${{ (github.event.inputs.environment == 'prod' || github.event.workflow_run.head_branch == 'main') && 'kleverlabs.dev' || 'staging.kleverlabs.dev' }}
