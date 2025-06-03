@@ -43,7 +43,7 @@ jobs:
               "service_name": "kleverconnect-starter",
               "image": "gcr.io/${GCP_PROJECT_ID}/kleverconnect-starter:${IMAGE_TAG}",
               "replicas": 1,
-              "port": 3000,
+              "port": 80,
               "domain": "kleverconnect-starter",
               "fqdn": "${FQDN}",
               "environment_type": "${ENVIRONMENT}",
@@ -55,6 +55,13 @@ jobs:
               },
               "resources": {
                 "limits": { "cpus": "0.5", "memory": "256M" }
+              },
+              "health_check": {
+                "test": ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://127.0.0.1/"],
+                "interval": "30s",
+                "timeout": "3s",
+                "retries": 3,
+                "start_period": "5s"
               },
               "volume_persistence": false,
               "enable_logging": true
