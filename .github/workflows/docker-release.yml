@@ -1,4 +1,5 @@
 name: Docker Release
+# This workflow builds Docker images. The docker-deploy.yml workflow handles deployment.
 
 on:
   workflow_run:
