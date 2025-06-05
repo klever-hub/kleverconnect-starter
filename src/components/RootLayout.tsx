@@ -1,15 +1,15 @@
 import type { ReactNode } from 'react';
 import { Header } from './Header';
 
-interface LayoutProps {
+interface RootLayoutProps {
   children: ReactNode;
 }
 
-export const Layout = ({ children }: LayoutProps) => {
+export const RootLayout = ({ children }: RootLayoutProps) => {
   return (
     <>
       <Header />
-      {children}
+      <main>{children}</main>
     </>
   );
 };

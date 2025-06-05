@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom';
 import { useKlever } from '../hooks/useKlever';
-import { Header } from './Header';
 import { ThemeToggle } from './ThemeToggle';
 import { NetworkBadge } from './NetworkBadge';
 import './LandingPage.css';
@@ -13,7 +12,6 @@ export const LandingPage = () => {
     <div className="landing-page">
       <ThemeToggle />
       <NetworkBadge floating />
-      <Header />
 
       {/* Hero Section */}
       <section className="hero">
