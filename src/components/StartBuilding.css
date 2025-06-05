@@ -800,13 +800,13 @@ code {
     word-break: break-word;
     overflow-wrap: break-word;
   }
-  
+
   /* Responsive code blocks for mobile */
   .responsive-code {
     font-size: 0.7rem;
     padding: 0.75rem 0.5rem;
   }
-  
+
   .responsive-code code {
     font-size: 0.7rem;
   }
@@ -943,22 +943,22 @@ code {
 }
 
 /* Dark mode adjustments */
-[data-theme="dark"] .step-card {
+[data-theme='dark'] .step-card {
   background: rgba(255, 255, 255, 0.02);
 }
 
-[data-theme="dark"] .nav-step {
+[data-theme='dark'] .nav-step {
   background: rgba(255, 255, 255, 0.02);
 }
 
-[data-theme="dark"] .nav-step.active {
+[data-theme='dark'] .nav-step.active {
   background: linear-gradient(135deg, rgba(0, 150, 255, 0.15) 0%, rgba(147, 51, 234, 0.15) 100%);
 }
 
-[data-theme="dark"] pre {
+[data-theme='dark'] pre {
   background: rgba(0, 0, 0, 0.4);
 }
 
-[data-theme="dark"] code {
+[data-theme='dark'] code {
   background: rgba(0, 0, 0, 0.4);
 }

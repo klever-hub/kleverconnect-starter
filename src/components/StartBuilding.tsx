@@ -7,7 +7,7 @@ import {
   Step2CreateDapp,
   Step3KleverWallet,
   Step4Customize,
-  Step5Deploy
+  Step5Deploy,
 } from './steps';
 import './StartBuilding.css';
 
@@ -44,24 +44,24 @@ export const StartBuilding = () => {
   const sections: Section[] = [
     {
       title: 'Install Development Tools',
-      content: <Step1DevTools />
+      content: <Step1DevTools />,
     },
     {
       title: 'Create Your First dApp',
-      content: <Step2CreateDapp />
+      content: <Step2CreateDapp />,
     },
     {
       title: 'Setup Klever Wallet',
-      content: <Step3KleverWallet />
+      content: <Step3KleverWallet />,
     },
     {
       title: 'Customize Your dApp',
-      content: <Step4Customize />
+      content: <Step4Customize />,
     },
     {
       title: 'Build & Deploy',
-      content: <Step5Deploy />
-    }
+      content: <Step5Deploy />,
+    },
   ];
 
   return (
@@ -73,10 +73,10 @@ export const StartBuilding = () => {
       <div className="tutorial-wrapper">
         <div className="tutorial-nav">
           <h1 className="gradient-text">Start Building</h1>
-          
+
           {isMobile ? (
             <div className="mobile-nav">
-              <button 
+              <button
                 className="mobile-menu-toggle"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               >
@@ -84,7 +84,7 @@ export const StartBuilding = () => {
                 <span className="current-step-title">{sections[activeSection].title}</span>
                 <span className="dropdown-arrow">{isMobileMenuOpen ? '▲' : '▼'}</span>
               </button>
-              
+
               {isMobileMenuOpen && (
                 <div className="mobile-menu-dropdown">
                   {sections.map((section, index) => (
@@ -118,9 +118,9 @@ export const StartBuilding = () => {
 
         <div className="tutorial-content">
           {sections[activeSection].content}
-          
+
           <div className="content-navigation">
-            <button 
+            <button
               className="nav-button prev"
               onClick={() => setActiveSection(Math.max(0, activeSection - 1))}
               disabled={activeSection === 0}
@@ -130,7 +130,7 @@ export const StartBuilding = () => {
             <div className="step-indicator">
               Step {activeSection + 1} of {sections.length}
             </div>
-            <button 
+            <button
               className="nav-button next"
               onClick={() => setActiveSection(Math.min(sections.length - 1, activeSection + 1))}
               disabled={activeSection === sections.length - 1}

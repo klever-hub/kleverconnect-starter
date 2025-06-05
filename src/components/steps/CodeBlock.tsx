@@ -23,16 +23,8 @@ export const CodeBlock = ({ code, language = 'bash' }: CodeBlockProps) => {
       <pre className={`language-${language}`}>
         <code>{code}</code>
       </pre>
-      <button 
-        className="copy-button"
-        onClick={handleCopy}
-        aria-label="Copy to clipboard"
-      >
-        {copied ? (
-          <span className="copy-icon">✓</span>
-        ) : (
-          <span className="copy-icon">📋</span>
-        )}
+      <button className="copy-button" onClick={handleCopy} aria-label="Copy to clipboard">
+        {copied ? <span className="copy-icon">✓</span> : <span className="copy-icon">📋</span>}
       </button>
     </div>
   );

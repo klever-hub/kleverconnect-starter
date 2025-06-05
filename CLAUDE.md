@@ -27,6 +27,12 @@ pnpm preview
 
 # Run ESLint
 pnpm lint
+
+# Check code style and format
+pnpm check
+
+# Fix code style and format
+pnpm check:fix
 ```
 
 ## Key Features

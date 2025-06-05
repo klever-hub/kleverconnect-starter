@@ -10,7 +10,7 @@ export const Step4Customize = () => (
     <div className="step-card">
       <h3>Project Structure</h3>
       <div className="project-structure">
-        <CodeBlock 
+        <CodeBlock
           code={`src/
 ├── components/     # UI components
 │   ├── ConnectWallet.tsx
@@ -33,27 +33,38 @@ export const Step4Customize = () => (
       <div className="key-files">
         <div className="file-item">
           <code className="file-path">src/hooks/useKlever.ts</code>
-          <p className="file-desc">Core wallet integration logic - handles connection, disconnection, and blockchain interactions</p>
+          <p className="file-desc">
+            Core wallet integration logic - handles connection, disconnection, and blockchain
+            interactions
+          </p>
         </div>
         <div className="file-item">
           <code className="file-path">src/components/ConnectWallet.tsx</code>
-          <p className="file-desc">Wallet connection UI component - the button users click to connect</p>
+          <p className="file-desc">
+            Wallet connection UI component - the button users click to connect
+          </p>
         </div>
         <div className="file-item">
           <code className="file-path">src/components/LandingPage.tsx</code>
-          <p className="file-desc">Main home page component - customize this to change your app's appearance</p>
+          <p className="file-desc">
+            Main home page component - customize this to change your app's appearance
+          </p>
         </div>
         <div className="file-item">
           <code className="file-path">src/App.tsx</code>
-          <p className="file-desc">Root application component - controls routing and global layout</p>
+          <p className="file-desc">
+            Root application component - controls routing and global layout
+          </p>
         </div>
       </div>
     </div>
 
     <div className="step-card">
       <h3>Make Your First Change</h3>
-      <p>Edit <code>src/components/LandingPage.tsx</code>:</p>
-      <CodeBlock 
+      <p>
+        Edit <code>src/components/LandingPage.tsx</code>:
+      </p>
+      <CodeBlock
         code={`<h1 className="hero-title">
   My First <span className="gradient-text">Klever dApp</span>
 </h1>`}

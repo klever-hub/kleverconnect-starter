@@ -133,10 +133,7 @@ const { connect, address } = useKlever();`}</code>
             Join the Klever ecosystem and start building Web3 applications today
           </p>
           <div className="cta-buttons">
-            <button
-              className="btn-primary"
-              onClick={() => navigate('/start-building')}
-            >
+            <button className="btn-primary" onClick={() => navigate('/start-building')}>
               Start Building
             </button>
             <a href="https://docs.klever.org" target="_blank" rel="noopener noreferrer">

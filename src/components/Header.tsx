@@ -39,7 +39,7 @@ export const Header = () => {
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
     e.preventDefault();
-    
+
     // If we're on the home page, scroll to section
     if (location.pathname === '/') {
       const element = document.getElementById(targetId);
@@ -63,7 +63,7 @@ export const Header = () => {
 
   const handleLogoClick = () => {
     setIsSpinning(true);
-    
+
     // Navigate to home if not already there
     if (location.pathname !== '/') {
       navigate('/');
@@ -98,7 +98,7 @@ export const Header = () => {
         </div>
       </header>
 
-      <div 
+      <div
         className={`nav-menu ${isMenuOpen ? 'open' : ''} ${isMobile ? 'mobile' : 'desktop'}`}
         style={!isMobile ? menuPosition : undefined}
       >
