@@ -5,6 +5,7 @@ import type { TypedContractParam } from '../types/contract';
 import { useKlever } from '../hooks/useKlever';
 import { useToast } from '../hooks/useToast';
 import { NetworkBadge } from './NetworkBadge';
+import { ThemeToggle } from './ThemeToggle';
 import { CodeBlock } from './steps/CodeBlock';
 import adderABI from '../assets/adder.abi.json';
 import './TransactionTriggers.css';
@@ -352,6 +353,8 @@ export const TransactionTriggers = () => {
 
   return (
     <div className="transaction-triggers">
+      <ThemeToggle />
+      <NetworkBadge floating />
       <div className="hero-section">
         <div className="hero-content">
           <h1 className="hero-title">Transaction Playground</h1>
@@ -359,7 +362,6 @@ export const TransactionTriggers = () => {
             Test and trigger blockchain transactions with ease. Send tokens, interact with smart
             contracts, and explore the Klever blockchain capabilities.
           </p>
-          <NetworkBadge />
         </div>
       </div>
 
