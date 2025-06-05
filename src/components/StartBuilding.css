@@ -191,6 +191,23 @@
   margin: 1rem 0;
 }
 
+/* Hide copy button by default, show on hover */
+.code-block-wrapper .copy-button {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.code-block-wrapper:hover .copy-button {
+  opacity: 1;
+}
+
+/* Always show on touch devices */
+@media (hover: none) {
+  .code-block-wrapper .copy-button {
+    opacity: 1;
+  }
+}
+
 pre {
   background: var(--bg-primary);
   border: 1px solid var(--border);

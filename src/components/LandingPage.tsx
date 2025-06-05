@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useKlever } from '../hooks/useKlever';
 import { ThemeToggle } from './ThemeToggle';
 import { NetworkBadge } from './NetworkBadge';
+import { CodeBlock } from './steps/CodeBlock';
 import './LandingPage.css';
 
 export const LandingPage = () => {
@@ -99,25 +100,28 @@ export const LandingPage = () => {
           <div className="code-blocks">
             <div className="code-block">
               <h3>1. Clone & Install</h3>
-              <pre>
-                <code>{`git clone https://github.com/klever-labs/kleverconnect-starter
+              <CodeBlock
+                language="bash"
+                code={`git clone https://github.com/klever-labs/kleverconnect-starter
 cd kleverconnect-starter
-pnpm install`}</code>
-              </pre>
+pnpm install`}
+              />
             </div>
             <div className="code-block">
               <h3>2. Start Development</h3>
-              <pre>
-                <code>{`pnpm dev`}</code>
-              </pre>
+              <CodeBlock
+                language="bash"
+                code={`pnpm dev`}
+              />
             </div>
             <div className="code-block">
               <h3>3. Connect Wallet</h3>
-              <pre>
-                <code>{`import { useKlever } from './hooks/useKlever';
+              <CodeBlock
+                language="typescript"
+                code={`import { useKlever } from './hooks/useKlever';
 
-const { connect, address } = useKlever();`}</code>
-              </pre>
+const { connect, address } = useKlever();`}
+              />
             </div>
           </div>
         </div>
