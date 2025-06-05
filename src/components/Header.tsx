@@ -153,6 +153,17 @@ export const Header = () => {
                 Start Building
               </a>
               <a
+                href="/transactions"
+                className="nav-link"
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigate('/transactions');
+                  toggleMenu();
+                }}
+              >
+                Transactions
+              </a>
+              <a
                 href="https://docs.klever.org"
                 target="_blank"
                 rel="noopener noreferrer"
