@@ -36,7 +36,10 @@ export const LandingPage = () => {
             <div className="hero-buttons">
               <button
                 className="btn-primary"
-                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                onClick={() => {
+                  const element = document.getElementById('getting-started');
+                  element?.scrollIntoView({ behavior: 'smooth' });
+                }}
               >
                 Get Started
               </button>
@@ -92,7 +95,7 @@ export const LandingPage = () => {
       </section>
 
       {/* Getting Started Section */}
-      <section className="getting-started">
+      <section id="getting-started" className="getting-started">
         <div className="container">
           <h2 className="text-center mb-6">Get Started in Minutes</h2>
           <div className="code-blocks">
