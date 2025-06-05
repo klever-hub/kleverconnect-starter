@@ -1,4 +1,4 @@
-import { useToast } from '../hooks/useToast';
+import { useNavigate } from 'react-router-dom';
 import { useKlever } from '../hooks/useKlever';
 import { Header } from './Header';
 import { ThemeToggle } from './ThemeToggle';
@@ -6,7 +6,7 @@ import { NetworkBadge } from './NetworkBadge';
 import './LandingPage.css';
 
 export const LandingPage = () => {
-  const toast = useToast();
+  const navigate = useNavigate();
   const { network } = useKlever();
 
   return (
@@ -135,9 +135,7 @@ const { connect, address } = useKlever();`}</code>
           <div className="cta-buttons">
             <button
               className="btn-primary"
-              onClick={() =>
-                toast.info('Coming Soon', 'Full documentation will be available soon!')
-              }
+              onClick={() => navigate('/start-building')}
             >
               Start Building
             </button>
