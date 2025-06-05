@@ -19,14 +19,21 @@
   right: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
   animation: float 20s ease-in-out infinite;
 }
 
 @keyframes float {
-  0%, 100% { transform: translate(0, 0) rotate(0deg); }
-  33% { transform: translate(30px, -30px) rotate(120deg); }
-  66% { transform: translate(-20px, 20px) rotate(240deg); }
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  33% {
+    transform: translate(30px, -30px) rotate(120deg);
+  }
+  66% {
+    transform: translate(-20px, 20px) rotate(240deg);
+  }
 }
 
 .hero-content {
@@ -339,7 +346,9 @@
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.2);
   transform: translate(-50%, -50%);
-  transition: width 0.6s, height 0.6s;
+  transition:
+    width 0.6s,
+    height 0.6s;
 }
 
 .action-button:active::before {
@@ -395,7 +404,9 @@
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* ABI Section */
@@ -876,26 +887,26 @@
 }
 
 /* Dark Mode Adjustments */
-[data-theme="dark"] .hero-section {
+[data-theme='dark'] .hero-section {
   background: linear-gradient(135deg, rgba(106, 13, 173, 0.1) 0%, var(--bg-secondary) 100%);
 }
 
-[data-theme="dark"] .tx-status-content {
+[data-theme='dark'] .tx-status-content {
   background: rgba(16, 185, 129, 0.05);
 }
 
-[data-theme="dark"] .abi-loaded {
+[data-theme='dark'] .abi-loaded {
   background: rgba(16, 185, 129, 0.05);
 }
 
-[data-theme="dark"] .form-input {
+[data-theme='dark'] .form-input {
   background: var(--bg-primary);
 }
 
-[data-theme="dark"] .example-card:hover {
+[data-theme='dark'] .example-card:hover {
   box-shadow: 0 4px 12px rgba(106, 13, 173, 0.2);
 }
 
-[data-theme="dark"] .transaction-item:hover {
+[data-theme='dark'] .transaction-item:hover {
   box-shadow: 0 4px 8px rgba(106, 13, 173, 0.1);
 }

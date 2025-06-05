@@ -31,7 +31,7 @@ interface ContractABI {
 
 // Example contract addresses for testnet
 const EXAMPLE_CONTRACTS = {
-  adder: 'klv1qqqqqqqqqqqqqpgqxwklx9kjsraqctl36kqekhyh95u5cf8qgz5q33zltk' // Replace with actual deployed contract
+  adder: 'klv1qqqqqqqqqqqqqpgqxwklx9kjsraqctl36kqekhyh95u5cf8qgz5q33zltk', // Replace with actual deployed contract
 };
 
 interface RecentTransaction {
@@ -43,36 +43,45 @@ interface RecentTransaction {
 
 export const TransactionTriggers = () => {
   const { isConnected, network } = useKlever();
-  const { sendKLV, sendKDA, callSmartContract, queryContract, parseContractResponse, isLoading, txHash, waitForTransaction } = useTransaction();
+  const {
+    sendKLV,
+    sendKDA,
+    callSmartContract,
+    queryContract,
+    parseContractResponse,
+    isLoading,
+    txHash,
+    waitForTransaction,
+  } = useTransaction();
   const { addToast } = useToast();
   const fileInputRef = useRef<HTMLInputElement>(null);
-  
+
   // Explorer URLs based on network
   const EXPLORER_URLS = {
     mainnet: 'https://kleverscan.org',
     testnet: 'https://testnet.kleverscan.org',
-    devnet: 'https://devnet.kleverscan.org'
+    devnet: 'https://devnet.kleverscan.org',
   };
 
   // State for different transaction types
   const [activeTab, setActiveTab] = useState<'transfer' | 'kda' | 'contract'>('transfer');
-  
+
   // Transfer state
   const [transferReceiver, setTransferReceiver] = useState('');
   const [transferAmount, setTransferAmount] = useState('');
-  
+
   // KDA state
   const [kdaReceiver, setKdaReceiver] = useState('');
   const [kdaAmount, setKdaAmount] = useState('');
   const [kdaId, setKdaId] = useState('');
-  
+
   // Contract state
   const [contractAddress, setContractAddress] = useState('');
   const [contractABI, setContractABI] = useState<ContractABI | null>(null);
   const [selectedFunction, setSelectedFunction] = useState<string>('');
   const [functionArgs, setFunctionArgs] = useState<{ [key: string]: string }>({});
   const [contractValue, setContractValue] = useState('');
-  
+
   // Recent transactions state - initialize from localStorage
   const [recentTransactions, setRecentTransactions] = useState<RecentTransaction[]>(() => {
     try {
@@ -82,7 +91,7 @@ export const TransactionTriggers = () => {
         // Convert timestamp strings back to Date objects
         return parsed.map((tx: RecentTransaction & { timestamp: string }) => ({
           ...tx,
-          timestamp: new Date(tx.timestamp)
+          timestamp: new Date(tx.timestamp),
         }));
       }
     } catch (error) {
@@ -106,16 +115,14 @@ export const TransactionTriggers = () => {
       hash,
       type,
       timestamp: new Date(),
-      status: 'pending'
+      status: 'pending',
     };
-    setRecentTransactions(prev => [newTx, ...prev.slice(0, 9)]); // Keep last 10
+    setRecentTransactions((prev) => [newTx, ...prev.slice(0, 9)]); // Keep last 10
   };
 
   // Update transaction status
   const updateTransactionStatus = (hash: string, status: 'confirmed' | 'failed') => {
-    setRecentTransactions(prev => 
-      prev.map(tx => tx.hash === hash ? { ...tx, status } : tx)
-    );
+    setRecentTransactions((prev) => prev.map((tx) => (tx.hash === hash ? { ...tx, status } : tx)));
   };
 
   // Clear all transactions
@@ -129,7 +136,11 @@ export const TransactionTriggers = () => {
   const copyToClipboard = async (hash: string) => {
     try {
       await navigator.clipboard.writeText(hash);
-      addToast({ title: 'Copied!', message: 'Transaction hash copied to clipboard', type: 'success' });
+      addToast({
+        title: 'Copied!',
+        message: 'Transaction hash copied to clipboard',
+        type: 'success',
+      });
     } catch (error) {
       console.error('Failed to copy:', error);
       addToast({ title: 'Error', message: 'Failed to copy to clipboard', type: 'error' });
@@ -219,7 +230,7 @@ export const TransactionTriggers = () => {
   // Get selected function details
   const getSelectedFunctionDetails = (): ABIFunction | null => {
     if (!contractABI || !selectedFunction) return null;
-    return contractABI.endpoints.find(f => f.name === selectedFunction) || null;
+    return contractABI.endpoints.find((f) => f.name === selectedFunction) || null;
   };
 
   // State for query results
@@ -238,11 +249,11 @@ export const TransactionTriggers = () => {
 
     try {
       // Build arguments array
-      const args = functionDetails.inputs.map(input => {
+      const args = functionDetails.inputs.map((input) => {
         const value = functionArgs[input.name] || '';
         const typedParam: TypedContractParam = {
           type: mapABITypeToContractParam(input.type) as TypedContractParam['type'],
-          value: parseArgValue(value, input.type)
+          value: parseArgValue(value, input.type),
         };
         return convertTypedToEncodable(typedParam);
       });
@@ -252,20 +263,32 @@ export const TransactionTriggers = () => {
         // Query the contract (read-only)
         setIsQuerying(true);
         setQueryResult(null);
-        
+
         try {
           const result = await queryContract(contractAddress, selectedFunction, args);
           const parsedResult = parseContractResponse(result);
-          
+
           // Display the result
           if (parsedResult !== null) {
-            setQueryResult(typeof parsedResult === 'string' ? parsedResult : JSON.stringify(parsedResult, null, 2));
-            addToast({ title: 'Success', message: 'Query completed successfully', type: 'success' });
+            setQueryResult(
+              typeof parsedResult === 'string'
+                ? parsedResult
+                : JSON.stringify(parsedResult, null, 2)
+            );
+            addToast({
+              title: 'Success',
+              message: 'Query completed successfully',
+              type: 'success',
+            });
           } else {
             addToast({ title: 'Info', message: 'Query returned no data', type: 'info' });
           }
         } catch (error) {
-          addToast({ title: 'Error', message: error instanceof Error ? error.message : 'Query failed', type: 'error' });
+          addToast({
+            title: 'Error',
+            message: error instanceof Error ? error.message : 'Query failed',
+            type: 'error',
+          });
         } finally {
           setIsQuerying(false);
         }
@@ -273,9 +296,12 @@ export const TransactionTriggers = () => {
         // Execute the contract (state-changing)
         const value = contractValue ? parseFloat(contractValue) * 1e6 : undefined;
         const result = await callSmartContract(contractAddress, selectedFunction, args, value);
-        
+
         if (result.success && result.hash) {
-          addRecentTransaction(result.hash, `${selectedFunction}() on ${contractAddress.slice(0, 10)}...`);
+          addRecentTransaction(
+            result.hash,
+            `${selectedFunction}() on ${contractAddress.slice(0, 10)}...`
+          );
           // Wait for confirmation
           const confirmed = await waitForTransaction(result.hash);
           updateTransactionStatus(result.hash, confirmed ? 'confirmed' : 'failed');
@@ -294,15 +320,15 @@ export const TransactionTriggers = () => {
   // Map ABI types to contract param types
   const mapABITypeToContractParam = (abiType: string): string => {
     const typeMap: { [key: string]: string } = {
-      'Address': 'Address',
-      'ManagedBuffer': 'ManagedBuffer',
-      'BigUint': 'BigUint',
-      'BigInt': 'BigInt',
-      'u64': 'u64',
-      'u32': 'u32',
-      'i64': 'i64',
-      'i32': 'i32',
-      'bool': 'bool',
+      Address: 'Address',
+      ManagedBuffer: 'ManagedBuffer',
+      BigUint: 'BigUint',
+      BigInt: 'BigInt',
+      u64: 'u64',
+      u32: 'u32',
+      i64: 'i64',
+      i32: 'i32',
+      bool: 'bool',
     };
     return typeMap[abiType] || 'ManagedBuffer';
   };
@@ -332,8 +358,8 @@ export const TransactionTriggers = () => {
           <div className="hero-content">
             <h1 className="hero-title">Transaction Playground</h1>
             <p className="hero-subtitle">
-              Test and trigger blockchain transactions with ease. Send tokens, interact with smart contracts, 
-              and explore the Klever blockchain capabilities.
+              Test and trigger blockchain transactions with ease. Send tokens, interact with smart
+              contracts, and explore the Klever blockchain capabilities.
             </p>
             <NetworkBadge />
           </div>
@@ -343,7 +369,10 @@ export const TransactionTriggers = () => {
           <div className="connect-prompt">
             <div className="connect-card">
               <h2>🔗 Connect Your Wallet</h2>
-              <p>To start sending transactions, please connect your Klever wallet using the button in the header.</p>
+              <p>
+                To start sending transactions, please connect your Klever wallet using the button in
+                the header.
+              </p>
               <div className="features-preview">
                 <div className="feature-item">
                   <span className="feature-icon">💸</span>
@@ -369,12 +398,14 @@ export const TransactionTriggers = () => {
                   <div className="tx-status-info">
                     <p className="tx-status-title">Transaction Submitted</p>
                     <p className="tx-hash">
-                      <code>{txHash.slice(0, 12)}...{txHash.slice(-12)}</code>
+                      <code>
+                        {txHash.slice(0, 12)}...{txHash.slice(-12)}
+                      </code>
                     </p>
                   </div>
-                  <a 
-                    href={`${EXPLORER_URLS[network]}/transaction/${txHash}`} 
-                    target="_blank" 
+                  <a
+                    href={`${EXPLORER_URLS[network]}/transaction/${txHash}`}
+                    target="_blank"
                     rel="noopener noreferrer"
                     className="explorer-link"
                   >
@@ -386,21 +417,21 @@ export const TransactionTriggers = () => {
 
             <div className="tabs-container">
               <div className="tabs">
-                <button 
+                <button
                   className={`tab ${activeTab === 'transfer' ? 'active' : ''}`}
                   onClick={() => setActiveTab('transfer')}
                 >
                   <span className="tab-icon">💰</span>
                   Send KLV
                 </button>
-                <button 
+                <button
                   className={`tab ${activeTab === 'kda' ? 'active' : ''}`}
                   onClick={() => setActiveTab('kda')}
                 >
                   <span className="tab-icon">🪙</span>
                   Send KDA
                 </button>
-                <button 
+                <button
                   className={`tab ${activeTab === 'contract' ? 'active' : ''}`}
                   onClick={() => setActiveTab('contract')}
                 >
@@ -441,7 +472,7 @@ export const TransactionTriggers = () => {
                       />
                       <span className="input-hint">Minimum: 0.000001 KLV</span>
                     </div>
-                    <button 
+                    <button
                       className="action-button primary"
                       onClick={handleKLVTransfer}
                       disabled={isLoading}
@@ -500,7 +531,7 @@ export const TransactionTriggers = () => {
                       />
                       <span className="input-hint">Check the KDA's precision</span>
                     </div>
-                    <button 
+                    <button
                       className="action-button primary"
                       onClick={handleKDATransfer}
                       disabled={isLoading}
@@ -547,13 +578,13 @@ export const TransactionTriggers = () => {
                           onChange={handleABIUpload}
                           style={{ display: 'none' }}
                         />
-                        <button 
+                        <button
                           className="action-button secondary"
                           onClick={() => fileInputRef.current?.click()}
                         >
                           📁 Upload ABI
                         </button>
-                        <button 
+                        <button
                           className="action-button secondary example"
                           onClick={loadExampleABI}
                         >
@@ -572,7 +603,7 @@ export const TransactionTriggers = () => {
                       <>
                         <div className="form-group">
                           <label>Select Function</label>
-                          <select 
+                          <select
                             value={selectedFunction}
                             onChange={(e) => {
                               setSelectedFunction(e.target.value);
@@ -581,7 +612,7 @@ export const TransactionTriggers = () => {
                             className="form-input"
                           >
                             <option value="">-- Select Function --</option>
-                            {contractABI.endpoints.map(func => (
+                            {contractABI.endpoints.map((func) => (
                               <option key={func.name} value={func.name}>
                                 {func.name}
                                 {func.mutability === 'readonly' && ' (view)'}
@@ -597,40 +628,48 @@ export const TransactionTriggers = () => {
                             {getSelectedFunctionDetails()!.inputs.length === 0 ? (
                               <p className="no-args">This function has no arguments</p>
                             ) : (
-                              getSelectedFunctionDetails()!.inputs.map(input => (
+                              getSelectedFunctionDetails()!.inputs.map((input) => (
                                 <div key={input.name} className="form-group">
-                                  <label>{input.name} <span className="type-badge">{input.type}</span></label>
+                                  <label>
+                                    {input.name} <span className="type-badge">{input.type}</span>
+                                  </label>
                                   <input
                                     type="text"
                                     placeholder={`Enter ${input.type}`}
                                     value={functionArgs[input.name] || ''}
-                                    onChange={(e) => setFunctionArgs({
-                                      ...functionArgs,
-                                      [input.name]: e.target.value
-                                    })}
+                                    onChange={(e) =>
+                                      setFunctionArgs({
+                                        ...functionArgs,
+                                        [input.name]: e.target.value,
+                                      })
+                                    }
                                     className="form-input"
                                   />
                                 </div>
                               ))
                             )}
 
-                            {getSelectedFunctionDetails()!.mutability !== 'readonly' && 
-                             getSelectedFunctionDetails()!.payableInTokens && (
-                              <div className="form-group">
-                                <label>Value (KLV) <span className="optional">Optional</span></label>
-                                <input
-                                  type="number"
-                                  placeholder="0.0"
-                                  step="0.000001"
-                                  value={contractValue}
-                                  onChange={(e) => setContractValue(e.target.value)}
-                                  className="form-input"
-                                />
-                                <span className="input-hint">Amount to send with the transaction</span>
-                              </div>
-                            )}
+                            {getSelectedFunctionDetails()!.mutability !== 'readonly' &&
+                              getSelectedFunctionDetails()!.payableInTokens && (
+                                <div className="form-group">
+                                  <label>
+                                    Value (KLV) <span className="optional">Optional</span>
+                                  </label>
+                                  <input
+                                    type="number"
+                                    placeholder="0.0"
+                                    step="0.000001"
+                                    value={contractValue}
+                                    onChange={(e) => setContractValue(e.target.value)}
+                                    className="form-input"
+                                  />
+                                  <span className="input-hint">
+                                    Amount to send with the transaction
+                                  </span>
+                                </div>
+                              )}
 
-                            <button 
+                            <button
                               className="action-button primary"
                               onClick={handleContractCall}
                               disabled={isLoading || isQuerying}
@@ -641,16 +680,24 @@ export const TransactionTriggers = () => {
                                   {isQuerying ? 'Querying...' : 'Calling...'}
                                 </>
                               ) : (
-                                <>{getSelectedFunctionDetails()!.mutability === 'readonly' ? 'Query' : 'Call'} Function</>
+                                <>
+                                  {getSelectedFunctionDetails()!.mutability === 'readonly'
+                                    ? 'Query'
+                                    : 'Call'}{' '}
+                                  Function
+                                </>
                               )}
                             </button>
 
-                            {queryResult && getSelectedFunctionDetails()!.mutability === 'readonly' && (
-                              <div className="query-result">
-                                <h4>Query Result:</h4>
-                                <pre><code>{queryResult}</code></pre>
-                              </div>
-                            )}
+                            {queryResult &&
+                              getSelectedFunctionDetails()!.mutability === 'readonly' && (
+                                <div className="query-result">
+                                  <h4>Query Result:</h4>
+                                  <pre>
+                                    <code>{queryResult}</code>
+                                  </pre>
+                                </div>
+                              )}
                           </div>
                         )}
                       </>
@@ -664,7 +711,7 @@ export const TransactionTriggers = () => {
               <div className="recent-transactions">
                 <div className="transactions-header">
                   <h2>Recent Transactions</h2>
-                  <button 
+                  <button
                     className="clear-button"
                     onClick={clearTransactions}
                     title="Clear transaction history"
@@ -677,13 +724,13 @@ export const TransactionTriggers = () => {
                     <div key={tx.hash} className={`transaction-item ${tx.status}`}>
                       <div className="tx-info">
                         <div className="tx-type">{tx.type}</div>
-                        <div className="tx-time">
-                          {new Date(tx.timestamp).toLocaleTimeString()}
-                        </div>
+                        <div className="tx-time">{new Date(tx.timestamp).toLocaleTimeString()}</div>
                       </div>
                       <div className="tx-hash">
-                        <code>{tx.hash.slice(0, 8)}...{tx.hash.slice(-8)}</code>
-                        <button 
+                        <code>
+                          {tx.hash.slice(0, 8)}...{tx.hash.slice(-8)}
+                        </code>
+                        <button
                           className="copy-button"
                           onClick={() => copyToClipboard(tx.hash)}
                           title="Copy full hash"
@@ -698,9 +745,9 @@ export const TransactionTriggers = () => {
                           {tx.status === 'failed' && '❌'}
                           {tx.status}
                         </span>
-                        <a 
-                          href={`${EXPLORER_URLS[network]}/transaction/${tx.hash}`} 
-                          target="_blank" 
+                        <a
+                          href={`${EXPLORER_URLS[network]}/transaction/${tx.hash}`}
+                          target="_blank"
                           rel="noopener noreferrer"
                           className="view-link"
                         >
@@ -718,7 +765,7 @@ export const TransactionTriggers = () => {
         <div className="examples-section">
           <h2>Code Examples</h2>
           <p>Learn how to implement these transactions in your own dApp</p>
-          
+
           <div className="examples-grid">
             <div className="example-card">
               <h3>
