@@ -14,7 +14,7 @@ export const Step2CreateDapp = () => (
       <div className="clone-options">
         <div className="clone-method">
           <h4>Option 1: Git Clone</h4>
-          <CodeBlock code="git clone https://github.com/klever-labs/kleverconnect-starter.git" />
+          <CodeBlock code={`git clone https://github.com/klever-labs/kleverconnect-starter.git`} language="bash" />
         </div>
 
         <div className="clone-method">
@@ -34,21 +34,21 @@ export const Step2CreateDapp = () => (
       </div>
 
       <p>Navigate to the project:</p>
-      <CodeBlock code="cd kleverconnect-starter" />
+      <CodeBlock code={`cd kleverconnect-starter`} language="bash" />
 
       <p>Open in VS Code:</p>
-      <CodeBlock code="code ." />
+      <CodeBlock code={`code .`} language="bash" />
     </div>
 
     <div className="step-card">
       <h3>Install Dependencies</h3>
-      <CodeBlock code="pnpm install" />
+      <CodeBlock code={`pnpm install`} language="bash" />
       <p>This installs all required packages including React, Vite, and Klever SDK.</p>
     </div>
 
     <div className="step-card">
       <h3>Start Development Server</h3>
-      <CodeBlock code="pnpm dev" />
+      <CodeBlock code={`pnpm dev`} language="bash" />
       <p>
         Your app will be available at{' '}
         <a href="http://localhost:5173" target="_blank" rel="noopener noreferrer">

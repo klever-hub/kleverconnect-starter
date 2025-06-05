@@ -97,8 +97,8 @@ export const LandingPage = () => {
       <section id="getting-started" className="getting-started">
         <div className="container">
           <h2 className="text-center mb-6">Get Started in Minutes</h2>
-          <div className="code-blocks">
-            <div className="code-block">
+          <div className="code-examples">
+            <div className="code-example">
               <h3>1. Clone & Install</h3>
               <CodeBlock
                 language="bash"
@@ -107,14 +107,14 @@ cd kleverconnect-starter
 pnpm install`}
               />
             </div>
-            <div className="code-block">
+            <div className="code-example">
               <h3>2. Start Development</h3>
               <CodeBlock
                 language="bash"
                 code={`pnpm dev`}
               />
             </div>
-            <div className="code-block">
+            <div className="code-example">
               <h3>3. Connect Wallet</h3>
               <CodeBlock
                 language="typescript"

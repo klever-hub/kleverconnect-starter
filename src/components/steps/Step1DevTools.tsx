@@ -65,15 +65,16 @@ export const Step1DevTools = () => (
       </div>
 
       <p>In the terminal, type these commands and press Enter after each:</p>
-      <CodeBlock code="node --version\nnpm --version" />
+      <CodeBlock code={`node --version
+npm --version`} language="bash" />
       <p>
         You should see version numbers like <code>v20.x.x</code> and <code>10.x.x</code>
       </p>
 
       <p>Install pnpm globally:</p>
-      <CodeBlock code="npm install -g pnpm" />
+      <CodeBlock code={`npm install -g pnpm`} language="bash" />
       <p>This may take a minute. When done, verify pnpm:</p>
-      <CodeBlock code="pnpm --version" />
+      <CodeBlock code={`pnpm --version`} language="bash" />
     </div>
 
     <div className="step-card">
@@ -91,11 +92,11 @@ export const Step1DevTools = () => (
         </div>
         <div className="tab-content">
           <h4>macOS</h4>
-          <CodeBlock code="brew install git" />
+          <CodeBlock code={`brew install git`} language="bash" />
         </div>
         <div className="tab-content">
           <h4>Linux</h4>
-          <CodeBlock code="sudo apt install git" />
+          <CodeBlock code={`sudo apt install git`} language="bash" />
         </div>
       </div>
     </div>

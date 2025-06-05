@@ -159,21 +159,25 @@
   background-color: var(--bg-primary);
 }
 
-.code-blocks {
+.code-examples {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
   margin-top: 3rem;
+  align-items: stretch;
 }
 
-.code-block {
+.code-example {
   background-color: var(--bg-secondary);
   border-radius: 12px;
   overflow: hidden;
   border: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
-.code-block h3 {
+.code-example h3 {
   padding: 1rem 1.5rem;
   margin: 0;
   background: var(--klever-gradient);
@@ -181,16 +185,17 @@
   font-size: 1.25rem;
 }
 
-.code-block pre {
+.code-example .code-block-wrapper {
   margin: 0;
-  padding: 1.5rem;
-  overflow-x: auto;
+  border-radius: 0;
+  border: none;
+  box-shadow: none;
+  flex: 1;
+  background: var(--code-bg, #1e1e1e);
 }
 
-.code-block code {
-  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
-  font-size: 0.9rem;
-  color: var(--text-primary);
+.code-example .code-block-wrapper:hover {
+  box-shadow: none;
 }
 
 /* CTA Section */
@@ -231,7 +236,7 @@
     gap: 1.5rem;
   }
 
-  .code-blocks {
+  .code-examples {
     grid-template-columns: 1fr;
   }
 }

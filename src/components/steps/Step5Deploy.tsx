@@ -9,12 +9,12 @@ export const Step5Deploy = () => (
 
     <div className="step-card">
       <h3>Build for Production</h3>
-      <CodeBlock code="pnpm build" />
+      <CodeBlock code={`pnpm build`} language="bash" />
       <p>
         Creates optimized files in <code>dist/</code> folder
       </p>
       <p>Preview your build:</p>
-      <CodeBlock code="pnpm preview" />
+      <CodeBlock code={`pnpm preview`} language="bash" />
     </div>
 
     <div className="step-card">
@@ -22,11 +22,11 @@ export const Step5Deploy = () => (
       <ol>
         <li>Install Vercel CLI:</li>
       </ol>
-      <CodeBlock code="npm i -g vercel" />
+      <CodeBlock code={`npm i -g vercel`} language="bash" />
       <ol start={2}>
         <li>Deploy with one command:</li>
       </ol>
-      <CodeBlock code="vercel" />
+      <CodeBlock code={`vercel`} language="bash" />
       <p>Follow the prompts and your app will be live in seconds!</p>
     </div>
 
@@ -62,10 +62,10 @@ export const Step5Deploy = () => (
       </div>
 
       <h4>Build Docker Image:</h4>
-      <CodeBlock code="docker build -t kleverconnect-app ." />
+      <CodeBlock code={`docker build -t kleverconnect-app .`} language="bash" />
 
       <h4>Run Locally:</h4>
-      <CodeBlock code="docker run -p 80:80 kleverconnect-app" />
+      <CodeBlock code={`docker run -p 80:80 kleverconnect-app`} language="bash" />
       <p>
         Your app will be available at{' '}
         <a href="http://localhost" target="_blank" rel="noopener noreferrer">
@@ -73,35 +73,71 @@ export const Step5Deploy = () => (
         </a>
       </p>
 
-      <h4>Deploy to Cloud:</h4>
-      <div className="tabs">
-        <div className="tab-content">
-          <h5>Google Cloud Run</h5>
+      <h4>Deploy to Cloud Providers:</h4>
+      <div className="cloud-deploy-options">
+        <div className="deploy-option">
+          <div className="deploy-header">
+            <span className="cloud-icon">☁️</span>
+            <h5>Google Cloud Run</h5>
+          </div>
           <CodeBlock
-            code={`# Build and push
+            code={`# Build and push to Google Container Registry
 docker tag kleverconnect-app gcr.io/PROJECT_ID/kleverconnect-app
 docker push gcr.io/PROJECT_ID/kleverconnect-app
 
-# Deploy
-gcloud run deploy --image gcr.io/PROJECT_ID/kleverconnect-app`}
+# Deploy to Cloud Run
+gcloud run deploy kleverconnect-app \\
+  --image gcr.io/PROJECT_ID/kleverconnect-app \\
+  --platform managed \\
+  --region us-central1 \\
+  --allow-unauthenticated`}
+            language="bash"
           />
         </div>
-        <div className="tab-content">
-          <h5>AWS</h5>
+        
+        <div className="deploy-option">
+          <div className="deploy-header">
+            <span className="cloud-icon">🟠</span>
+            <h5>AWS ECS / App Runner</h5>
+          </div>
           <CodeBlock
-            code={`# Push to ECR
-aws ecr get-login-password | docker login --username AWS --password-stdin
-docker tag kleverconnect-app:latest ECR_URI
-docker push ECR_URI`}
+            code={`# Login to ECR
+aws ecr get-login-password --region us-east-1 | \\
+  docker login --username AWS --password-stdin \\
+  123456789.dkr.ecr.us-east-1.amazonaws.com
+
+# Tag and push to ECR
+docker tag kleverconnect-app:latest \\
+  123456789.dkr.ecr.us-east-1.amazonaws.com/kleverconnect-app:latest
+docker push 123456789.dkr.ecr.us-east-1.amazonaws.com/kleverconnect-app:latest
+
+# Deploy with App Runner (easier) or ECS (more control)`}
+            language="bash"
           />
         </div>
-        <div className="tab-content">
-          <h5>Azure</h5>
+        
+        <div className="deploy-option">
+          <div className="deploy-header">
+            <span className="cloud-icon">🔷</span>
+            <h5>Azure Container Instances</h5>
+          </div>
           <CodeBlock
-            code={`# Push to ACR
+            code={`# Login to Azure Container Registry
 az acr login --name myregistry
-docker tag kleverconnect-app myregistry.azurecr.io/kleverconnect-app
-docker push myregistry.azurecr.io/kleverconnect-app`}
+
+# Tag and push to ACR
+docker tag kleverconnect-app \\
+  myregistry.azurecr.io/kleverconnect-app:latest
+docker push myregistry.azurecr.io/kleverconnect-app:latest
+
+# Create container instance
+az container create \\
+  --resource-group myResourceGroup \\
+  --name kleverconnect-app \\
+  --image myregistry.azurecr.io/kleverconnect-app:latest \\
+  --dns-name-label myapp \\
+  --ports 80`}
+            language="bash"
           />
         </div>
       </div>
