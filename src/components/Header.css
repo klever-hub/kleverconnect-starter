@@ -234,6 +234,17 @@
   transform: translateX(4px);
 }
 
+.nav-link.active {
+  background-color: var(--klever-purple);
+  color: white;
+}
+
+.nav-link.active:hover {
+  background-color: var(--klever-purple-hover);
+  color: white;
+  transform: translateX(4px);
+}
+
 /* Desktop specific nav link styles */
 .nav-menu.desktop .nav-link {
   padding: 0.625rem 1rem;

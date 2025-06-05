@@ -12,6 +12,7 @@ export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [menuPosition, setMenuPosition] = useState({ left: '1rem' });
+  const [activeSection, setActiveSection] = useState<string>('home');
   const headerLeftRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -24,6 +25,68 @@ export const Header = () => {
 
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
+
+  // Track active section on home page
+  useEffect(() => {
+    if (location.pathname !== '/') {
+      setActiveSection('');
+      return;
+    }
+
+    const handleScroll = () => {
+      const sections = ['features', 'getting-started'];
+      const scrollPosition = window.scrollY + 100; // Add offset for header
+
+      // Check if we're at the top of the page
+      if (scrollPosition < 200) {
+        setActiveSection('home');
+        return;
+      }
+
+      // Check which section is currently in view
+      for (const sectionId of sections) {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          const top = rect.top + window.scrollY;
+          const bottom = top + rect.height;
+          
+          if (scrollPosition >= top && scrollPosition < bottom) {
+            setActiveSection(sectionId);
+            return;
+          }
+        }
+      }
+    };
+
+    // Check initial position
+    handleScroll();
+
+    // Listen for scroll events
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [location.pathname]);
+
+  // Close menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (!isMenuOpen) return;
+      
+      const target = event.target as HTMLElement;
+      const menuElement = document.querySelector('.nav-menu');
+      const logoElement = document.querySelector('.header-left');
+      
+      // Don't close if clicking on the menu itself or the logo
+      if (menuElement?.contains(target) || logoElement?.contains(target)) {
+        return;
+      }
+      
+      setIsMenuOpen(false);
+    };
+
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, [isMenuOpen]);
 
   useEffect(() => {
     // Calculate menu position based on logo position
@@ -63,14 +126,9 @@ export const Header = () => {
 
   const handleLogoClick = () => {
     setIsSpinning(true);
-
-    // Navigate to home if not already there
-    if (location.pathname !== '/') {
-      navigate('/');
-    } else {
-      // If on home page, just toggle menu
-      toggleMenu();
-    }
+    
+    // Just toggle the menu, don't navigate
+    toggleMenu();
 
     // Reset spinning state after animation completes
     setTimeout(() => {
@@ -117,33 +175,38 @@ export const Header = () => {
           <div className="nav-menu-items">
             <nav className="nav-links">
               <a
-                href="#"
-                className="nav-link"
+                href="/"
+                className={`nav-link ${location.pathname === '/' && activeSection === 'home' ? 'active' : ''}`}
                 onClick={(e) => {
                   e.preventDefault();
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                  toggleMenu();
+                  if (location.pathname === '/') {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    toggleMenu();
+                  } else {
+                    navigate('/');
+                    toggleMenu();
+                  }
                 }}
               >
                 Home
               </a>
               <a
                 href="#features"
-                className="nav-link"
+                className={`nav-link ${location.pathname === '/' && activeSection === 'features' ? 'active' : ''}`}
                 onClick={(e) => handleNavClick(e, 'features')}
               >
                 Features
               </a>
               <a
                 href="#getting-started"
-                className="nav-link"
+                className={`nav-link ${location.pathname === '/' && activeSection === 'getting-started' ? 'active' : ''}`}
                 onClick={(e) => handleNavClick(e, 'getting-started')}
               >
                 Getting Started
               </a>
               <a
                 href="/start-building"
-                className="nav-link"
+                className={`nav-link ${location.pathname === '/start-building' ? 'active' : ''}`}
                 onClick={(e) => {
                   e.preventDefault();
                   navigate('/start-building');
@@ -154,7 +217,7 @@ export const Header = () => {
               </a>
               <a
                 href="/transactions"
-                className="nav-link"
+                className={`nav-link ${location.pathname === '/transactions' ? 'active' : ''}`}
                 onClick={(e) => {
                   e.preventDefault();
                   navigate('/transactions');
