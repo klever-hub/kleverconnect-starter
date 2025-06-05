@@ -65,7 +65,7 @@ export const Step1DevTools = () => (
       </div>
 
       <p>In the terminal, type these commands and press Enter after each:</p>
-      <CodeBlock code={"node --version\n" + "npm --version"} />
+      <CodeBlock code={'node --version\n' + 'npm --version'} />
       <p>
         You should see version numbers like <code>v20.x.x</code> and <code>10.x.x</code>
       </p>
