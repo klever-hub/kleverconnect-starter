@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useKlever } from '../hooks/useKlever';
 import { ConnectWallet } from './ConnectWallet';
 import { Balance } from './Balance';
@@ -6,8 +7,12 @@ import './Header.css';
 
 export const Header = () => {
   const { address } = useKlever();
+  const navigate = useNavigate();
+  const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [menuPosition, setMenuPosition] = useState({ left: '1rem' });
+  const headerLeftRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -20,15 +25,52 @@ export const Header = () => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
+  useEffect(() => {
+    // Calculate menu position based on logo position
+    if (headerLeftRef.current && !isMobile) {
+      const rect = headerLeftRef.current.getBoundingClientRect();
+      setMenuPosition({ left: `${rect.left}px` });
+    }
+  }, [isMenuOpen, isMobile]);
+
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+    e.preventDefault();
+
+    // If we're on the home page, scroll to section
+    if (location.pathname === '/') {
+      const element = document.getElementById(targetId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      // Navigate to home and then scroll
+      navigate('/');
+      setTimeout(() => {
+        const element = document.getElementById(targetId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    }
+    toggleMenu();
   };
 
   const [isSpinning, setIsSpinning] = useState(false);
 
   const handleLogoClick = () => {
     setIsSpinning(true);
-    toggleMenu();
+
+    // Navigate to home if not already there
+    if (location.pathname !== '/') {
+      navigate('/');
+    } else {
+      // If on home page, just toggle menu
+      toggleMenu();
+    }
 
     // Reset spinning state after animation completes
     setTimeout(() => {
@@ -40,7 +82,7 @@ export const Header = () => {
     <>
       <header className="app-header">
         <div className="header-content">
-          <div className="header-left" onClick={handleLogoClick}>
+          <div className="header-left" ref={headerLeftRef} onClick={handleLogoClick}>
             <img
               src="/kleverlabs_logo_transparent.png"
               alt="Klever Labs"
@@ -56,7 +98,10 @@ export const Header = () => {
         </div>
       </header>
 
-      <div className={`nav-menu ${isMenuOpen ? 'open' : ''} ${isMobile ? 'mobile' : 'desktop'}`}>
+      <div
+        className={`nav-menu ${isMenuOpen ? 'open' : ''} ${isMobile ? 'mobile' : 'desktop'}`}
+        style={!isMobile ? menuPosition : undefined}
+      >
         <div className="nav-menu-content">
           <div className="nav-menu-header">
             <h3>Navigation</h3>
@@ -71,14 +116,41 @@ export const Header = () => {
 
           <div className="nav-menu-items">
             <nav className="nav-links">
-              <a href="#" className="nav-link" onClick={toggleMenu}>
+              <a
+                href="#"
+                className="nav-link"
+                onClick={(e) => {
+                  e.preventDefault();
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                  toggleMenu();
+                }}
+              >
                 Home
               </a>
-              <a href="#features" className="nav-link" onClick={toggleMenu}>
+              <a
+                href="#features"
+                className="nav-link"
+                onClick={(e) => handleNavClick(e, 'features')}
+              >
                 Features
               </a>
-              <a href="#getting-started" className="nav-link" onClick={toggleMenu}>
+              <a
+                href="#getting-started"
+                className="nav-link"
+                onClick={(e) => handleNavClick(e, 'getting-started')}
+              >
                 Getting Started
+              </a>
+              <a
+                href="/start-building"
+                className="nav-link"
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigate('/start-building');
+                  toggleMenu();
+                }}
+              >
+                Start Building
               </a>
               <a
                 href="https://docs.klever.org"

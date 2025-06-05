@@ -1,4 +1,4 @@
-import { useToast } from '../hooks/useToast';
+import { useNavigate } from 'react-router-dom';
 import { useKlever } from '../hooks/useKlever';
 import { Header } from './Header';
 import { ThemeToggle } from './ThemeToggle';
@@ -6,7 +6,7 @@ import { NetworkBadge } from './NetworkBadge';
 import './LandingPage.css';
 
 export const LandingPage = () => {
-  const toast = useToast();
+  const navigate = useNavigate();
   const { network } = useKlever();
 
   return (
@@ -36,7 +36,10 @@ export const LandingPage = () => {
             <div className="hero-buttons">
               <button
                 className="btn-primary"
-                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                onClick={() => {
+                  const element = document.getElementById('getting-started');
+                  element?.scrollIntoView({ behavior: 'smooth' });
+                }}
               >
                 Get Started
               </button>
@@ -53,7 +56,7 @@ export const LandingPage = () => {
       </section>
 
       {/* Features Section */}
-      <section className="features">
+      <section id="features" className="features">
         <div className="container">
           <h2 className="text-center mb-8">Why KleverConnect?</h2>
           <div className="features-grid">
@@ -92,7 +95,7 @@ export const LandingPage = () => {
       </section>
 
       {/* Getting Started Section */}
-      <section className="getting-started">
+      <section id="getting-started" className="getting-started">
         <div className="container">
           <h2 className="text-center mb-6">Get Started in Minutes</h2>
           <div className="code-blocks">
@@ -130,12 +133,7 @@ const { connect, address } = useKlever();`}</code>
             Join the Klever ecosystem and start building Web3 applications today
           </p>
           <div className="cta-buttons">
-            <button
-              className="btn-primary"
-              onClick={() =>
-                toast.info('Coming Soon', 'Full documentation will be available soon!')
-              }
-            >
+            <button className="btn-primary" onClick={() => navigate('/start-building')}>
               Start Building
             </button>
             <a href="https://docs.klever.org" target="_blank" rel="noopener noreferrer">
