@@ -24,6 +24,15 @@ export const Header = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+    e.preventDefault();
+    const element = document.getElementById(targetId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+    toggleMenu();
+  };
+
   const [isSpinning, setIsSpinning] = useState(false);
 
   const handleLogoClick = () => {
@@ -71,13 +80,29 @@ export const Header = () => {
 
           <div className="nav-menu-items">
             <nav className="nav-links">
-              <a href="#" className="nav-link" onClick={toggleMenu}>
+              <a
+                href="#"
+                className="nav-link"
+                onClick={(e) => {
+                  e.preventDefault();
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                  toggleMenu();
+                }}
+              >
                 Home
               </a>
-              <a href="#features" className="nav-link" onClick={toggleMenu}>
+              <a
+                href="#features"
+                className="nav-link"
+                onClick={(e) => handleNavClick(e, 'features')}
+              >
                 Features
               </a>
-              <a href="#getting-started" className="nav-link" onClick={toggleMenu}>
+              <a
+                href="#getting-started"
+                className="nav-link"
+                onClick={(e) => handleNavClick(e, 'getting-started')}
+              >
                 Getting Started
               </a>
               <a

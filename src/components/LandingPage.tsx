@@ -56,7 +56,7 @@ export const LandingPage = () => {
       </section>
 
       {/* Features Section */}
-      <section className="features">
+      <section id="features" className="features">
         <div className="container">
           <h2 className="text-center mb-8">Why KleverConnect?</h2>
           <div className="features-grid">
