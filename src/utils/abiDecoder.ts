@@ -134,29 +134,21 @@ const selectDecode = (
   throw new Error(`Invalid type: ${type}`);
 };
 
-export const decodeTuple = (
-  abiJSON: ContractABI,
-  hexValue: string,
-  type: string
-): unknown => {
-  const types = type.split(",");
+export const decodeTuple = (abiJSON: ContractABI, hexValue: string, type: string): unknown => {
+  const types = type.split(',');
 
   if (!abiJSON.types) {
-    abiJSON["types"] = {};
+    abiJSON['types'] = {};
   }
 
-  abiJSON.types["generated_custom_type"] = generateTupleType(types);
+  abiJSON.types['generated_custom_type'] = generateTupleType(types);
 
-  return abiDecoder.decodeStruct(
-    hexValue,
-    "generated_custom_type",
-    JSON.stringify(abiJSON)
-  );
+  return abiDecoder.decodeStruct(hexValue, 'generated_custom_type', JSON.stringify(abiJSON));
 };
 
 const generateTupleType = (types: string[]): ABIType => {
   const tupleType: ABIType = {
-    type: "struct",
+    type: 'struct',
     fields: [],
   };
 

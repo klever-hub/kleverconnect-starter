@@ -10,7 +10,6 @@ import { SmartContractInteraction } from './transactions/SmartContractInteractio
 import { TransactionHistory } from './transactions/TransactionHistory';
 import './TransactionTriggers.css';
 
-
 export interface RecentTransaction {
   hash: string;
   type: string;
@@ -41,7 +40,6 @@ export const TransactionTriggers = () => {
   useEffect(() => {
     localStorage.setItem('recentTransactions', JSON.stringify(transactions));
   }, [transactions]);
-
 
   return (
     <div className="transaction-page">

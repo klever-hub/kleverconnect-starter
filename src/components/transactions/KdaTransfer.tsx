@@ -18,7 +18,10 @@ interface KdaTransferProps {
   onTransactionStatusUpdate?: (hash: string, status: 'confirmed' | 'failed') => void;
 }
 
-export const KdaTransfer = ({ onTransactionComplete, onTransactionStatusUpdate }: KdaTransferProps) => {
+export const KdaTransfer = ({
+  onTransactionComplete,
+  onTransactionStatusUpdate,
+}: KdaTransferProps) => {
   const { isConnected, network } = useKlever();
   const { sendKDA, waitForTransaction, getTransactionWithResults, isLoading } = useTransaction();
   const { addToast } = useToast();
@@ -97,7 +100,7 @@ export const KdaTransfer = ({ onTransactionComplete, onTransactionStatusUpdate }
           .catch(() => {
             setKdaResult({ hash: result.hash || '', status: 'failed' });
             setIsWaitingForKda(false);
-            
+
             // Update parent component about failure
             if (onTransactionStatusUpdate && result.hash) {
               onTransactionStatusUpdate(result.hash, 'failed');

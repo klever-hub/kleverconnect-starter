@@ -18,7 +18,10 @@ interface KlvTransferProps {
   onTransactionStatusUpdate?: (hash: string, status: 'confirmed' | 'failed') => void;
 }
 
-export const KlvTransfer = ({ onTransactionComplete, onTransactionStatusUpdate }: KlvTransferProps) => {
+export const KlvTransfer = ({
+  onTransactionComplete,
+  onTransactionStatusUpdate,
+}: KlvTransferProps) => {
   const { isConnected, network } = useKlever();
   const { sendKLV, waitForTransaction, getTransactionWithResults, isLoading } = useTransaction();
   const { addToast } = useToast();
@@ -95,7 +98,7 @@ export const KlvTransfer = ({ onTransactionComplete, onTransactionStatusUpdate }
           .catch(() => {
             setKlvResult({ hash: result.hash || '', status: 'failed' });
             setIsWaitingForKlv(false);
-            
+
             // Update parent component about failure
             if (onTransactionStatusUpdate && result.hash) {
               onTransactionStatusUpdate(result.hash, 'failed');

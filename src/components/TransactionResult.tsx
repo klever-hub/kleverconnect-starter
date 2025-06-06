@@ -59,8 +59,8 @@ export const TransactionResult = ({
                   {decodedData.values.map((decodedValue, index) => (
                     <div key={index} className="result-item">
                       <span className="result-label">
-                        {functionInfo?.outputs?.[index]?.name || `Return Value ${index + 1}`}
-                        ({decodedValue.type}):
+                        {functionInfo?.outputs?.[index]?.name || `Return Value ${index + 1}`}(
+                        {decodedValue.type}):
                       </span>
                       <span className="result-value">
                         {typeof decodedValue.value === 'object'
@@ -74,10 +74,7 @@ export const TransactionResult = ({
                 {/* Show raw hex values for reference */}
                 <details className="raw-data-details">
                   <summary>Raw Hex Values</summary>
-                  <CodeBlock
-                    language="json"
-                    code={JSON.stringify(decodedData.raw, null, 2)}
-                  />
+                  <CodeBlock language="json" code={JSON.stringify(decodedData.raw, null, 2)} />
                 </details>
               </div>
             )}
@@ -93,10 +90,7 @@ export const TransactionResult = ({
             {results.contract && results.contract.length > 0 && (
               <div className="contract-results">
                 <h5>Transfer Details:</h5>
-                <CodeBlock
-                  language="json"
-                  code={JSON.stringify(results.contract, null, 2)}
-                />
+                <CodeBlock language="json" code={JSON.stringify(results.contract, null, 2)} />
               </div>
             )}
 
@@ -104,10 +98,7 @@ export const TransactionResult = ({
             {results.receipts && results.receipts.length > 0 && (
               <div className="contract-results">
                 <h5>Transaction Receipts:</h5>
-                <CodeBlock
-                  language="json"
-                  code={JSON.stringify(results.receipts, null, 2)}
-                />
+                <CodeBlock language="json" code={JSON.stringify(results.receipts, null, 2)} />
               </div>
             )}
 
@@ -115,10 +106,7 @@ export const TransactionResult = ({
             {results.logs && (
               <div className="transaction-logs">
                 <h5>Transaction Logs:</h5>
-                <CodeBlock
-                  language="json"
-                  code={JSON.stringify(results.logs, null, 2)}
-                />
+                <CodeBlock language="json" code={JSON.stringify(results.logs, null, 2)} />
               </div>
             )}
           </>

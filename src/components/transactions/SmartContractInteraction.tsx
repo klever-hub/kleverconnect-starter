@@ -65,7 +65,10 @@ const EXAMPLE_CONTRACTS = {
   factorial: 'klv1qqqqqqqqqqqqqpgq4mzhj8ae67slc6cfsjvslw89v4pug5uygz5qdx28tm',
 };
 
-export const SmartContractInteraction = ({ onTransactionComplete, onTransactionStatusUpdate }: SmartContractInteractionProps) => {
+export const SmartContractInteraction = ({
+  onTransactionComplete,
+  onTransactionStatusUpdate,
+}: SmartContractInteractionProps) => {
   const { isConnected, network } = useKlever();
   const {
     callSmartContract,
@@ -101,7 +104,9 @@ export const SmartContractInteraction = ({ onTransactionComplete, onTransactionS
   );
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isDragging, setIsDragging] = useState(false);
-  const [selectedPreset, setSelectedPreset] = useState<'adder' | 'dice' | 'factorial' | 'custom'>('adder');
+  const [selectedPreset, setSelectedPreset] = useState<'adder' | 'dice' | 'factorial' | 'custom'>(
+    'adder'
+  );
   const [isWaitingForTx, setIsWaitingForTx] = useState(false);
   const [paymentToken, setPaymentToken] = useState('');
   const [paymentAmount, setPaymentAmount] = useState('');
@@ -217,7 +222,7 @@ export const SmartContractInteraction = ({ onTransactionComplete, onTransactionS
             .catch(() => {
               setExecutionResult({ hash: result.hash || '', status: 'failed' });
               setIsWaitingForTx(false);
-              
+
               // Update parent component about failure
               if (onTransactionStatusUpdate && result.hash) {
                 onTransactionStatusUpdate(result.hash, 'failed');
@@ -371,10 +376,7 @@ export const SmartContractInteraction = ({ onTransactionComplete, onTransactionS
             onDragLeave={handleDragLeave}
             onDrop={handleDrop}
           >
-            <button
-              onClick={() => fileInputRef.current?.click()}
-              className="btn btn-outline"
-            >
+            <button onClick={() => fileInputRef.current?.click()} className="btn btn-outline">
               📁 Upload ABI
             </button>
             <input
@@ -418,9 +420,7 @@ export const SmartContractInteraction = ({ onTransactionComplete, onTransactionS
                 setPaymentAmount('');
                 // Set default token if function is payable
                 if (func?.payableInTokens && func.payableInTokens.length > 0) {
-                  setPaymentToken(
-                    func.payableInTokens[0] === '*' ? '' : func.payableInTokens[0]
-                  );
+                  setPaymentToken(func.payableInTokens[0] === '*' ? '' : func.payableInTokens[0]);
                 } else {
                   setPaymentToken('');
                 }
@@ -566,26 +566,17 @@ export const SmartContractInteraction = ({ onTransactionComplete, onTransactionS
               <>
                 <div className="query-result-section">
                   <h5>Parsed Result:</h5>
-                  <CodeBlock
-                    language="json"
-                    code={JSON.stringify(queryResult.parsed, null, 2)}
-                  />
+                  <CodeBlock language="json" code={JSON.stringify(queryResult.parsed, null, 2)} />
                 </div>
                 <div className="query-result-section">
                   <h5>Raw Result:</h5>
-                  <CodeBlock
-                    language="json"
-                    code={JSON.stringify(queryResult.raw, null, 2)}
-                  />
+                  <CodeBlock language="json" code={JSON.stringify(queryResult.raw, null, 2)} />
                 </div>
               </>
             ) : (
               <div className="query-result-section">
                 <h5>Raw Result:</h5>
-                <CodeBlock
-                  language="json"
-                  code={JSON.stringify(queryResult.raw, null, 2)}
-                />
+                <CodeBlock language="json" code={JSON.stringify(queryResult.raw, null, 2)} />
               </div>
             )}
           </div>
