@@ -2,8 +2,9 @@ import { createContext, useState, useEffect, useCallback, useRef } from 'react';
 import type { ReactNode } from 'react';
 import { web, TransactionType } from '@klever/sdk-web';
 import type { IContractRequest, ITransfer } from '@klever/sdk-web';
+import { NETWORK_CONFIG as CENTRALIZED_CONFIG, type Network } from '../constants/network';
 
-export type NetworkType = 'mainnet' | 'testnet' | 'devnet';
+export type NetworkType = Network;
 
 export interface Balance {
   amount: number;
@@ -63,19 +64,19 @@ interface KleverProviderProps {
   children: ReactNode;
 }
 
-// Network configurations
+// Get network config from centralized location
 const NETWORK_CONFIG = {
   mainnet: {
-    api: 'https://api.mainnet.klever.org',
-    node: 'https://node.mainnet.klever.org',
+    api: CENTRALIZED_CONFIG.mainnet.api,
+    node: CENTRALIZED_CONFIG.mainnet.nodeUrl,
   },
   testnet: {
-    api: 'https://api.testnet.klever.org',
-    node: 'https://node.testnet.klever.org',
+    api: CENTRALIZED_CONFIG.testnet.api,
+    node: CENTRALIZED_CONFIG.testnet.nodeUrl,
   },
   devnet: {
-    api: 'https://api.devnet.klever.org',
-    node: 'https://node.devnet.klever.org',
+    api: CENTRALIZED_CONFIG.devnet.api,
+    node: CENTRALIZED_CONFIG.devnet.nodeUrl,
   },
 };
 
@@ -383,8 +384,6 @@ export const KleverProvider = ({ children }: KleverProviderProps) => {
 
         const signedTx = await web.signTransaction(unsignedTx);
         const response = await web.broadcastTransactions([signedTx]);
-
-        console.log('Transaction broadcast response:', response);
 
         if (response?.data?.txsHashes && response.data.txsHashes.length > 0) {
           const hash = response.data.txsHashes[0];

@@ -1,6 +1,10 @@
+import { useState } from 'react';
 import { CodeBlock } from './CodeBlock';
 
-export const Step1DevTools = () => (
+export const Step1DevTools = () => {
+  const [activeOS, setActiveOS] = useState<'windows' | 'macos' | 'linux'>('windows');
+
+  return (
   <div className="tutorial-section">
     <div className="section-intro">
       <h2>Install Development Tools</h2>
@@ -83,25 +87,56 @@ npm --version`}
     <div className="step-card">
       <h3>Git Version Control</h3>
       <p>Essential for code management and collaboration.</p>
-      <div className="tabs os-tabs">
-        <div className="tab-content">
-          <h4>Windows</h4>
-          <p>
-            Download from{' '}
-            <a href="https://git-scm.com" target="_blank" rel="noopener noreferrer">
-              git-scm.com
-            </a>
-          </p>
+      <div className="git-install-tabs">
+        <div className="git-tab-nav">
+          <button 
+            className={`git-tab-button ${activeOS === 'windows' ? 'active' : ''}`}
+            onClick={() => setActiveOS('windows')}
+          >
+            Windows
+          </button>
+          <button 
+            className={`git-tab-button ${activeOS === 'macos' ? 'active' : ''}`}
+            onClick={() => setActiveOS('macos')}
+          >
+            macOS
+          </button>
+          <button 
+            className={`git-tab-button ${activeOS === 'linux' ? 'active' : ''}`}
+            onClick={() => setActiveOS('linux')}
+          >
+            Linux
+          </button>
         </div>
-        <div className="tab-content">
-          <h4>macOS</h4>
-          <CodeBlock code={`brew install git`} language="bash" />
-        </div>
-        <div className="tab-content">
-          <h4>Linux</h4>
-          <CodeBlock code={`sudo apt install git`} language="bash" />
+        <div className="git-tab-panels">
+          {activeOS === 'windows' && (
+            <div className="git-tab-panel active">
+              <p>
+                Download Git from{' '}
+                <a href="https://git-scm.com" target="_blank" rel="noopener noreferrer">
+                  git-scm.com
+                </a>
+                {' '}and run the installer.
+              </p>
+            </div>
+          )}
+          {activeOS === 'macos' && (
+            <div className="git-tab-panel active">
+              <p>Install using Homebrew:</p>
+              <CodeBlock code={`brew install git`} language="bash" />
+            </div>
+          )}
+          {activeOS === 'linux' && (
+            <div className="git-tab-panel active">
+              <p>Install using your package manager:</p>
+              <CodeBlock code={`sudo apt install git  # Debian/Ubuntu
+sudo dnf install git  # Fedora
+sudo pacman -S git    # Arch`} language="bash" />
+            </div>
+          )}
         </div>
       </div>
     </div>
   </div>
-);
+  );
+};

@@ -22,7 +22,7 @@ export const Step4Customize = () => (
 │   └── KleverContext.tsx
 ├── App.tsx         # Main app
 └── main.tsx        # Entry point`}
-          language="text"
+          language="bash"
         />
       </div>
     </div>

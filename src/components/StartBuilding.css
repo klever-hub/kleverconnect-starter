@@ -154,6 +154,7 @@
   padding: 2rem;
   margin-bottom: 1.5rem;
   transition: all 0.3s ease;
+  overflow: hidden;
 }
 
 .step-card:hover {
@@ -552,22 +553,117 @@ code {
   line-height: 1.5;
 }
 
-/* For OS-specific tabs in Step 1 */
-.tabs.os-tabs {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
+/* Git install tabs */
+.git-install-tabs {
+  display: flex;
+  gap: 0;
+  margin-top: 1.5rem;
+  background: var(--bg-secondary);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.tabs.os-tabs .tab-content {
-  text-align: center;
-  padding: 1rem;
+.git-tab-nav {
+  display: flex;
+  flex-direction: column;
+  background: rgba(0, 0, 0, 0.03);
+  min-width: 140px;
+  padding: 0.5rem;
+  gap: 0.25rem;
 }
 
-.tabs.os-tabs .tab-content h4 {
-  font-size: 0.875rem;
+.git-tab-button {
+  padding: 0.875rem 1.25rem;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
   color: var(--text-secondary);
-  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+  position: relative;
+}
+
+.git-tab-button:hover:not(.active) {
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--text-primary);
+}
+
+.git-tab-button.active {
+  background: var(--bg-primary);
+  color: var(--primary);
+  font-weight: 600;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.git-tab-button.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 60%;
+  background: var(--primary);
+  border-radius: 0 2px 2px 0;
+}
+
+.git-tab-panels {
+  flex: 1;
+  padding: 2rem;
+  min-height: 180px;
+  background: var(--bg-primary);
+}
+
+.git-tab-panel {
+  animation: fadeIn 0.3s ease;
+}
+
+.git-tab-panel p {
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
+.git-tab-panel p:first-child {
+  margin-top: 0;
+}
+
+.git-tab-panel .code-block {
+  margin-top: 0.5rem;
+}
+
+/* Dark mode adjustments for git tabs */
+[data-theme='dark'] .git-install-tabs {
+  background: rgba(255, 255, 255, 0.02);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme='dark'] .git-tab-nav {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+[data-theme='dark'] .git-tab-button:hover:not(.active) {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme='dark'] .git-tab-button.active {
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 /* Navigation */
@@ -903,10 +999,42 @@ code {
     margin-left: 1rem;
   }
 
-  /* Tabs */
-  .tabs.os-tabs {
-    grid-template-columns: 1fr;
-    gap: 0.75rem;
+  /* Git install tabs - mobile */
+  .git-install-tabs {
+    flex-direction: column;
+  }
+
+  .git-tab-nav {
+    flex-direction: row;
+    min-width: unset;
+    padding: 0.375rem;
+    gap: 0.375rem;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .git-tab-button {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    text-align: center;
+    font-size: 0.875rem;
+    min-width: 80px;
+    white-space: nowrap;
+  }
+
+  .git-tab-button.active::before {
+    left: 50%;
+    top: auto;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 40%;
+    height: 3px;
+    border-radius: 2px 2px 0 0;
+  }
+
+  .git-tab-panels {
+    padding: 1.5rem;
+    min-height: 150px;
   }
 
   /* Cloud deploy options mobile */

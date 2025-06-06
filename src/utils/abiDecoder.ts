@@ -134,61 +134,38 @@ const selectDecode = (
   throw new Error(`Invalid type: ${type}`);
 };
 
-export const decodeTuple = (abiJSON: ContractABI, hexValue: string, type: string): unknown => {
-  const types = type.split(',');
+export const decodeTuple = (
+  abiJSON: ContractABI,
+  hexValue: string,
+  type: string
+): unknown => {
+  const types = type.split(",");
 
   if (!abiJSON.types) {
-    abiJSON['types'] = {};
+    abiJSON["types"] = {};
   }
 
-  abiJSON.types['generated_custom_type'] = generateTupleType(types);
+  abiJSON.types["generated_custom_type"] = generateTupleType(types);
 
-  return abiDecoder.decodeStruct(hexValue, 'generated_custom_type', JSON.stringify(abiJSON));
+  return abiDecoder.decodeStruct(
+    hexValue,
+    "generated_custom_type",
+    JSON.stringify(abiJSON)
+  );
 };
 
-interface TupleField {
-  name: string;
-  type: string;
-}
-
-interface TupleType {
-  type: 'struct';
-  fields: TupleField[];
-}
-
-const generateTupleType = (types: string[]): TupleType => {
-  const tuppleType: TupleType = {
-    type: 'struct',
+const generateTupleType = (types: string[]): ABIType => {
+  const tupleType: ABIType = {
+    type: "struct",
     fields: [],
   };
 
   types.map((type, index) => {
-    tuppleType.fields.push({ name: `_${index}`, type });
+    tupleType.fields!.push({ name: `_${index}`, type });
   });
 
-  return tuppleType;
+  return tupleType;
 };
-
-export function decodeMultiValue(data: string[], types: string[]): Record<string, unknown> {
-  try {
-    // Check length of data and types
-    if (data.length !== types.length) {
-      throw new Error('Data and types length mismatch');
-    }
-    const result: Record<string, unknown> = {};
-    for (let i = 0; i < data.length; i++) {
-      const type = types[i];
-      const value = data[i];
-
-      const decodedValue = abiDecoder.decodeValue(value, type);
-      result[`value${i}`] = decodedValue;
-    }
-    return result;
-  } catch (error) {
-    console.error(`Error decoding ${types} data:`, error);
-    throw error;
-  }
-}
 
 /**
  * Decodes multiple return values from a smart contract based on ABI

@@ -1,7 +1,7 @@
 /* Transaction Page Styles */
 .transaction-page {
   min-height: 100vh;
-  padding: 2rem 1rem;
+  padding: 6rem 1rem 2rem;
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -993,6 +993,10 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
+  .transaction-page {
+    padding-top: 5rem;
+  }
+
   .page-title {
     font-size: 2rem;
   }

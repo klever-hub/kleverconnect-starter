@@ -12,6 +12,7 @@ import {
   type ContractABI,
   type DecodedReturnData,
 } from '../utils/abiDecoder';
+import { getApiEndpoint, type Network } from '../constants/network';
 
 // Re-export TransactionType from SDK for convenience
 export { TransactionType };
@@ -56,12 +57,8 @@ export interface TransactionResults {
   [key: string]: unknown;
 }
 
-// API endpoints based on network
-const API_ENDPOINTS = {
-  mainnet: 'https://api.mainnet.klever.org',
-  testnet: 'https://api.testnet.klever.org',
-  devnet: 'https://api.devnet.klever.org',
-} as const;
+// Helper to get API endpoint for current network
+const getApiUrl = (network: Network) => getApiEndpoint(network);
 
 // Transaction hook
 export const useTransaction = () => {
@@ -258,7 +255,7 @@ export const useTransaction = () => {
     async (hash: string): Promise<TransactionResults | null> => {
       try {
         const response = await fetch(
-          `${API_ENDPOINTS[network]}/v1.0/transaction/${hash}?withResults=true`
+          `${getApiUrl(network as Network)}/v1.0/transaction/${hash}?withResults=true`
         );
         if (!response.ok) {
           throw new Error(`Failed to fetch transaction: ${response.statusText}`);
@@ -280,7 +277,7 @@ export const useTransaction = () => {
 
       while (Date.now() - startTime < timeout) {
         try {
-          const response = await fetch(`${API_ENDPOINTS[network]}/v1.0/transaction/${hash}`);
+          const response = await fetch(`${getApiUrl(network as Network)}/v1.0/transaction/${hash}`);
           if (response.ok) {
             const data = await response.json();
             if (data?.data?.transaction?.status === 'success') {
@@ -374,7 +371,7 @@ export const useTransaction = () => {
         };
 
         // Make API call to query contract
-        const response = await fetch(`${API_ENDPOINTS[network]}/v1.0/sc/query`, {
+        const response = await fetch(`${getApiUrl(network as Network)}/v1.0/sc/query`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
