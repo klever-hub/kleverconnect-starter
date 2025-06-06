@@ -5,6 +5,10 @@ import { NetworkBadge } from './NetworkBadge';
 import { CodeBlock } from './steps/CodeBlock';
 import { SEO } from './SEO';
 import { StructuredData } from './StructuredData';
+import { FAQStructuredData } from './FAQStructuredData';
+import { BreadcrumbSchema } from './BreadcrumbSchema';
+import { OrganizationSchema } from './OrganizationSchema';
+import { VideoSchema } from './VideoSchema';
 import './LandingPage.css';
 
 export const LandingPage = () => {
@@ -21,6 +25,10 @@ export const LandingPage = () => {
       />
       <StructuredData type="website" />
       <StructuredData type="softwareApplication" />
+      <FAQStructuredData />
+      <BreadcrumbSchema />
+      <OrganizationSchema />
+      <VideoSchema />
       <ThemeToggle />
       <NetworkBadge floating />
 

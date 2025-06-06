@@ -4,6 +4,7 @@ import { NetworkBadge } from './NetworkBadge';
 import { ThemeToggle } from './ThemeToggle';
 import { CodeBlock } from './steps/CodeBlock';
 import { SEO } from './SEO';
+import { BreadcrumbSchema } from './BreadcrumbSchema';
 import type { Network } from '../constants/network';
 import { KlvTransfer } from './transactions/KlvTransfer';
 import { KdaTransfer } from './transactions/KdaTransfer';
@@ -50,6 +51,7 @@ export const TransactionTriggers = () => {
         keywords="Klever transactions, blockchain playground, KLV transfer, KDA tokens, smart contract testing, Web3 examples, Klever testnet"
         url="https://kleverconnect-starter.kleverlabs.dev/transactions"
       />
+      <BreadcrumbSchema />
       {/* Header */}
       <div className="page-header">
         <h1 className="page-title">

@@ -3,6 +3,8 @@ import { ThemeToggle } from './ThemeToggle';
 import { NetworkBadge } from './NetworkBadge';
 import { SEO } from './SEO';
 import { StructuredData } from './StructuredData';
+import { CourseSchema } from './CourseSchema';
+import { BreadcrumbSchema } from './BreadcrumbSchema';
 import {
   Step1DevTools,
   Step2CreateDapp,
@@ -74,6 +76,8 @@ export const StartBuilding = () => {
         url="https://kleverconnect-starter.kleverlabs.dev/start-building"
       />
       <StructuredData type="howTo" />
+      <CourseSchema />
+      <BreadcrumbSchema />
       <ThemeToggle />
       <NetworkBadge floating />
 
