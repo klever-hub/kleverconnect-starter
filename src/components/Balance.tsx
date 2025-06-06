@@ -1,21 +1,28 @@
 import { useEffect, useRef, useState } from 'react';
 import { useKlever } from '../hooks/useKlever';
+import { useSlotMachineAnimation } from '../hooks/useSlotMachineAnimation';
 import './Balance.css';
 
 export const Balance = () => {
   const { isConnected, balance, isLoadingBalance, refreshBalance } = useKlever();
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const [displayBalance, setDisplayBalance] = useState<number | null>(null);
-  const [isAnimating, setIsAnimating] = useState(false);
   const [isManualRefreshing, setIsManualRefreshing] = useState(false);
-  const animationRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const previousBalanceRef = useRef<number | null>(null);
 
   // Get auto-refresh preference from localStorage
   const [autoRefresh, setAutoRefresh] = useState(() => {
     const saved = localStorage.getItem('balance-auto-refresh');
     return saved !== 'false'; // Default to true
   });
+
+  // Use slot machine animation for balance display
+  const { displayValue: displayBalance, isAnimating } = useSlotMachineAnimation(
+    balance?.amount || null,
+    {
+      duration: 500,
+      steps: 20,
+      randomness: 0.3
+    }
+  );
 
   // Toggle auto-refresh
   const toggleAutoRefresh = () => {
@@ -55,57 +62,8 @@ export const Balance = () => {
         clearInterval(intervalRef.current);
         intervalRef.current = null;
       }
-      if (animationRef.current) {
-        clearTimeout(animationRef.current);
-        animationRef.current = null;
-      }
     };
   }, [isConnected, refreshBalance, autoRefresh]);
-
-  // Animate balance changes
-  useEffect(() => {
-    if (balance && balance.amount !== previousBalanceRef.current) {
-      // If balance changed, animate it
-      if (previousBalanceRef.current !== null && previousBalanceRef.current !== balance.amount) {
-        setIsAnimating(true);
-
-        // Create slot machine effect
-        const startValue = previousBalanceRef.current;
-        const endValue = balance.amount;
-        const duration = 500; // milliseconds
-        const steps = 20;
-        const stepTime = duration / steps;
-
-        let currentStep = 0;
-
-        const animate = () => {
-          currentStep++;
-
-          if (currentStep < steps) {
-            // Generate random value between start and end for slot effect
-            const progress = currentStep / steps;
-            const range = endValue - startValue;
-            const randomOffset = (Math.random() - 0.5) * Math.abs(range) * 0.3;
-            const interpolatedValue = startValue + range * progress + randomOffset;
-
-            setDisplayBalance(interpolatedValue);
-            animationRef.current = setTimeout(animate, stepTime);
-          } else {
-            // Final value
-            setDisplayBalance(endValue);
-            setIsAnimating(false);
-          }
-        };
-
-        animate();
-      } else {
-        // First time setting balance
-        setDisplayBalance(balance.amount);
-      }
-
-      previousBalanceRef.current = balance.amount;
-    }
-  }, [balance]);
 
   const formatBalance = (amount: number, token: string) => {
     return `${amount.toFixed(4)} ${token}`;
