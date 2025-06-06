@@ -34,7 +34,7 @@ export const Header = () => {
     }
 
     const handleScroll = () => {
-      const sections = ['features', 'getting-started'];
+      const sections = ['features', 'resources', 'getting-started'];
       const scrollPosition = window.scrollY + 100; // Add offset for header
 
       // Check if we're at the top of the page
@@ -196,6 +196,13 @@ export const Header = () => {
                 onClick={(e) => handleNavClick(e, 'features')}
               >
                 Features
+              </a>
+              <a
+                href="#resources"
+                className={`nav-link ${location.pathname === '/' && activeSection === 'resources' ? 'active' : ''}`}
+                onClick={(e) => handleNavClick(e, 'resources')}
+              >
+                Resources
               </a>
               <a
                 href="#getting-started"

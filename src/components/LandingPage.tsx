@@ -93,6 +93,30 @@ export const LandingPage = () => {
         </div>
       </section>
 
+      {/* Resources Section */}
+      <section id="resources" className="resources">
+        <div className="container">
+          <h2 className="text-center mb-6">Resources & Community</h2>
+          <div className="resources-grid">
+            <a href="https://docs.klever.org" target="_blank" rel="noopener noreferrer" className="resource-card">
+              <div className="resource-icon">📚</div>
+              <h3>Documentation</h3>
+              <p>Comprehensive guides and API references</p>
+            </a>
+            <a href="https://forum.klever.org" target="_blank" rel="noopener noreferrer" className="resource-card">
+              <div className="resource-icon">💬</div>
+              <h3>Klever Forum</h3>
+              <p>Join discussions and get community support</p>
+            </a>
+            <a href="https://github.com/klever-labs" target="_blank" rel="noopener noreferrer" className="resource-card">
+              <div className="resource-icon">🔧</div>
+              <h3>GitHub</h3>
+              <p>Explore open-source projects and contribute</p>
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* Getting Started Section */}
       <section id="getting-started" className="getting-started">
         <div className="container">
