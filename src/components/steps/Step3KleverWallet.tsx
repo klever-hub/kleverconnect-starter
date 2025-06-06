@@ -1,3 +1,5 @@
+import { InfoTooltip } from '../InfoTooltip';
+
 export const Step3KleverWallet = () => (
   <div className="tutorial-section">
     <div className="section-intro">
@@ -6,7 +8,10 @@ export const Step3KleverWallet = () => (
     </div>
 
     <div className="step-card">
-      <h3>Install Klever Extension</h3>
+      <h3>
+        Install Klever Extension
+        <InfoTooltip content="Browser extensions are small programs that add features to your browser. The Klever Extension acts as a bridge between your browser and the Klever blockchain, managing your digital wallet and signing transactions securely. It never shares your private keys with websites." />
+      </h3>
       <p>
         The Klever Extension is your gateway to the Klever blockchain, available for Chrome-based
         browsers.
@@ -74,10 +79,12 @@ export const Step3KleverWallet = () => (
         <li>Read and accept the Terms of Use</li>
         <li>
           Create a <strong>strong password</strong> (minimum 8 characters)
+          <InfoTooltip content="This password encrypts your wallet on this device only. It's different from your mnemonic phrase. If you forget this password, you can still recover your wallet using the mnemonic phrase. Use a unique password you haven't used elsewhere." />
         </li>
         <li>Confirm your password</li>
         <li>
           <strong>CRITICAL:</strong> Write down your 12-word mnemonic phrase on paper
+          <InfoTooltip content="The mnemonic phrase (also called seed phrase) is the master key to your wallet. Anyone with these words can access your funds from any device. Write it on paper, never digitally. This is your only backup - if you lose it and forget your password, your funds are gone forever." />
         </li>
         <li>Verify your mnemonic by selecting words in the correct order</li>
         <li>Click "Confirm" to complete wallet creation</li>
@@ -106,23 +113,33 @@ export const Step3KleverWallet = () => (
       <h3>Switch to Testnet & Get Test Tokens</h3>
       <p>For development, we'll use the Testnet to avoid using real tokens.</p>
 
-      <h4>Switch Networks:</h4>
+      <h4>
+        Switch Networks:
+        <InfoTooltip content="Blockchain networks have different versions: Mainnet uses real money, while Testnet uses fake money for testing. Always develop on Testnet first to avoid costly mistakes. The visual color change helps prevent accidentally using real funds during development." />
+      </h4>
       <ol>
         <li>Click the Klever Extension icon</li>
-        <li>Click the network dropdown (shows "Mainnet" by default)</li>
+        <li>
+          Click the network dropdown (shows "Mainnet" by default)
+          <InfoTooltip content="The dropdown is usually at the top of the extension window. It shows the current network name and has a small arrow indicating it's clickable." />
+        </li>
         <li>
           Select <strong>"Testnet"</strong>
+          <InfoTooltip content="Testnet is a safe playground where you can experiment without risk. The tokens have no real value, so you can test transactions, make mistakes, and learn without financial consequences." />
         </li>
         <li>The extension header will turn orange to indicate Testnet</li>
       </ol>
 
       <h4>Get Free Test Tokens:</h4>
       <p>
-        KleverConnect Starter has a built-in faucet feature! Since you're already running the app locally
-        from Step 2, you can use it right away:
+        KleverConnect Starter has a built-in faucet feature! Since you're already running the app
+        locally from Step 2, you can use it right away:
       </p>
 
-      <h5>Using the Faucet (Current Site):</h5>
+      <h5>
+        Using the Faucet (Current Site):
+        <InfoTooltip content="A faucet is a service that gives away free test tokens. Think of it like a fountain of fake money for developers. These tokens let you test transactions without spending real money. Every blockchain testnet has faucets." />
+      </h5>
       <ol>
         <li>
           You should already have your app running at{' '}
@@ -132,16 +149,29 @@ export const Step3KleverWallet = () => (
           from Step 2
         </li>
         <li>Connect your wallet (if not already connected)</li>
-        <li>Make sure you're on <strong>Testnet</strong> (check the network badge)</li>
-        <li>The <strong>💧 Faucet</strong> button will appear in the header automatically</li>
+        <li>
+          Make sure you're on <strong>Testnet</strong> (check the network badge)
+          <InfoTooltip content="The network badge in the header shows your current network. It should be orange for Testnet. If it's purple (Mainnet), click it to switch networks. The faucet only works on test networks." />
+        </li>
+        <li>
+          The <strong>💧 Faucet</strong> button will appear in the header automatically
+          <InfoTooltip content="The faucet button only appears when: (1) you're on Testnet or Devnet, (2) your wallet is connected, and (3) your balance is low. This smart visibility prevents cluttering the interface when not needed." />
+        </li>
         <li>Click the Faucet button to open the request modal</li>
         <li>Click "Request Test Funds" to receive test KLV</li>
-        <li>Wait for the success notification - funds arrive in seconds!</li>
+        <li>
+          Wait for the success notification - funds arrive in seconds!
+          <InfoTooltip content="The faucet sends a blockchain transaction to transfer test tokens to your wallet. You can request funds once every 24 hours per wallet address. The balance will update automatically thanks to the auto-refresh feature." />
+        </li>
       </ol>
 
       <div className="info-box">
         <strong>💡 Alternative:</strong> If you prefer, you can also use the public version at{' '}
-        <a href="https://kleverconnect-starter.kleverlabs.dev/" target="_blank" rel="noopener noreferrer">
+        <a
+          href="https://kleverconnect-starter.kleverlabs.dev/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           https://kleverconnect-starter.kleverlabs.dev/
         </a>{' '}
         - it works exactly the same way!

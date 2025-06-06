@@ -39,30 +39,31 @@ export const CodeBlock = ({
         </div>
       )}
       <div className="code-block-container">
-        <SyntaxHighlighter
-          language={language}
-          style={theme === 'dark' ? vscDarkPlus : vs}
-          showLineNumbers={showLineNumbers}
-          customStyle={{
-            margin: 0,
-            padding: '1.25rem 1.5rem',
-            background: 'transparent',
-            fontSize: '0.875rem',
-            lineHeight: '1.5',
-            overflowX: 'auto',
-          }}
-          codeTagProps={{
-            style: {
-              fontFamily: "'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', monospace",
-              display: 'inline-block',
-              minWidth: '100%',
-            },
-          }}
-          wrapLines={false}
-          wrapLongLines={false}
-        >
-          {code}
-        </SyntaxHighlighter>
+        <div className="syntax-highlighter-wrapper">
+          <SyntaxHighlighter
+            language={language}
+            style={theme === 'dark' ? vscDarkPlus : vs}
+            showLineNumbers={showLineNumbers}
+            customStyle={{
+              margin: 0,
+              padding: '1.25rem 1.5rem',
+              fontSize: '0.875rem',
+              lineHeight: '1.5',
+              overflowX: 'auto',
+            }}
+            codeTagProps={{
+              style: {
+                fontFamily: "'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', monospace",
+                display: 'inline-block',
+                minWidth: '100%',
+              },
+            }}
+            wrapLines={false}
+            wrapLongLines={false}
+          >
+            {code}
+          </SyntaxHighlighter>
+        </div>
         <button
           className="copy-button"
           onClick={handleCopy}

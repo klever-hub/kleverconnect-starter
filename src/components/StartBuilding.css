@@ -154,7 +154,7 @@
   padding: 2rem;
   margin-bottom: 1.5rem;
   transition: all 0.3s ease;
-  overflow: hidden;
+  /* overflow: hidden; Allow tooltip */
 }
 
 .step-card:hover {
@@ -169,7 +169,8 @@
   color: var(--text-primary);
 }
 
-.step-card p {
+.step-card p,
+.step-card .step-instruction {
   color: var(--text-secondary);
   line-height: 1.6;
   margin-bottom: 1rem;
@@ -367,7 +368,7 @@ code {
 
 .clone-method:hover {
   border-color: var(--primary-dim);
-  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .clone-method h4 {

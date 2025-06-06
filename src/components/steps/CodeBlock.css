@@ -46,6 +46,7 @@
   position: relative;
   display: flex;
   overflow: hidden;
+  border-radius: 12px;
 }
 
 /* Line numbers are now handled by react-syntax-highlighter */
@@ -55,14 +56,37 @@
   overflow: hidden;
 }
 
-.code-block-container > pre {
+/* Wrapper to isolate syntax highlighter styles */
+.syntax-highlighter-wrapper {
+  width: 100%;
+  background: transparent;
+}
+
+.syntax-highlighter-wrapper > pre {
   flex: 1;
   margin: 0 !important;
-  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
   overflow-x: auto !important;
   overflow-y: hidden !important;
   -webkit-overflow-scrolling: touch;
   max-width: 100%;
+}
+
+/* Override any background shorthand from syntax highlighter */
+.syntax-highlighter-wrapper pre[style] {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+/* Light theme specific overrides */
+.light .syntax-highlighter-wrapper pre[style] {
+  background: var(--code-bg) !important;
+  background-color: var(--code-bg) !important;
+}
+
+.light .code-block-container {
+  background: var(--code-bg);
 }
 
 /* Ensure code doesn't overflow */
@@ -122,28 +146,28 @@
 /* Remove custom syntax highlighting - now handled by react-syntax-highlighter */
 
 /* Light Theme */
-[data-theme='light'] .code-block-wrapper {
+.light .code-block-wrapper {
   background: var(--code-bg, #f9fafb);
   border-color: var(--code-border, #e5e7eb);
 }
 
-[data-theme='light'] .code-block-header {
+.light .code-block-header {
   background: var(--code-header-bg, #f3f4f6);
   border-bottom-color: var(--code-border, #e5e7eb);
 }
 
-[data-theme='light'] .language-badge {
+.light .language-badge {
   background: var(--code-badge-bg, #e5e7eb);
   color: var(--code-badge-color, #6b7280);
 }
 
-[data-theme='light'] .copy-button {
+.light .copy-button {
   background: var(--code-copy-bg, #ffffff);
   border-color: var(--code-copy-border, #e5e7eb);
   color: var(--code-copy-color, #6b7280);
 }
 
-[data-theme='light'] .copy-button:hover {
+.light .copy-button:hover {
   background: var(--code-copy-hover-bg, #f3f4f6);
   color: var(--code-copy-hover-color, #111827);
 }
@@ -166,7 +190,7 @@
   --code-copy-hover-color: #e5e7eb;
 }
 
-[data-theme='light'] {
+.light {
   --code-bg: #f9fafb;
   --code-header-bg: #f3f4f6;
   --code-border: #e5e7eb;
