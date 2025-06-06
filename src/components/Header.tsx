@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useKlever } from '../hooks/useKlever';
 import { ConnectWallet } from './ConnectWallet';
 import { Balance } from './Balance';
+import { Faucet } from './Faucet';
 import './Header.css';
 
 export const Header = () => {
@@ -151,6 +152,7 @@ export const Header = () => {
 
           <div className="header-right">
             {!isMobile && <Balance />}
+            {!isMobile && <Faucet />}
             <ConnectWallet />
           </div>
         </div>
@@ -254,6 +256,7 @@ export const Header = () => {
             {address && isMobile && (
               <div className="nav-menu-section balance-section">
                 <Balance />
+                <Faucet />
               </div>
             )}
           </div>

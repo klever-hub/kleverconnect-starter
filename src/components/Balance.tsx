@@ -7,8 +7,29 @@ export const Balance = () => {
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const [displayBalance, setDisplayBalance] = useState<number | null>(null);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [isManualRefreshing, setIsManualRefreshing] = useState(false);
   const animationRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const previousBalanceRef = useRef<number | null>(null);
+
+  // Get auto-refresh preference from localStorage
+  const [autoRefresh, setAutoRefresh] = useState(() => {
+    const saved = localStorage.getItem('balance-auto-refresh');
+    return saved !== 'false'; // Default to true
+  });
+
+  // Toggle auto-refresh
+  const toggleAutoRefresh = () => {
+    const newValue = !autoRefresh;
+    setAutoRefresh(newValue);
+    localStorage.setItem('balance-auto-refresh', String(newValue));
+  };
+
+  // Manual refresh with animation
+  const handleManualRefresh = () => {
+    setIsManualRefreshing(true);
+    refreshBalance();
+    setTimeout(() => setIsManualRefreshing(false), 500);
+  };
 
   useEffect(() => {
     // Clear any existing interval
@@ -17,8 +38,8 @@ export const Balance = () => {
       intervalRef.current = null;
     }
 
-    // Set up new interval if connected
-    if (isConnected) {
+    // Set up new interval if connected and auto-refresh is enabled
+    if (isConnected && autoRefresh) {
       // Refresh immediately when connected
       refreshBalance();
 
@@ -39,7 +60,7 @@ export const Balance = () => {
         animationRef.current = null;
       }
     };
-  }, [isConnected, refreshBalance]);
+  }, [isConnected, refreshBalance, autoRefresh]);
 
   // Animate balance changes
   useEffect(() => {
@@ -47,26 +68,26 @@ export const Balance = () => {
       // If balance changed, animate it
       if (previousBalanceRef.current !== null && previousBalanceRef.current !== balance.amount) {
         setIsAnimating(true);
-        
+
         // Create slot machine effect
         const startValue = previousBalanceRef.current;
         const endValue = balance.amount;
         const duration = 500; // milliseconds
         const steps = 20;
         const stepTime = duration / steps;
-        
+
         let currentStep = 0;
-        
+
         const animate = () => {
           currentStep++;
-          
+
           if (currentStep < steps) {
             // Generate random value between start and end for slot effect
             const progress = currentStep / steps;
             const range = endValue - startValue;
             const randomOffset = (Math.random() - 0.5) * Math.abs(range) * 0.3;
-            const interpolatedValue = startValue + (range * progress) + randomOffset;
-            
+            const interpolatedValue = startValue + range * progress + randomOffset;
+
             setDisplayBalance(interpolatedValue);
             animationRef.current = setTimeout(animate, stepTime);
           } else {
@@ -75,13 +96,13 @@ export const Balance = () => {
             setIsAnimating(false);
           }
         };
-        
+
         animate();
       } else {
         // First time setting balance
         setDisplayBalance(balance.amount);
       }
-      
+
       previousBalanceRef.current = balance.amount;
     }
   }, [balance]);
@@ -99,9 +120,31 @@ export const Balance = () => {
       {isLoadingBalance && !balance ? (
         <span className="balance-loading">Loading...</span>
       ) : balance && displayBalance !== null ? (
-        <span className="balance-value">
-          {formatBalance(displayBalance, balance.token)}
-        </span>
+        <>
+          <span className="balance-value">{formatBalance(displayBalance, balance.token)}</span>
+          <div className="balance-controls">
+            {!autoRefresh && (
+              <button
+                className={`manual-refresh-btn ${isManualRefreshing ? 'refreshing' : ''}`}
+                onClick={handleManualRefresh}
+                title="Refresh balance"
+              >
+                🔄
+              </button>
+            )}
+            <button
+              className={`auto-refresh-toggle ${autoRefresh ? 'active' : ''}`}
+              onClick={toggleAutoRefresh}
+              title={
+                autoRefresh
+                  ? 'Auto-refresh ON (click to disable)'
+                  : 'Auto-refresh OFF (click to enable)'
+              }
+            >
+              {autoRefresh ? '⚡' : '🔌'}
+            </button>
+          </div>
+        </>
       ) : (
         <span className="balance-empty">-</span>
       )}
