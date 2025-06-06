@@ -11,42 +11,42 @@ export const OrganizationSchema = () => {
     sameAs: [
       'https://github.com/klever-io',
       'https://twitter.com/klever_io',
-      'https://www.linkedin.com/company/klever-blockchain'
+      'https://www.linkedin.com/company/klever-blockchain',
     ],
     contactPoint: {
       '@type': 'ContactPoint',
       contactType: 'technical support',
       availableLanguage: ['English'],
-      url: 'https://support.klever.io'
+      url: 'https://support.klever.io',
     },
     foundingDate: '2020',
-    founders: [{
-      '@type': 'Person',
-      name: 'Dio Ianakiara'
-    }],
+    founders: [
+      {
+        '@type': 'Person',
+        name: 'Dio Ianakiara',
+      },
+    ],
     areaServed: 'Worldwide',
     knowsAbout: [
       'Blockchain Technology',
       'Cryptocurrency',
       'Smart Contracts',
       'DeFi',
-      'Web3 Development'
+      'Web3 Development',
     ],
     offers: {
       '@type': 'Offer',
       itemOffered: {
         '@type': 'Service',
         name: 'Blockchain Development Tools',
-        description: 'Open-source tools and SDKs for building on Klever blockchain'
-      }
-    }
+        description: 'Open-source tools and SDKs for building on Klever blockchain',
+      },
+    },
   };
 
   return (
     <Helmet>
-      <script type="application/ld+json">
-        {JSON.stringify(structuredData)}
-      </script>
+      <script type="application/ld+json">{JSON.stringify(structuredData)}</script>
     </Helmet>
   );
 };
