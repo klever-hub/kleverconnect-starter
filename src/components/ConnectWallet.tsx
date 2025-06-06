@@ -108,9 +108,17 @@ export const ConnectWallet = () => {
   if (extensionInstalled === false) {
     return (
       <div className="wallet-connect">
-        <a href="https://klever.io/en/wallet" target="_blank" rel="noopener noreferrer">
-          <button className="btn-connect">Install Klever Extension</button>
-        </a>
+        <button
+          className="btn-connect"
+          onClick={() =>
+            window.open(
+              'https://chromewebstore.google.com/detail/klever-wallet/ifclboecfhkjbpmhgehodcjpciihhmif',
+              '_blank'
+            )
+          }
+        >
+          Install Klever Extension
+        </button>
       </div>
     );
   }

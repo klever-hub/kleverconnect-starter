@@ -2,8 +2,9 @@ import { createContext, useState, useEffect, useCallback, useRef } from 'react';
 import type { ReactNode } from 'react';
 import { web, TransactionType } from '@klever/sdk-web';
 import type { IContractRequest, ITransfer } from '@klever/sdk-web';
+import { NETWORK_CONFIG as CENTRALIZED_CONFIG, type Network } from '../constants/network';
 
-export type NetworkType = 'mainnet' | 'testnet' | 'devnet';
+export type NetworkType = Network;
 
 export interface Balance {
   amount: number;
@@ -63,19 +64,19 @@ interface KleverProviderProps {
   children: ReactNode;
 }
 
-// Network configurations
+// Get network config from centralized location
 const NETWORK_CONFIG = {
   mainnet: {
-    api: 'https://api.mainnet.klever.org',
-    node: 'https://node.mainnet.klever.org',
+    api: CENTRALIZED_CONFIG.mainnet.api,
+    node: CENTRALIZED_CONFIG.mainnet.nodeUrl,
   },
   testnet: {
-    api: 'https://api.testnet.klever.org',
-    node: 'https://node.testnet.klever.org',
+    api: CENTRALIZED_CONFIG.testnet.api,
+    node: CENTRALIZED_CONFIG.testnet.nodeUrl,
   },
   devnet: {
-    api: 'https://api.devnet.klever.org',
-    node: 'https://node.devnet.klever.org',
+    api: CENTRALIZED_CONFIG.devnet.api,
+    node: CENTRALIZED_CONFIG.devnet.nodeUrl,
   },
 };
 
@@ -103,14 +104,20 @@ declare global {
   }
 }
 
+// Track if account change listener is set up
+let accountChangeListenerSetup = false;
+
 export const KleverProvider = ({ children }: KleverProviderProps) => {
   // Connection state
   const [isConnected, setIsConnected] = useState(false);
   const [isConnecting, setIsConnecting] = useState(false);
   const [address, setAddress] = useState<string | null>(null);
 
-  // Network state
-  const [network, setNetwork] = useState<NetworkType>('testnet');
+  // Network state - initialize from localStorage or default to testnet
+  const [network, setNetwork] = useState<NetworkType>(() => {
+    const savedNetwork = localStorage.getItem('klever-network');
+    return (savedNetwork as NetworkType) || 'testnet';
+  });
 
   // Balance state
   const [balance, setBalance] = useState<Balance | null>(null);
@@ -122,56 +129,6 @@ export const KleverProvider = ({ children }: KleverProviderProps) => {
 
   // Error state
   const [error, setError] = useState<Error | null>(null);
-
-  // Track manual disconnect to prevent auto-reconnect
-  const hasManuallyDisconnected = useRef(false);
-
-  // Check for existing connection
-  const checkExistingConnection = useCallback(async () => {
-    // Don't auto-reconnect if user manually disconnected
-    if (hasManuallyDisconnected.current) {
-      return;
-    }
-
-    try {
-      if (web.isKleverWebActive()) {
-        const addr = web.getWalletAddress();
-        if (addr && addr.startsWith('klv') && addr.length === 62) {
-          setAddress(addr);
-          setIsConnected(true);
-          if (refreshBalanceRef.current) {
-            await refreshBalanceRef.current(addr);
-          }
-        }
-      }
-    } catch (err) {
-      console.error('Failed to check existing connection:', err);
-    }
-  }, []);
-
-  // Check if extension is installed
-  useEffect(() => {
-    const checkExtension = () => {
-      if (typeof window !== 'undefined') {
-        const isInstalled = window.kleverWeb !== undefined;
-        setExtensionInstalled(isInstalled);
-        setSearchingExtension(false);
-
-        if (isInstalled && !isConnected) {
-          // Check if already connected
-          checkExistingConnection();
-        }
-      }
-    };
-
-    // Check immediately
-    checkExtension();
-
-    // Check again after a short delay in case extension loads late
-    const timer = setTimeout(checkExtension, 1000);
-
-    return () => clearTimeout(timer);
-  }, [isConnected, checkExistingConnection]);
 
   // Use ref to avoid circular dependency
   const refreshBalanceRef = useRef<((addr?: string) => Promise<void>) | null>(null);
@@ -206,16 +163,103 @@ export const KleverProvider = ({ children }: KleverProviderProps) => {
     [address]
   );
 
+  // Setup account change listener
+  const setupAccountChangeListener = useCallback(() => {
+    if (window.kleverHub?.onAccountChanged && !accountChangeListenerSetup) {
+      window.kleverHub.onAccountChanged((e) => {
+        if ((e.chain === 'KLV' || e.chain === 1) && e.address.length === 62) {
+          setAddress(e.address);
+          setIsConnected(true);
+          if (refreshBalanceRef.current) {
+            refreshBalanceRef.current(e.address);
+          }
+        } else {
+          setIsConnected(false);
+          setAddress(null);
+          setBalance(null);
+        }
+      });
+      accountChangeListenerSetup = true;
+    }
+  }, []);
+
+  // Auto-connect if extension is available and wallet was previously connected
+  const connectExtension = useCallback(async () => {
+    if (typeof window !== 'undefined' && window.kleverWeb?.provider) {
+      window.kleverWeb.provider = NETWORK_CONFIG[network];
+    }
+    web.setProvider(NETWORK_CONFIG[network]);
+
+    try {
+      if (!web.isKleverWebActive()) {
+        if (window.kleverHub !== undefined) {
+          await window.kleverHub.initialize();
+          setupAccountChangeListener();
+        } else {
+          await web.initialize();
+        }
+      }
+      const addr = web.getWalletAddress();
+      if (addr && addr.startsWith('klv') && addr.length === 62) {
+        setAddress(addr);
+        setIsConnected(true);
+        setupAccountChangeListener();
+        // Refresh balance after auto-connect
+        if (refreshBalanceRef.current) {
+          await refreshBalanceRef.current(addr);
+        }
+      }
+    } catch {
+      // Silent fail for auto-connect
+    }
+  }, [network, setupAccountChangeListener]);
+
+  // Store refreshBalance in ref before using it
+  useEffect(() => {
+    refreshBalanceRef.current = refreshBalance;
+  }, [refreshBalance]);
+
+  // Initialize and check connection
+  useEffect(() => {
+    const init = async () => {
+      if (typeof window !== 'undefined') {
+        // Check if extension exists
+        if (window.kleverWeb !== undefined) {
+          setExtensionInstalled(true);
+          // Try to auto-connect
+          await connectExtension();
+        } else {
+          setExtensionInstalled(false);
+        }
+        setSearchingExtension(false);
+      }
+    };
+
+    init();
+
+    // Check again after a delay in case extension loads late
+    const timer = setTimeout(init, 1000);
+
+    return () => clearTimeout(timer);
+  }, [connectExtension]);
+
+  // Update provider when network changes
+  useEffect(() => {
+    if (extensionInstalled && window.kleverWeb?.provider) {
+      window.kleverWeb.provider = NETWORK_CONFIG[network];
+      web.setProvider(NETWORK_CONFIG[network]);
+    }
+  }, [network, extensionInstalled]);
+
   // Connect wallet
   const connect = useCallback(async () => {
     try {
       setIsConnecting(true);
       setError(null);
-      hasManuallyDisconnected.current = false; // Reset the flag when connecting
 
       if (!extensionInstalled) {
         throw new Error(
-          'Klever extension not found. Please install it from https://klever.io/en/wallet'
+          'Klever extension not found. Please install it from https://chromewebstore.google.com/detail/klever-wallet/ifclboecfhkjbpmhgehodcjpciihhmif'
         );
       }
 
@@ -224,31 +268,14 @@ export const KleverProvider = ({ children }: KleverProviderProps) => {
         window.kleverWeb.provider = NETWORK_CONFIG[network];
       }
 
-      // Initialize extension
+      // Also update web SDK settings
+      web.setProvider(NETWORK_CONFIG[network]);
+
+      // Initialize extension only if not already active
       if (!web.isKleverWebActive()) {
         if (window.kleverHub !== undefined) {
           await window.kleverHub.initialize();
-
-          // Setup account change listener
-          window.kleverHub.onAccountChanged((e) => {
-            // Don't handle account changes if user manually disconnected
-            if (hasManuallyDisconnected.current) {
-              return;
-            }
-
-            if ((e.chain === 'KLV' || e.chain === 1) && e.address.length === 62) {
-              setAddress(e.address);
-              setIsConnected(true);
-              if (refreshBalanceRef.current) {
-                refreshBalanceRef.current(e.address);
-              }
-            } else {
-              // Reset state directly instead of calling disconnect
-              setIsConnected(false);
-              setAddress(null);
-              setBalance(null);
-            }
-          });
+          setupAccountChangeListener();
         } else {
           await web.initialize();
         }
@@ -259,6 +286,7 @@ export const KleverProvider = ({ children }: KleverProviderProps) => {
       if (addr && addr.startsWith('klv') && addr.length === 62) {
         setAddress(addr);
         setIsConnected(true);
+        setupAccountChangeListener();
         // Refresh balance after successful connection with the new address
         await refreshBalance(addr);
       } else {
@@ -272,13 +300,12 @@ export const KleverProvider = ({ children }: KleverProviderProps) => {
     } finally {
       setIsConnecting(false);
     }
-  }, [extensionInstalled, network, refreshBalance]);
+  }, [extensionInstalled, network, refreshBalance, setupAccountChangeListener]);
 
   // Disconnect wallet
   const disconnect = useCallback(async () => {
     try {
       setError(null);
-      hasManuallyDisconnected.current = true; // Set flag to prevent auto-reconnect
 
       // Reset state immediately
       setIsConnected(false);
@@ -308,6 +335,9 @@ export const KleverProvider = ({ children }: KleverProviderProps) => {
 
         setNetwork(newNetwork);
 
+        // Save network to localStorage
+        localStorage.setItem('klever-network', newNetwork);
+
         // Refresh balance for new network
         if (isConnected) {
           await refreshBalance();
@@ -320,10 +350,6 @@ export const KleverProvider = ({ children }: KleverProviderProps) => {
     },
     [isConnected, refreshBalance]
   );
-
-  useEffect(() => {
-    refreshBalanceRef.current = refreshBalance;
-  }, [refreshBalance]);
 
   // Send transaction
   const sendTransaction = useCallback(
@@ -359,8 +385,6 @@ export const KleverProvider = ({ children }: KleverProviderProps) => {
         const signedTx = await web.signTransaction(unsignedTx);
         const response = await web.broadcastTransactions([signedTx]);
 
-        console.log('Transaction broadcast response:', response);
-
         if (response?.data?.txsHashes && response.data.txsHashes.length > 0) {
           const hash = response.data.txsHashes[0];
 
@@ -384,33 +408,6 @@ export const KleverProvider = ({ children }: KleverProviderProps) => {
     },
     [address]
   );
-
-  // Listen for account changes
-  useEffect(() => {
-    if (!extensionInstalled) return;
-
-    const handleAccountsChanged = (accounts: string[]) => {
-      if (accounts.length === 0) {
-        disconnect();
-      } else if (accounts[0] !== address) {
-        setAddress(accounts[0]);
-        if (refreshBalanceRef.current) {
-          refreshBalanceRef.current(accounts[0]);
-        }
-      }
-    };
-
-    // Setup listeners if available
-    if (window.kleverHub?.on) {
-      window.kleverHub.on('accountsChanged', handleAccountsChanged);
-
-      return () => {
-        if (window.kleverHub?.off) {
-          window.kleverHub.off('accountsChanged', handleAccountsChanged);
-        }
-      };
-    }
-  }, [address, disconnect, extensionInstalled]);
 
   const value: KleverContextType = {
     isConnected,

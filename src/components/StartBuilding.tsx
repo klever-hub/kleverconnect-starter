@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { Header } from './Header';
 import { ThemeToggle } from './ThemeToggle';
 import { NetworkBadge } from './NetworkBadge';
 import {
@@ -68,7 +67,6 @@ export const StartBuilding = () => {
     <div className="start-building-page">
       <ThemeToggle />
       <NetworkBadge floating />
-      <Header />
 
       <div className="tutorial-wrapper">
         <div className="tutorial-nav">

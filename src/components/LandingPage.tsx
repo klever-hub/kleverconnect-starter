@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { useKlever } from '../hooks/useKlever';
-import { Header } from './Header';
 import { ThemeToggle } from './ThemeToggle';
 import { NetworkBadge } from './NetworkBadge';
+import { CodeBlock } from './steps/CodeBlock';
 import './LandingPage.css';
 
 export const LandingPage = () => {
@@ -13,7 +13,6 @@ export const LandingPage = () => {
     <div className="landing-page">
       <ThemeToggle />
       <NetworkBadge floating />
-      <Header />
 
       {/* Hero Section */}
       <section className="hero">
@@ -71,6 +70,11 @@ export const LandingPage = () => {
               <p>Simple hooks and components for quick Klever wallet connection</p>
             </div>
             <div className="feature-card">
+              <div className="feature-icon">💜</div>
+              <h3>Klever Extension</h3>
+              <p>Seamless integration with Klever browser extension for secure transactions</p>
+            </div>
+            <div className="feature-card">
               <div className="feature-icon">🎨</div>
               <h3>Theme Support</h3>
               <p>Beautiful dark and light themes with smooth transitions</p>
@@ -90,6 +94,69 @@ export const LandingPage = () => {
               <h3>Production Ready</h3>
               <p>ESLint, strict mode, and best practices configured</p>
             </div>
+            <div className="feature-card">
+              <div className="feature-icon">🔄</div>
+              <h3>Real-time Updates</h3>
+              <p>Auto-refresh balances and transaction status monitoring</p>
+            </div>
+            <button
+              className="feature-card interactive"
+              onClick={() => navigate('/transactions')}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  navigate('/transactions');
+                }
+              }}
+              type="button"
+              aria-label="Go to Transaction Playground to test transfers and smart contracts"
+            >
+              <div className="feature-icon">🎮</div>
+              <h3>Transaction Playground</h3>
+              <p>Test transfers and smart contracts instantly</p>
+              <span className="feature-link" aria-hidden="true">
+                Try it now →
+              </span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Resources Section */}
+      <section id="resources" className="resources">
+        <div className="container">
+          <h2 className="text-center mb-6">Resources & Community</h2>
+          <div className="resources-grid">
+            <a
+              href="https://docs.klever.org"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="resource-card"
+            >
+              <div className="resource-icon">📚</div>
+              <h3>Documentation</h3>
+              <p>Comprehensive guides and API references</p>
+            </a>
+            <a
+              href="https://forum.klever.org"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="resource-card"
+            >
+              <div className="resource-icon">💬</div>
+              <h3>Klever Forum</h3>
+              <p>Join discussions and get community support</p>
+            </a>
+            <a
+              href="https://github.com/klever-labs"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="resource-card"
+            >
+              <div className="resource-icon">🔧</div>
+              <h3>GitHub</h3>
+              <p>Explore open-source projects and contribute</p>
+            </a>
           </div>
         </div>
       </section>
@@ -98,28 +165,28 @@ export const LandingPage = () => {
       <section id="getting-started" className="getting-started">
         <div className="container">
           <h2 className="text-center mb-6">Get Started in Minutes</h2>
-          <div className="code-blocks">
-            <div className="code-block">
+          <div className="code-examples">
+            <div className="code-example">
               <h3>1. Clone & Install</h3>
-              <pre>
-                <code>{`git clone https://github.com/klever-labs/kleverconnect-starter
+              <CodeBlock
+                language="bash"
+                code={`git clone https://github.com/klever-labs/kleverconnect-starter
 cd kleverconnect-starter
-pnpm install`}</code>
-              </pre>
+pnpm install`}
+              />
             </div>
-            <div className="code-block">
+            <div className="code-example">
               <h3>2. Start Development</h3>
-              <pre>
-                <code>{`pnpm dev`}</code>
-              </pre>
+              <CodeBlock language="bash" code={`pnpm dev`} />
             </div>
-            <div className="code-block">
+            <div className="code-example">
               <h3>3. Connect Wallet</h3>
-              <pre>
-                <code>{`import { useKlever } from './hooks/useKlever';
+              <CodeBlock
+                language="typescript"
+                code={`import { useKlever } from './hooks/useKlever';
 
-const { connect, address } = useKlever();`}</code>
-              </pre>
+const { connect, address } = useKlever();`}
+              />
             </div>
           </div>
         </div>

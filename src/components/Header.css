@@ -64,13 +64,13 @@
 .header-right {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 0.75rem;
 }
 
 /* Navigation Menu */
 .nav-menu {
   position: fixed;
-  z-index: 1000;
+  z-index: 1100;
 }
 
 /* Desktop Navigation Menu */
@@ -120,6 +120,7 @@
   bottom: 0;
   width: 0;
   transition: width 0.3s ease;
+  z-index: 2000;
 }
 
 .nav-menu.mobile.open {
@@ -133,11 +134,12 @@
   height: 100%;
   width: 280px;
   max-width: 85vw;
-  background-color: var(--card-bg);
+  background-color: var(--bg-primary);
   box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
   transform: translateX(100%);
   transition: transform 0.3s ease;
   overflow-y: auto;
+  z-index: 1101;
 }
 
 .nav-menu.mobile.open .nav-menu-content {
@@ -145,7 +147,7 @@
 }
 
 .nav-menu-overlay {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
@@ -156,6 +158,7 @@
   transition:
     opacity 0.3s ease,
     visibility 0.3s ease;
+  z-index: 1099;
 }
 
 .nav-menu.mobile.open .nav-menu-overlay {
@@ -198,6 +201,7 @@
 
 .nav-menu-items {
   padding: 1rem;
+  pointer-events: auto;
 }
 
 .nav-menu-section {
@@ -226,11 +230,25 @@
   font-weight: 500;
   border-radius: 8px;
   transition: all 0.2s ease;
+  position: relative;
+  z-index: 1;
+  cursor: pointer;
 }
 
 .nav-link:hover {
   background-color: var(--bg-secondary);
   color: var(--klever-purple);
+  transform: translateX(4px);
+}
+
+.nav-link.active {
+  background-color: var(--klever-purple);
+  color: white;
+}
+
+.nav-link.active:hover {
+  background-color: var(--klever-purple-hover);
+  color: white;
   transform: translateX(4px);
 }
 
@@ -250,9 +268,17 @@
   margin-top: 2rem;
   padding-top: 2rem;
   border-top: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 
 .nav-menu .balance-container {
+  width: 100%;
+  justify-content: center;
+}
+
+.nav-menu .faucet-button {
   width: 100%;
   justify-content: center;
 }
@@ -287,16 +313,22 @@
   }
 }
 
+/* Ensure proper backgrounds */
+.nav-menu-content {
+  background-color: var(--bg-primary);
+  opacity: 1;
+}
+
 /* Dark mode specific styles */
-.dark-mode .nav-menu-content {
-  background-color: var(--card-bg);
+[data-theme='dark'] .nav-menu-content {
+  background-color: #0a0a0b;
   box-shadow: -2px 0 10px rgba(0, 0, 0, 0.3);
 }
 
-.dark-mode .nav-menu-overlay {
+[data-theme='dark'] .nav-menu-overlay {
   background-color: rgba(0, 0, 0, 0.7);
 }
 
-.dark-mode .nav-menu.desktop .nav-menu-content {
+[data-theme='dark'] .nav-menu.desktop .nav-menu-content {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }

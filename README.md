@@ -117,6 +117,17 @@ The workflow runs automatically when you:
 - Open a pull request
 - All checks must pass before merging
 
+## 📚 Documentation
+
+### Code Examples
+For comprehensive examples on how to use all the transaction features, check out [EXAMPLES.md](./EXAMPLES.md). It includes:
+- Sending KLV and KDA tokens
+- Querying smart contracts (read-only, no fees)
+- Executing smart contract functions
+- Using contract parameter helpers
+- Error handling best practices
+- Advanced patterns and batch operations
+
 ## 📁 Project Structure
 
 ### Current Structure

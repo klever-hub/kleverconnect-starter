@@ -1,0 +1,105 @@
+{
+    "buildInfo": {
+        "rustc": {
+            "version": "1.86.0",
+            "commitHash": "05f9846f893b09a1be1fc8560e33fc3c815cfecb",
+            "commitDate": "2025-03-31",
+            "channel": "Stable",
+            "short": "rustc 1.86.0 (05f9846f8 2025-03-31)"
+        },
+        "contractCrate": {
+            "name": "dice",
+            "version": "0.0.0",
+            "gitVersion": "v0.43.3-98-g7928a4d29"
+        },
+        "framework": {
+            "name": "klever-sc",
+            "version": "0.44.0"
+        }
+    },
+    "name": "Dice",
+    "constructor": {
+        "inputs": [],
+        "outputs": []
+    },
+    "upgradeConstructor": {
+        "inputs": [],
+        "outputs": []
+    },
+    "endpoints": [
+        {
+            "name": "getLastResult",
+            "mutability": "readonly",
+            "inputs": [
+                {
+                    "name": "address",
+                    "type": "Address"
+                }
+            ],
+            "outputs": [
+                {
+                    "type": "Bet"
+                }
+            ]
+        },
+        {
+            "name": "bet",
+            "mutability": "mutable",
+            "payableInTokens": [
+                "KLV"
+            ],
+            "inputs": [
+                {
+                    "name": "bet_type",
+                    "type": "BetType"
+                },
+                {
+                    "name": "bet_value",
+                    "type": "u32"
+                }
+            ],
+            "outputs": []
+        }
+    ],
+    "kdaAttributes": [],
+    "types": {
+        "Bet": {
+            "type": "struct",
+            "fields": [
+                {
+                    "name": "bet_type",
+                    "type": "u32"
+                },
+                {
+                    "name": "bet_value",
+                    "type": "u32"
+                },
+                {
+                    "name": "dice_value",
+                    "type": "u32"
+                },
+                {
+                    "name": "multiplier",
+                    "type": "u32"
+                },
+                {
+                    "name": "is_winner",
+                    "type": "bool"
+                }
+            ]
+        },
+        "BetType": {
+            "type": "enum",
+            "variants": [
+                {
+                    "name": "UNDER",
+                    "discriminant": 0
+                },
+                {
+                    "name": "OVER",
+                    "discriminant": 1
+                }
+            ]
+        }
+    }
+}
