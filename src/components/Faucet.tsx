@@ -19,6 +19,8 @@ export const Faucet = () => {
   const [status, setStatus] = useState<FaucetStatus | null>(null);
   const [success, setSuccess] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const previousActiveElement = useRef<HTMLElement | null>(null);
 
   // Only show on testnet/devnet
   const shouldShowFaucet = network !== 'mainnet' && address;
@@ -118,6 +120,90 @@ export const Faucet = () => {
     }
   };
 
+  // Focus management and keyboard handling
+  useEffect(() => {
+    if (isOpen) {
+      // Store the currently focused element
+      previousActiveElement.current = document.activeElement as HTMLElement;
+      
+      // Focus the modal itself first to ensure focus is inside
+      setTimeout(() => {
+        if (modalRef.current) {
+          // Make the modal focusable temporarily
+          modalRef.current.setAttribute('tabindex', '-1');
+          modalRef.current.focus();
+          
+          // Then focus the first interactive element
+          const focusableElements = modalRef.current.querySelectorAll(
+            'button:not(:disabled), [href], input:not(:disabled), select:not(:disabled), textarea:not(:disabled), [tabindex]:not([tabindex="-1"])'
+          );
+          
+          if (focusableElements.length > 0) {
+            (focusableElements[0] as HTMLElement).focus();
+          }
+        }
+      }, 100);
+
+      // Handle keyboard events
+      const handleKeyDown = (event: KeyboardEvent) => {
+        if (!modalRef.current) return;
+        
+        if (event.key === 'Escape') {
+          setIsOpen(false);
+          return;
+        }
+        
+        // Tab trap
+        if (event.key === 'Tab') {
+          const focusableElements = modalRef.current.querySelectorAll(
+            'button:not(:disabled), [href], input:not(:disabled), select:not(:disabled), textarea:not(:disabled), [tabindex]:not([tabindex="-1"])'
+          );
+          
+          if (focusableElements.length === 0) return;
+          
+          const focusableArray = Array.from(focusableElements) as HTMLElement[];
+          const firstElement = focusableArray[0];
+          const lastElement = focusableArray[focusableArray.length - 1];
+          const activeElement = document.activeElement;
+          
+          // Check if focus is outside modal
+          if (!modalRef.current.contains(activeElement)) {
+            event.preventDefault();
+            firstElement.focus();
+            return;
+          }
+          
+          if (event.shiftKey && activeElement === firstElement) {
+            event.preventDefault();
+            lastElement.focus();
+          } else if (!event.shiftKey && activeElement === lastElement) {
+            event.preventDefault();
+            firstElement.focus();
+          }
+        }
+      };
+
+      // Use capture phase to intercept all keyboard events
+      document.addEventListener('keydown', handleKeyDown, true);
+      
+      return () => {
+        document.removeEventListener('keydown', handleKeyDown, true);
+        // Remove tabindex when unmounting
+        if (modalRef.current) {
+          modalRef.current.removeAttribute('tabindex');
+        }
+      };
+    } else {
+      // Restore focus when modal closes
+      if (previousActiveElement.current && previousActiveElement.current.focus) {
+        // Use setTimeout to ensure the modal is fully closed
+        setTimeout(() => {
+          previousActiveElement.current?.focus();
+        }, 0);
+      }
+    }
+  }, [isOpen]);
+
   // Handle click outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -148,21 +234,27 @@ export const Faucet = () => {
 
   return (
     <>
-      <button className="faucet-button" onClick={() => setIsOpen(true)} title="Request test funds">
+      <button 
+        ref={triggerRef}
+        className="faucet-button" 
+        onClick={() => setIsOpen(true)} 
+        title="Request test funds"
+        aria-label="Open faucet modal to request test funds"
+      >
         <span className="faucet-icon">💧</span>
         <span className="faucet-label">Faucet</span>
       </button>
 
       {isOpen &&
         createPortal(
-          <div className="faucet-overlay">
+          <div className="faucet-overlay" role="dialog" aria-modal="true" aria-labelledby="faucet-title">
             <div className="faucet-modal" ref={modalRef}>
               <div className="faucet-header">
-                <h3>Testnet Faucet</h3>
+                <h3 id="faucet-title">Testnet Faucet</h3>
                 <button
                   className="faucet-close"
                   onClick={() => setIsOpen(false)}
-                  aria-label="Close"
+                  aria-label="Close faucet modal"
                 >
                   ×
                 </button>
@@ -234,6 +326,8 @@ export const Faucet = () => {
                   <p>• These funds have no real value</p>
                 </div>
               </div>
+              {/* Invisible focusable element to detect when focus leaves the modal */}
+              <div tabIndex={0} style={{ position: 'absolute', left: '-9999px' }} aria-hidden="true" />
             </div>
           </div>,
           document.body
