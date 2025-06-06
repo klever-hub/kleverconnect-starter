@@ -3,6 +3,7 @@ import { useKlever } from '../hooks/useKlever';
 import { NetworkBadge } from './NetworkBadge';
 import { ThemeToggle } from './ThemeToggle';
 import { CodeBlock } from './steps/CodeBlock';
+import { SEO } from './SEO';
 import type { Network } from '../constants/network';
 import { KlvTransfer } from './transactions/KlvTransfer';
 import { KdaTransfer } from './transactions/KdaTransfer';
@@ -43,6 +44,12 @@ export const TransactionTriggers = () => {
 
   return (
     <div className="transaction-page">
+      <SEO
+        title="Klever Transaction Playground - Test Blockchain Transactions"
+        description="Interactive playground for testing Klever blockchain transactions. Send KLV, transfer KDA tokens, and interact with smart contracts. Perfect for developers learning Web3."
+        keywords="Klever transactions, blockchain playground, KLV transfer, KDA tokens, smart contract testing, Web3 examples, Klever testnet"
+        url="https://kleverconnect-starter.kleverlabs.dev/transactions"
+      />
       {/* Header */}
       <div className="page-header">
         <h1 className="page-title">

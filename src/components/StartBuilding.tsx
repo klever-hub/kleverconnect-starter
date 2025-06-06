@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { ThemeToggle } from './ThemeToggle';
 import { NetworkBadge } from './NetworkBadge';
+import { SEO } from './SEO';
+import { StructuredData } from './StructuredData';
 import {
   Step1DevTools,
   Step2CreateDapp,
@@ -65,6 +67,13 @@ export const StartBuilding = () => {
 
   return (
     <div className="start-building-page">
+      <SEO
+        title="Start Building with Klever - Step-by-Step Web3 Development Guide"
+        description="Complete tutorial for building Web3 applications with Klever. Learn wallet integration, smart contract deployment, and DApp development with our beginner-friendly guide."
+        keywords="Klever tutorial, Web3 development guide, blockchain programming, DApp tutorial, Klever wallet setup, smart contract tutorial, React blockchain tutorial"
+        url="https://kleverconnect-starter.kleverlabs.dev/start-building"
+      />
+      <StructuredData type="howTo" />
       <ThemeToggle />
       <NetworkBadge floating />
 

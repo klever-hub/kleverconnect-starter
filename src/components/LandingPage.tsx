@@ -3,6 +3,8 @@ import { useKlever } from '../hooks/useKlever';
 import { ThemeToggle } from './ThemeToggle';
 import { NetworkBadge } from './NetworkBadge';
 import { CodeBlock } from './steps/CodeBlock';
+import { SEO } from './SEO';
+import { StructuredData } from './StructuredData';
 import './LandingPage.css';
 
 export const LandingPage = () => {
@@ -11,6 +13,14 @@ export const LandingPage = () => {
 
   return (
     <div className="landing-page">
+      <SEO
+        title="KleverConnect Starter - Open Source React Web3 Starter Kit"
+        description="Build decentralized applications with Klever blockchain. Free React TypeScript starter kit with wallet integration, transaction examples, and smart contract interaction."
+        keywords="Klever blockchain, Web3 starter kit, React DApp development, Klever wallet integration, blockchain tutorial, smart contract examples, TypeScript Web3"
+        url="https://kleverconnect-starter.kleverlabs.dev/"
+      />
+      <StructuredData type="website" />
+      <StructuredData type="softwareApplication" />
       <ThemeToggle />
       <NetworkBadge floating />
 
