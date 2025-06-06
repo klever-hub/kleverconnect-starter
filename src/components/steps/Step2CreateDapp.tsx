@@ -69,13 +69,19 @@ export const Step2CreateDapp = () => (
         This installs all required packages including React, Vite, and Klever SDK.
         <InfoTooltip content="The 'pnpm install' command reads the package.json file to see what libraries are needed, then downloads them into a node_modules folder. This might take 1-2 minutes depending on your internet speed. You'll see a progress bar as packages download." />
       </div>
-      
+
       <div className="warning-box">
         <strong>⚠️ Common issues:</strong>
         <ul>
-          <li><strong>"pnpm: command not found"</strong> - Go back to Step 1 and install pnpm</li>
-          <li><strong>Permission errors</strong> - Try running with <code>sudo</code> on Mac/Linux</li>
-          <li><strong>Network timeout</strong> - Check your internet connection and try again</li>
+          <li>
+            <strong>"pnpm: command not found"</strong> - Go back to Step 1 and install pnpm
+          </li>
+          <li>
+            <strong>Permission errors</strong> - Try running with <code>sudo</code> on Mac/Linux
+          </li>
+          <li>
+            <strong>Network timeout</strong> - Check your internet connection and try again
+          </li>
         </ul>
       </div>
     </div>

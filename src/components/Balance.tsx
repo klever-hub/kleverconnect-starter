@@ -20,7 +20,7 @@ export const Balance = () => {
     {
       duration: 500,
       steps: 20,
-      randomness: 0.3
+      randomness: 0.3,
     }
   );
 

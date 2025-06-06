@@ -11,7 +11,7 @@ export const useSlotMachineAnimation = (
   options: UseSlotMachineAnimationOptions = {}
 ) => {
   const { duration = 500, steps = 20, randomness = 0.3 } = options;
-  
+
   const [displayValue, setDisplayValue] = useState<number | null>(null);
   const [isAnimating, setIsAnimating] = useState(false);
   const previousValueRef = useRef<number | null>(null);

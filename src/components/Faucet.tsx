@@ -125,19 +125,19 @@ export const Faucet = () => {
     if (isOpen) {
       // Store the currently focused element
       previousActiveElement.current = document.activeElement as HTMLElement;
-      
+
       // Focus the modal itself first to ensure focus is inside
       setTimeout(() => {
         if (modalRef.current) {
           // Make the modal focusable temporarily
           modalRef.current.setAttribute('tabindex', '-1');
           modalRef.current.focus();
-          
+
           // Then focus the first interactive element
           const focusableElements = modalRef.current.querySelectorAll(
             'button:not(:disabled), [href], input:not(:disabled), select:not(:disabled), textarea:not(:disabled), [tabindex]:not([tabindex="-1"])'
           );
-          
+
           if (focusableElements.length > 0) {
             (focusableElements[0] as HTMLElement).focus();
           }
@@ -147,32 +147,32 @@ export const Faucet = () => {
       // Handle keyboard events
       const handleKeyDown = (event: KeyboardEvent) => {
         if (!modalRef.current) return;
-        
+
         if (event.key === 'Escape') {
           setIsOpen(false);
           return;
         }
-        
+
         // Tab trap
         if (event.key === 'Tab') {
           const focusableElements = modalRef.current.querySelectorAll(
             'button:not(:disabled), [href], input:not(:disabled), select:not(:disabled), textarea:not(:disabled), [tabindex]:not([tabindex="-1"])'
           );
-          
+
           if (focusableElements.length === 0) return;
-          
+
           const focusableArray = Array.from(focusableElements) as HTMLElement[];
           const firstElement = focusableArray[0];
           const lastElement = focusableArray[focusableArray.length - 1];
           const activeElement = document.activeElement;
-          
+
           // Check if focus is outside modal
           if (!modalRef.current.contains(activeElement)) {
             event.preventDefault();
             firstElement.focus();
             return;
           }
-          
+
           if (event.shiftKey && activeElement === firstElement) {
             event.preventDefault();
             lastElement.focus();
@@ -185,7 +185,7 @@ export const Faucet = () => {
 
       // Use capture phase to intercept all keyboard events
       document.addEventListener('keydown', handleKeyDown, true);
-      
+
       return () => {
         document.removeEventListener('keydown', handleKeyDown, true);
         // Remove tabindex when unmounting
@@ -234,10 +234,10 @@ export const Faucet = () => {
 
   return (
     <>
-      <button 
+      <button
         ref={triggerRef}
-        className="faucet-button" 
-        onClick={() => setIsOpen(true)} 
+        className="faucet-button"
+        onClick={() => setIsOpen(true)}
         title="Request test funds"
         aria-label="Open faucet modal to request test funds"
       >
@@ -247,7 +247,12 @@ export const Faucet = () => {
 
       {isOpen &&
         createPortal(
-          <div className="faucet-overlay" role="dialog" aria-modal="true" aria-labelledby="faucet-title">
+          <div
+            className="faucet-overlay"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="faucet-title"
+          >
             <div className="faucet-modal" ref={modalRef}>
               <div className="faucet-header">
                 <h3 id="faucet-title">Testnet Faucet</h3>
@@ -327,7 +332,11 @@ export const Faucet = () => {
                 </div>
               </div>
               {/* Invisible focusable element to detect when focus leaves the modal */}
-              <div tabIndex={0} style={{ position: 'absolute', left: '-9999px' }} aria-hidden="true" />
+              <div
+                tabIndex={0}
+                style={{ position: 'absolute', left: '-9999px' }}
+                aria-hidden="true"
+              />
             </div>
           </div>,
           document.body

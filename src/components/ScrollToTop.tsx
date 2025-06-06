@@ -13,12 +13,12 @@ export const ScrollToTop = () => {
         return;
       }
     }
-    
+
     // Otherwise, scroll to top
     window.scrollTo({
       top: 0,
       left: 0,
-      behavior: 'instant' // Use instant to avoid motion sickness
+      behavior: 'instant', // Use instant to avoid motion sickness
     });
   }, [pathname, hash, key]);
 

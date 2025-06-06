@@ -7,7 +7,7 @@ export const Step5Deploy = () => (
       <h2>Build & Deploy</h2>
       <p>Share your dApp with the world using free hosting services.</p>
     </div>
-    
+
     <div className="info-box">
       <strong>⏱ Time estimate:</strong> 5-10 minutes for your first deployment
     </div>
@@ -73,7 +73,11 @@ export const Step5Deploy = () => (
 
     <div className="step-card">
       <h3>
-        <span style={{ color: 'var(--text-secondary)', fontSize: '0.875rem', marginRight: '0.5rem' }}>[Advanced]</span>
+        <span
+          style={{ color: 'var(--text-secondary)', fontSize: '0.875rem', marginRight: '0.5rem' }}
+        >
+          [Advanced]
+        </span>
         Production Deployment with Docker
         <InfoTooltip content="Docker packages your app and all its dependencies into a 'container' - like a shipping container for software. This ensures your app runs the same way everywhere: on your computer, your colleague's computer, and in the cloud. It's the professional way to deploy applications." />
       </h3>
@@ -185,19 +189,27 @@ az container create \\
     <div className="success-box">
       <strong>🚀 Congratulations!</strong> You've built and deployed your first Klever dApp!
     </div>
-    
+
     <div className="step-card">
       <h3>🎓 What's Next?</h3>
       <div className="info-box">
         <strong>Ready to learn more? Here are your next steps:</strong>
         <ul>
-          <li>📖 Learn about <strong>Smart Contracts</strong> - The backend of Web3 apps</li>
-          <li>🎨 Explore <strong>Web3 UI Libraries</strong> - Pre-built components for dApps</li>
-          <li>🔒 Study <strong>Web3 Security</strong> - Best practices for safe dApps</li>
-          <li>👥 Join the <strong>Klever Community</strong> - Get help and share your projects</li>
+          <li>
+            📖 Learn about <strong>Smart Contracts</strong> - The backend of Web3 apps
+          </li>
+          <li>
+            🎨 Explore <strong>Web3 UI Libraries</strong> - Pre-built components for dApps
+          </li>
+          <li>
+            🔒 Study <strong>Web3 Security</strong> - Best practices for safe dApps
+          </li>
+          <li>
+            👥 Join the <strong>Klever Community</strong> - Get help and share your projects
+          </li>
         </ul>
       </div>
-      
+
       <p style={{ marginTop: '1.5rem', textAlign: 'center' }}>
         <strong>Need help?</strong> Visit the{' '}
         <a href="https://forum.klever.org" target="_blank" rel="noopener noreferrer">

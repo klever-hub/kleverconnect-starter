@@ -71,13 +71,19 @@ export const Step4Customize = () => (
         Make Your First Change
         <InfoTooltip content="React components are written in JSX, which looks like HTML but is actually JavaScript. When you save changes, Vite's hot module replacement (HMR) updates your browser instantly without losing application state. This makes development fast and enjoyable." />
       </h3>
-      
+
       <div className="info-box">
         <strong>🔍 Finding files in VS Code:</strong>
         <ul>
-          <li><strong>Ctrl+P (Cmd+P on Mac)</strong> - Quick file search</li>
-          <li><strong>Explorer panel</strong> - Click the folder icon in the left sidebar</li>
-          <li><strong>Ctrl+F (Cmd+F)</strong> - Search within current file</li>
+          <li>
+            <strong>Ctrl+P (Cmd+P on Mac)</strong> - Quick file search
+          </li>
+          <li>
+            <strong>Explorer panel</strong> - Click the folder icon in the left sidebar
+          </li>
+          <li>
+            <strong>Ctrl+F (Cmd+F)</strong> - Search within current file
+          </li>
         </ul>
       </div>
       <p>
@@ -94,19 +100,28 @@ export const Step4Customize = () => (
         Save and see your changes instantly!
         <InfoTooltip content="Press Ctrl+S (or Cmd+S on Mac) to save. Your browser will update automatically. If it doesn't, check that your dev server is still running in the terminal. The gradient-text class creates the colorful text effect." />
       </p>
-      
+
       <div className="success-box">
         <strong>🎆 More customizations to try:</strong>
         <ul>
-          <li>Change the colors in <code>src/index.css</code> (look for <code>--klever-pink</code>)</li>
-          <li>Update the logo in <code>src/components/Header.tsx</code></li>
-          <li>Modify button text in <code>src/components/ConnectWallet.tsx</code></li>
+          <li>
+            Change the colors in <code>src/index.css</code> (look for <code>--klever-pink</code>)
+          </li>
+          <li>
+            Update the logo in <code>src/components/Header.tsx</code>
+          </li>
+          <li>
+            Modify button text in <code>src/components/ConnectWallet.tsx</code>
+          </li>
         </ul>
       </div>
-      
+
       <div className="warning-box">
         <strong>🔧 If something breaks:</strong>
-        <p>Don't panic! Check the browser console (F12) for error messages. Most errors show exactly which file and line has the problem. You can always undo changes with Ctrl+Z.</p>
+        <p>
+          Don't panic! Check the browser console (F12) for error messages. Most errors show exactly
+          which file and line has the problem. You can always undo changes with Ctrl+Z.
+        </p>
       </div>
     </div>
   </div>
