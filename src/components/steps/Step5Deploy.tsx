@@ -94,7 +94,7 @@ gcloud run deploy kleverconnect-app \\
             language="bash"
           />
         </div>
-        
+
         <div className="deploy-option">
           <div className="deploy-header">
             <span className="cloud-icon">🟠</span>
@@ -115,7 +115,7 @@ docker push 123456789.dkr.ecr.us-east-1.amazonaws.com/kleverconnect-app:latest
             language="bash"
           />
         </div>
-        
+
         <div className="deploy-option">
           <div className="deploy-header">
             <span className="cloud-icon">🔷</span>

@@ -908,24 +908,24 @@ code {
     grid-template-columns: 1fr;
     gap: 0.75rem;
   }
-  
+
   /* Cloud deploy options mobile */
   .cloud-deploy-options {
     gap: 1rem;
   }
-  
+
   .deploy-option {
     border-radius: 8px;
   }
-  
+
   .deploy-header {
     padding: 0.75rem 1rem;
   }
-  
+
   .cloud-icon {
     font-size: 1.25rem;
   }
-  
+
   .deploy-header h5 {
     font-size: 0.9rem;
   }

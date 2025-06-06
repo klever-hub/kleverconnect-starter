@@ -5,6 +5,13 @@ import { useKlever } from './useKlever';
 import { useToast } from './useToast';
 import { contractParam, isEncodableParam } from '../utils/contractHelpers';
 import type { EncodableParam } from '../types/contract';
+import {
+  decodeTransactionResults,
+  extractReturnDataFromLogs,
+  decodeReturnData,
+  type ContractABI,
+  type DecodedReturnData,
+} from '../utils/abiDecoder';
 
 // Re-export TransactionType from SDK for convenience
 export { TransactionType };
@@ -17,6 +24,36 @@ export interface TransactionResult {
   hash?: string;
   error?: string;
   success: boolean;
+}
+
+// Transaction details from API
+export interface TransactionResults {
+  receipts?: Array<{
+    type?: string;
+    typeStr?: string;
+    value?: unknown;
+    results?: unknown[];
+    [key: string]: unknown;
+  }>;
+  contract?: Array<{
+    type?: number;
+    typeStr?: string;
+    parameter?: unknown;
+    [key: string]: unknown;
+  }>;
+  logs?: {
+    events?: Array<{
+      identifier?: string;
+      address?: string;
+      topics?: string[];
+      data?: string | string[];
+      order?: number;
+    }>;
+    [key: string]: unknown;
+  };
+  status?: string;
+  resultCode?: string;
+  [key: string]: unknown;
 }
 
 // API endpoints based on network
@@ -148,7 +185,8 @@ export const useTransaction = () => {
       contractAddress: string,
       functionName: string,
       args: EncodableParam<unknown>[] = [],
-      value?: number
+      value?: number,
+      token: string = 'KLV'
     ): Promise<TransactionResult> => {
       if (!isConnected || !address) {
         const error = 'Wallet not connected';
@@ -171,7 +209,7 @@ export const useTransaction = () => {
         const payload: ISmartContract = {
           scType: 0, // InvokeType = 0 for execute
           address: contractAddress,
-          ...(value && { callValue: { KLV: value } }),
+          ...(value && { callValue: { [token]: value } }),
         };
 
         // Build transaction with call input as second parameter
@@ -213,6 +251,26 @@ export const useTransaction = () => {
       }
     },
     [isConnected, address, addToast, buildCallInput]
+  );
+
+  // Fetch transaction with results
+  const getTransactionWithResults = useCallback(
+    async (hash: string): Promise<TransactionResults | null> => {
+      try {
+        const response = await fetch(
+          `${API_ENDPOINTS[network]}/v1.0/transaction/${hash}?withResults=true`
+        );
+        if (!response.ok) {
+          throw new Error(`Failed to fetch transaction: ${response.statusText}`);
+        }
+        const data = await response.json();
+        return (data?.data?.transaction as TransactionResults) || null;
+      } catch (error) {
+        console.error('Error fetching transaction results:', error);
+        return null;
+      }
+    },
+    [network]
   );
 
   // Wait for transaction confirmation
@@ -300,20 +358,20 @@ export const useTransaction = () => {
       args: EncodableParam<unknown>[] = []
     ): Promise<unknown> => {
       try {
-        // Encode function name
-        const functionParam = contractParam.buffer(functionName);
-
-        // Build call data array with encoded values
-        const callData = [functionParam.encode()];
-
-        // Encode each argument
-        args.forEach((arg) => {
+        // Convert arguments to base64-encoded values for query API
+        const encodedArgs = args.map((arg) => {
           if (isEncodableParam(arg)) {
-            callData.push(arg.encode());
+            return arg.encodeBase64();
           } else {
             throw new Error('Invalid argument type. Use contractParam helpers.');
           }
         });
+
+        const body = {
+          ScAddress: contractAddress,
+          FuncName: functionName,
+          Arguments: encodedArgs,
+        };
 
         // Make API call to query contract
         const response = await fetch(`${API_ENDPOINTS[network]}/v1.0/sc/query`, {
@@ -321,27 +379,27 @@ export const useTransaction = () => {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({
-            scAddress: contractAddress,
-            funcName: functionName,
-            args: callData,
-          }),
+          body: JSON.stringify(body),
         });
 
         if (!response.ok) {
-          throw new Error(`Query failed: ${response.statusText}`);
+          let errorData;
+          try {
+            errorData = await response.json();
+          } catch {
+            // Handle cases where response is not JSON
+            throw new Error(`HTTP error! status: ${response.status} - ${response.statusText}`);
+          }
+          throw new Error(errorData?.error || `HTTP error! status: ${response.status}`);
         }
 
         const result = await response.json();
-
-        if (result.error) {
-          throw new Error(result.error);
-        }
-
-        return result.data || result;
+        // Return the data property of the response
+        return result?.data || null;
       } catch (error) {
         console.error('Contract query error:', error);
-        throw error;
+        const errorMessage = error instanceof Error ? error.message : 'Contract query failed';
+        throw new Error(errorMessage);
       }
     },
     [network]
@@ -361,41 +419,90 @@ export const useTransaction = () => {
   };
 
   // Helper function to parse contract response data
-  const parseContractResponse = useCallback((data: unknown): string | string[] | boolean | null => {
-    // Check if this is a standard return format
-    if (data && typeof data === 'object' && 'returnData' in data) {
-      const returnData = (data as { returnData: unknown }).returnData;
+  const parseContractResponse = useCallback(
+    (data: unknown, functionName?: string, abi?: ContractABI): unknown => {
+      // Check if this is a standard return format
+      if (data && typeof data === 'object' && 'returnData' in data) {
+        const returnData = (data as { returnData: unknown }).returnData;
 
-      // If it's an array of return, return collection
-      if (Array.isArray(returnData) && returnData.length > 0) {
-        // convert base64 to hex
-        const result = returnData.map((item: unknown) => {
-          if (typeof item === 'string') {
-            return base64ToHex(item);
+        // If it's an array of return, return collection
+        if (Array.isArray(returnData) && returnData.length > 0) {
+          // Convert base64 to hex
+          const hexValues = returnData
+            .map((item: unknown) => {
+              if (typeof item === 'string') {
+                return base64ToHex(item);
+              }
+              return '';
+            })
+            .filter((hex) => hex !== '');
+
+          // If ABI is provided, try to decode the values
+          if (abi && functionName) {
+            try {
+              const endpoint = abi.endpoints.find((ep) => ep.name === functionName);
+              if (endpoint && endpoint.outputs) {
+                const decodedResult = decodeReturnData(hexValues, endpoint, abi);
+                // If we successfully decoded, return the decoded values
+                if (decodedResult.values.length > 0) {
+                  // If single value, return just the value
+                  if (decodedResult.values.length === 1) {
+                    return decodedResult.values[0].value;
+                  }
+                  // Multiple values, return as array
+                  return decodedResult.values.map((v) => v.value);
+                }
+              }
+            } catch (error) {
+              console.error('Failed to decode with ABI:', error);
+              // Fall through to return hex values
+            }
           }
-          return '';
-        });
-        if (result.length === 1) {
-          return result[0];
+
+          // Return hex values if no ABI or decoding failed
+          if (hexValues.length === 1) {
+            return hexValues[0];
+          }
+          return hexValues;
         }
-        return result;
+
+        // Single return value
+        if (typeof returnData === 'string') {
+          const hexValue = base64ToHex(returnData);
+
+          // If ABI is provided, try to decode the value
+          if (abi && functionName) {
+            try {
+              const endpoint = abi.endpoints.find((ep) => ep.name === functionName);
+              if (endpoint && endpoint.outputs && endpoint.outputs.length > 0) {
+                const decodedResult = decodeReturnData([hexValue], endpoint, abi);
+
+                // If we successfully decoded, return the decoded value
+                if (decodedResult.values.length > 0) {
+                  return decodedResult.values[0].value;
+                }
+              }
+            } catch (error) {
+              console.error('Failed to decode with ABI:', error);
+              // Fall through to return hex value
+            }
+          }
+
+          return hexValue;
+        }
       }
 
-      // convert base64 to hex
-      if (typeof returnData === 'string') {
-        return base64ToHex(returnData);
+      // If it's another format, try to extract relevant data
+      if (data && typeof data === 'object' && 'returnCode' in data) {
+        // Avoid rendering raw response object
+        const returnCode = (data as { returnCode: number }).returnCode;
+        return returnCode === 0 ? true : false;
       }
-    }
 
-    // If it's another format, try to extract relevant data
-    if (data && typeof data === 'object' && 'returnCode' in data) {
-      // Avoid rendering raw response object
-      const returnCode = (data as { returnCode: number }).returnCode;
-      return returnCode === 0 ? true : false;
-    }
-
-    return data as string | null;
-  }, []);
+      return data;
+    },
+    []
+  );
 
   // Helper to convert managed buffer to hex
   const convertManagedBufferToHex = useCallback((data: unknown): string => {
@@ -414,6 +521,34 @@ export const useTransaction = () => {
     }
   }, []);
 
+  // Decode transaction results using ABI
+  const decodeTransactionWithABI = useCallback(
+    (
+      results: TransactionResults,
+      functionName: string,
+      abi?: ContractABI
+    ): DecodedReturnData | null => {
+      try {
+        const { decoded } = decodeTransactionResults(results, functionName, abi);
+        return decoded;
+      } catch (error) {
+        console.error('Failed to decode transaction results:', error);
+        return null;
+      }
+    },
+    []
+  );
+
+  // Extract and decode return values from transaction logs
+  const getDecodedReturnValues = useCallback((results: TransactionResults): string[] | null => {
+    try {
+      return extractReturnDataFromLogs(results.logs);
+    } catch (error) {
+      console.error('Failed to extract return values:', error);
+      return null;
+    }
+  }, []);
+
   return {
     sendTransaction,
     sendKLV,
@@ -421,9 +556,12 @@ export const useTransaction = () => {
     callSmartContract,
     queryContract,
     waitForTransaction,
+    getTransactionWithResults,
     decodeTransactionData,
     parseContractResponse,
     convertManagedBufferToHex,
+    decodeTransactionWithABI,
+    getDecodedReturnValues,
     isLoading,
     txHash,
     TransactionType,

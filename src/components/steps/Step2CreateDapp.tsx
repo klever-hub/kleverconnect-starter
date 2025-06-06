@@ -14,7 +14,10 @@ export const Step2CreateDapp = () => (
       <div className="clone-options">
         <div className="clone-method">
           <h4>Option 1: Git Clone</h4>
-          <CodeBlock code={`git clone https://github.com/klever-labs/kleverconnect-starter.git`} language="bash" />
+          <CodeBlock
+            code={`git clone https://github.com/klever-labs/kleverconnect-starter.git`}
+            language="bash"
+          />
         </div>
 
         <div className="clone-method">

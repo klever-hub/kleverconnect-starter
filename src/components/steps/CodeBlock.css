@@ -74,7 +74,6 @@
   word-break: normal !important;
 }
 
-
 /* Copy Button */
 .code-block-wrapper .copy-button {
   position: absolute;
@@ -123,35 +122,31 @@
 /* Remove custom syntax highlighting - now handled by react-syntax-highlighter */
 
 /* Light Theme */
-[data-theme="light"] .code-block-wrapper {
+[data-theme='light'] .code-block-wrapper {
   background: var(--code-bg, #f9fafb);
   border-color: var(--code-border, #e5e7eb);
 }
 
-[data-theme="light"] .code-block-header {
+[data-theme='light'] .code-block-header {
   background: var(--code-header-bg, #f3f4f6);
   border-bottom-color: var(--code-border, #e5e7eb);
 }
 
-
-
-
-[data-theme="light"] .language-badge {
+[data-theme='light'] .language-badge {
   background: var(--code-badge-bg, #e5e7eb);
   color: var(--code-badge-color, #6b7280);
 }
 
-[data-theme="light"] .copy-button {
+[data-theme='light'] .copy-button {
   background: var(--code-copy-bg, #ffffff);
   border-color: var(--code-copy-border, #e5e7eb);
   color: var(--code-copy-color, #6b7280);
 }
 
-[data-theme="light"] .copy-button:hover {
+[data-theme='light'] .copy-button:hover {
   background: var(--code-copy-hover-bg, #f3f4f6);
   color: var(--code-copy-hover-color, #111827);
 }
-
 
 /* CSS Variables for customization */
 :root {
@@ -171,7 +166,7 @@
   --code-copy-hover-color: #e5e7eb;
 }
 
-[data-theme="light"] {
+[data-theme='light'] {
   --code-bg: #f9fafb;
   --code-header-bg: #f3f4f6;
   --code-border: #e5e7eb;
@@ -193,16 +188,15 @@
     margin: 1rem 0;
     border-radius: 8px;
   }
-  
+
   .code-block-header {
     padding: 0.5rem 0.75rem;
   }
-  
-  
+
   .code-block-container > pre {
     font-size: 0.813rem !important;
   }
-  
+
   .copy-button {
     padding: 0.375rem;
   }

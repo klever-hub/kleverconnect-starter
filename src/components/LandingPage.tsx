@@ -109,10 +109,7 @@ pnpm install`}
             </div>
             <div className="code-example">
               <h3>2. Start Development</h3>
-              <CodeBlock
-                language="bash"
-                code={`pnpm dev`}
-              />
+              <CodeBlock language="bash" code={`pnpm dev`} />
             </div>
             <div className="code-example">
               <h3>3. Connect Wallet</h3>

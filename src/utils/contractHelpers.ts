@@ -22,19 +22,22 @@ function createAbiEncoder<T>(abiType: string, value: T): EncodableParam<T> {
     value,
     encode(): string {
       try {
+        // if value is null or undefined, return "00"
+        if (value === null || value === undefined) {
+          return '00';
+        }
+
         // check if it has options
         if (abiType.startsWith('Option:')) {
-          // if value is null or undefined, return "00"
-          if (value === null || value === undefined) {
-            return '00';
-          }
           // if value is not null or undefined, encode it
           // and prepend "01" to indicate presence
           const abiTypeWithoutOption = abiType.replace('Option:', '');
           const result = abiEncoder.encodeABIValue(value, abiTypeWithoutOption, true);
           return '01' + result;
         }
-        return abiEncoder.encodeABIValue(value, abiType, false);
+
+        const encodedValue = abiEncoder.encodeABIValue(value, abiType, false);
+        return encodedValue.length % 2 === 0 ? encodedValue : '0' + encodedValue; // Ensure even length
       } catch (error) {
         console.error(`Error encoding ${abiType}:`, error);
         throw new Error(`Failed to encode ${abiType} value: ${value}`);
@@ -220,6 +223,8 @@ export function convertTypedToEncodable(param: TypedContractParam): EncodablePar
     case 'bool':
       return contractParam.bool(Boolean(param.value));
     default:
-      throw new Error(`Unsupported parameter type: ${param.type}`);
+      // For unknown types (including enums and custom types), use generic ABI encoder
+      // This will handle enum values and other custom types defined in the ABI
+      return createAbiEncoder(param.type, param.value);
   }
 }

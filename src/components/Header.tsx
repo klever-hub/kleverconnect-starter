@@ -50,7 +50,7 @@ export const Header = () => {
           const rect = element.getBoundingClientRect();
           const top = rect.top + window.scrollY;
           const bottom = top + rect.height;
-          
+
           if (scrollPosition >= top && scrollPosition < bottom) {
             setActiveSection(sectionId);
             return;
@@ -71,16 +71,16 @@ export const Header = () => {
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (!isMenuOpen) return;
-      
+
       const target = event.target as HTMLElement;
       const menuElement = document.querySelector('.nav-menu');
       const logoElement = document.querySelector('.header-left');
-      
+
       // Don't close if clicking on the menu itself or the logo
       if (menuElement?.contains(target) || logoElement?.contains(target)) {
         return;
       }
-      
+
       setIsMenuOpen(false);
     };
 
@@ -126,7 +126,7 @@ export const Header = () => {
 
   const handleLogoClick = () => {
     setIsSpinning(true);
-    
+
     // Just toggle the menu, don't navigate
     toggleMenu();
 
