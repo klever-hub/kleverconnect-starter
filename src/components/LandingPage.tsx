@@ -70,6 +70,11 @@ export const LandingPage = () => {
               <p>Simple hooks and components for quick Klever wallet connection</p>
             </div>
             <div className="feature-card">
+              <div className="feature-icon">💜</div>
+              <h3>Klever Extension</h3>
+              <p>Seamless integration with Klever browser extension for secure transactions</p>
+            </div>
+            <div className="feature-card">
               <div className="feature-icon">🎨</div>
               <h3>Theme Support</h3>
               <p>Beautiful dark and light themes with smooth transitions</p>
@@ -88,6 +93,17 @@ export const LandingPage = () => {
               <div className="feature-icon">🚀</div>
               <h3>Production Ready</h3>
               <p>ESLint, strict mode, and best practices configured</p>
+            </div>
+            <div className="feature-card">
+              <div className="feature-icon">🔄</div>
+              <h3>Real-time Updates</h3>
+              <p>Auto-refresh balances and transaction status monitoring</p>
+            </div>
+            <div className="feature-card interactive" onClick={() => navigate('/transactions')}>
+              <div className="feature-icon">🎮</div>
+              <h3>Transaction Playground</h3>
+              <p>Test transfers and smart contracts instantly</p>
+              <span className="feature-link">Try it now →</span>
             </div>
           </div>
         </div>

@@ -131,12 +131,38 @@
   border: 1px solid var(--border-color);
   transition: all 0.3s ease;
   text-align: center;
+  position: relative;
 }
 
 .feature-card:hover {
   transform: translateY(-5px);
   box-shadow: var(--shadow-lg);
   border-color: var(--klever-purple);
+}
+
+.feature-card.interactive {
+  cursor: pointer;
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.05) 0%, rgba(59, 130, 246, 0.05) 100%);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+}
+
+.feature-card.interactive:hover {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
+  border-color: rgba(139, 92, 246, 0.5);
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(139, 92, 246, 0.2);
+}
+
+.feature-link {
+  display: inline-block;
+  margin-top: 1rem;
+  color: #8b5cf6;
+  font-weight: 600;
+  transition: transform 0.3s ease;
+}
+
+.feature-card.interactive:hover .feature-link {
+  transform: translateX(5px);
 }
 
 .feature-icon {
