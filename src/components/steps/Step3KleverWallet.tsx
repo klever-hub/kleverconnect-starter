@@ -117,19 +117,46 @@ export const Step3KleverWallet = () => (
       </ol>
 
       <h4>Get Free Test Tokens:</h4>
+      <p>
+        KleverConnect Starter has a built-in faucet feature! Since you're already running the app locally
+        from Step 2, you can use it right away:
+      </p>
+
+      <h5>Using the Faucet (Current Site):</h5>
       <ol>
-        <li>In the extension, click the copy icon next to your address</li>
         <li>
-          Visit the{' '}
-          <a href="https://faucet.testnet.klever.finance" target="_blank" rel="noopener noreferrer">
-            Klever Testnet Faucet
-          </a>
+          You should already have your app running at{' '}
+          <a href="http://localhost:5173" target="_blank" rel="noopener noreferrer">
+            http://localhost:5173
+          </a>{' '}
+          from Step 2
         </li>
-        <li>Paste your wallet address</li>
-        <li>Complete any required verification</li>
-        <li>Click "Send me test KLV"</li>
-        <li>Wait 10-30 seconds for tokens to arrive</li>
+        <li>Connect your wallet (if not already connected)</li>
+        <li>Make sure you're on <strong>Testnet</strong> (check the network badge)</li>
+        <li>The <strong>💧 Faucet</strong> button will appear in the header automatically</li>
+        <li>Click the Faucet button to open the request modal</li>
+        <li>Click "Request Test Funds" to receive test KLV</li>
+        <li>Wait for the success notification - funds arrive in seconds!</li>
       </ol>
+
+      <div className="info-box">
+        <strong>💡 Alternative:</strong> If you prefer, you can also use the public version at{' '}
+        <a href="https://kleverconnect-starter.kleverlabs.dev/" target="_blank" rel="noopener noreferrer">
+          https://kleverconnect-starter.kleverlabs.dev/
+        </a>{' '}
+        - it works exactly the same way!
+      </div>
+
+      <div className="info-box">
+        <strong>💡 Faucet Features:</strong>
+        <ul>
+          <li>Automatically appears when on Testnet/Devnet</li>
+          <li>Shows only when your balance is low</li>
+          <li>24-hour cooldown between requests</li>
+          <li>Displays next available request time</li>
+          <li>Real-time status checking</li>
+        </ul>
+      </div>
 
       <div className="info-box">
         <strong>📊 Network Indicators:</strong>
