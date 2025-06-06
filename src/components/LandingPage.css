@@ -144,6 +144,21 @@
   cursor: pointer;
   background: linear-gradient(135deg, rgba(139, 92, 246, 0.05) 0%, rgba(59, 130, 246, 0.05) 100%);
   border: 1px solid rgba(139, 92, 246, 0.3);
+  width: 100%;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  outline: none;
+}
+
+/* Focus state for accessibility */
+.feature-card.interactive:focus {
+  outline: 2px solid var(--klever-purple);
+  outline-offset: 2px;
+}
+
+.feature-card.interactive:focus:not(:focus-visible) {
+  outline: none;
 }
 
 .feature-card.interactive:hover {

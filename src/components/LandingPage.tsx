@@ -99,12 +99,23 @@ export const LandingPage = () => {
               <h3>Real-time Updates</h3>
               <p>Auto-refresh balances and transaction status monitoring</p>
             </div>
-            <div className="feature-card interactive" onClick={() => navigate('/transactions')}>
+            <button 
+              className="feature-card interactive" 
+              onClick={() => navigate('/transactions')}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  navigate('/transactions');
+                }
+              }}
+              type="button"
+              aria-label="Go to Transaction Playground to test transfers and smart contracts"
+            >
               <div className="feature-icon">🎮</div>
               <h3>Transaction Playground</h3>
               <p>Test transfers and smart contracts instantly</p>
-              <span className="feature-link">Try it now →</span>
-            </div>
+              <span className="feature-link" aria-hidden="true">Try it now →</span>
+            </button>
           </div>
         </div>
       </section>
