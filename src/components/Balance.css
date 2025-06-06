@@ -8,13 +8,50 @@
   border: 1px solid var(--border-color);
   border-radius: 9999px;
   min-height: 36px;
-  min-width: 100px;
+  min-width: 120px;
   justify-content: center;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.balance-container.animating {
+  animation: glow 0.5s ease-out;
+}
+
+.balance-container.animating .balance-value {
+  animation: number-roll 0.5s ease-out;
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 transparent;
+  }
+  50% {
+    box-shadow: 0 0 15px 2px rgba(139, 92, 246, 0.4);
+    border-color: var(--klever-purple);
+  }
+}
+
+@keyframes number-roll {
+  0% {
+    transform: translateY(0);
+    filter: blur(0);
+  }
+  50% {
+    filter: blur(1px);
+  }
+  100% {
+    transform: translateY(0);
+    filter: blur(0);
+  }
 }
 
 .balance-value {
   color: var(--klever-purple);
   font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
 }
 
 .balance-loading {
