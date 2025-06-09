@@ -4,10 +4,6 @@
   margin: 1.5rem 0;
   border-radius: 12px;
   overflow: hidden;
-  background: var(--code-bg, #1e1e1e);
-  border: 1px solid var(--code-border, #333);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: all 0.2s ease;
 }
 
 .code-block-wrapper:hover {
@@ -20,20 +16,20 @@
   justify-content: space-between;
   align-items: center;
   padding: 0.75rem 1rem;
-  background: var(--code-header-bg, #2d2d2d);
-  border-bottom: 1px solid var(--code-border, #333);
+  background: var(--code-header-bg);
+  border-bottom: 1px solid var(--code-border);
   font-size: 0.875rem;
 }
 
 .file-name {
-  color: var(--code-filename, #9ca3af);
+  color: var(--code-filename);
   font-weight: 500;
 }
 
 .language-badge {
   padding: 0.25rem 0.5rem;
-  background: var(--code-badge-bg, #374151);
-  color: var(--code-badge-color, #9ca3af);
+  background: var(--code-badge-bg);
+  color: var(--code-badge-color);
   border-radius: 4px;
   font-size: 0.75rem;
   text-transform: uppercase;
@@ -49,13 +45,6 @@
   border-radius: 12px;
 }
 
-/* Line numbers are now handled by react-syntax-highlighter */
-
-/* SyntaxHighlighter container */
-.code-block-container {
-  overflow: hidden;
-}
-
 /* Wrapper to isolate syntax highlighter styles */
 .syntax-highlighter-wrapper {
   width: 100%;
@@ -65,28 +54,10 @@
 .syntax-highlighter-wrapper > pre {
   flex: 1;
   margin: 0 !important;
-  background-color: transparent !important;
-  background-image: none !important;
   overflow-x: auto !important;
   overflow-y: hidden !important;
   -webkit-overflow-scrolling: touch;
   max-width: 100%;
-}
-
-/* Override any background shorthand from syntax highlighter */
-.syntax-highlighter-wrapper pre[style] {
-  background: transparent !important;
-  background-color: transparent !important;
-}
-
-/* Light theme specific overrides */
-.light .syntax-highlighter-wrapper pre[style] {
-  background: var(--code-bg) !important;
-  background-color: var(--code-bg) !important;
-}
-
-.light .code-block-container {
-  background: var(--code-bg);
 }
 
 /* Ensure code doesn't overflow */
@@ -103,15 +74,15 @@
   position: absolute;
   top: 0.75rem;
   right: 0.75rem;
-  background: var(--code-copy-bg, #374151);
-  border: 1px solid var(--code-copy-border, #4b5563);
+  background: var(--code-copy-bg);
+  border: 1px solid var(--code-copy-border);
   border-radius: 6px;
   padding: 0.5rem;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--code-copy-color, #9ca3af);
+  color: var(--code-copy-color);
   z-index: 2;
   opacity: 0;
   transition: all 0.2s ease;
@@ -129,8 +100,8 @@
 }
 
 .copy-button:hover {
-  background: var(--code-copy-hover-bg, #4b5563);
-  color: var(--code-copy-hover-color, #e5e7eb);
+  background: var(--code-copy-hover-bg);
+  color: var(--code-copy-hover-color);
   transform: translateY(-1px);
 }
 
@@ -143,43 +114,13 @@
   height: 16px;
 }
 
-/* Remove custom syntax highlighting - now handled by react-syntax-highlighter */
-
-/* Light Theme */
-.light .code-block-wrapper {
-  background: var(--code-bg, #f9fafb);
-  border-color: var(--code-border, #e5e7eb);
-}
-
-.light .code-block-header {
-  background: var(--code-header-bg, #f3f4f6);
-  border-bottom-color: var(--code-border, #e5e7eb);
-}
-
-.light .language-badge {
-  background: var(--code-badge-bg, #e5e7eb);
-  color: var(--code-badge-color, #6b7280);
-}
-
-.light .copy-button {
-  background: var(--code-copy-bg, #ffffff);
-  border-color: var(--code-copy-border, #e5e7eb);
-  color: var(--code-copy-color, #6b7280);
-}
-
-.light .copy-button:hover {
-  background: var(--code-copy-hover-bg, #f3f4f6);
-  color: var(--code-copy-hover-color, #111827);
-}
-
 /* CSS Variables for customization */
 :root {
   /* Dark theme defaults */
-  --code-bg: #1e1e1e;
-  --code-header-bg: #2d2d2d;
-  --code-border: #333;
+  --code-bg: #0d1117;
+  --code-header-bg: #161b22;
+  --code-border: #30363d;
   --code-text: #e5e7eb;
-  --code-line-number: #4a5568;
   --code-filename: #9ca3af;
   --code-badge-bg: #374151;
   --code-badge-color: #9ca3af;
@@ -191,11 +132,10 @@
 }
 
 .light {
-  --code-bg: #f9fafb;
-  --code-header-bg: #f3f4f6;
-  --code-border: #e5e7eb;
+  --code-bg: #f6f8fa;
+  --code-header-bg: #f1f3f4;
+  --code-border: #d1d9e0;
   --code-text: #111827;
-  --code-line-number: #9ca3af;
   --code-filename: #6b7280;
   --code-badge-bg: #e5e7eb;
   --code-badge-color: #6b7280;
@@ -204,6 +144,27 @@
   --code-copy-color: #6b7280;
   --code-copy-hover-bg: #f3f4f6;
   --code-copy-hover-color: #111827;
+}
+
+:root .code-block-wrapper *,
+.dark .code-block-wrapper * {
+  background: #0d1117 !important;
+  background-color: #0d1117 !important;
+}
+
+.light .code-block-wrapper * {
+  background: #f6f8fa !important;
+  background-color: #f6f8fa !important;
+}
+
+.light .code-block-wrapper {
+  background: var(--code-bg);
+  border-color: var(--code-border);
+}
+
+.light .code-block-header {
+  background: var(--code-header-bg);
+  border-bottom-color: var(--code-border);
 }
 
 /* Responsive adjustments */
@@ -241,5 +202,5 @@
 }
 
 .code-block-container::-webkit-scrollbar-thumb:hover {
-  background: var(--code-line-number);
+  background: #6b7280;
 }

@@ -326,6 +326,29 @@ code {
   color: var(--text-primary);
 }
 
+.warning-box strong {
+  display: block;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.warning-box ul {
+  margin: 0;
+  padding-left: 1.5rem;
+  list-style-type: disc;
+}
+
+.warning-box li {
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
+  color: var(--text-primary);
+}
+
+.warning-box li:last-child {
+  margin-bottom: 0;
+}
+
 .success-box {
   background: rgba(40, 167, 69, 0.1);
   border: 1px solid rgba(40, 167, 69, 0.3);
@@ -359,10 +382,8 @@ code {
 }
 
 .clone-method {
-  background: var(--bg-primary);
   border: 1px solid var(--border);
   border-radius: 8px;
-  padding: 1rem;
   transition: all 0.2s ease;
 }
 
@@ -391,14 +412,17 @@ code {
 
 /* Links */
 .step-card a {
-  color: var(--primary);
-  text-decoration: none;
-  border-bottom: 1px solid transparent;
-  transition: border-color 0.2s;
+  color: #00d4ff;
+  transition: all 0.2s;
+  font-weight: 500;
+  padding: 0.125rem 0.25rem;
+  border-radius: 4px;
 }
 
 .step-card a:hover {
-  border-bottom-color: var(--primary);
+  border-bottom-color: transparent;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 212, 255, 0.3);
 }
 
 /* Project Structure */
@@ -998,6 +1022,7 @@ code {
   .info-box ul,
   .warning-box ul {
     margin-left: 1rem;
+    padding-left: 1.25rem;
   }
 
   /* Git install tabs - mobile */
