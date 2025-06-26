@@ -1,0 +1,13 @@
+# Robots.txt for KleverConnect Starter
+# Allow all crawlers to access all content
+
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+
+# Sitemap location
+Sitemap: https://kleverconnect-starter.kleverlabs.dev/sitemap.xml
+
+# Crawl-delay (optional, for rate limiting)
+Crawl-delay: 1

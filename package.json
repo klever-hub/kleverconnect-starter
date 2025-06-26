@@ -5,10 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
-    "lint": "eslint .",
+    "build": "pnpm typecheck && vite build",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
     "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,css,md}\"",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,js,jsx,css,md}\"",
     "check": "pnpm typecheck && pnpm lint && pnpm format:check",
@@ -19,6 +19,7 @@
     "@types/react-syntax-highlighter": "^15.5.13",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-helmet-async": "^2.0.5",
     "react-router-dom": "^7.6.2",
     "react-syntax-highlighter": "^15.6.1"
   },
