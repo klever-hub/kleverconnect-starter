@@ -1,9 +1,11 @@
 import React from 'react';
-import { useToast } from '../../hooks/useToast';
-import { getExplorerUrl, type Network } from '../../constants/network';
+import { useToast } from '@/hooks/useToast';
+import type { IProvider } from '@klever/connect-provider';
+import type { TransactionHash } from '@klever/connect-core';
+import { NoTransactionsEmpty } from '@/components/ui/EmptyState';
 
-interface RecentTransaction {
-  hash: string;
+export interface RecentTransaction {
+  hash: TransactionHash;
   type: string;
   timestamp: Date;
   status: 'pending' | 'confirmed' | 'failed';
@@ -11,12 +13,12 @@ interface RecentTransaction {
 
 interface TransactionHistoryProps {
   transactions: RecentTransaction[];
-  network: Network;
+  provider: IProvider;
   onClear: () => void;
 }
 
 export const TransactionHistory = React.memo(
-  ({ transactions, network, onClear }: TransactionHistoryProps) => {
+  ({ transactions, provider, onClear }: TransactionHistoryProps) => {
     const { addToast } = useToast();
 
     const copyTransactionHash = (hash: string) => {
@@ -31,7 +33,7 @@ export const TransactionHistory = React.memo(
     };
 
     if (transactions.length === 0) {
-      return null;
+      return <NoTransactionsEmpty />;
     }
 
     return (
@@ -49,8 +51,8 @@ export const TransactionHistory = React.memo(
         </div>
 
         <div className="transaction-list">
-          {transactions.map((tx) => (
-            <div key={tx.hash} className={`transaction-item status-${tx.status}`}>
+          {transactions.map((tx, index) => (
+            <div key={tx.hash || `tx-${index}`} className={`transaction-item status-${tx.status}`}>
               <div className="transaction-info">
                 <span className="transaction-type">{tx.type}</span>
                 <span className="transaction-time">{tx.timestamp.toLocaleTimeString()}</span>
@@ -75,7 +77,10 @@ export const TransactionHistory = React.memo(
                   {tx.status}
                 </span>
                 <a
-                  href={getExplorerUrl(network, tx.hash)}
+                  href={
+                    provider?.getTransactionUrl(tx.hash) ||
+                    `https://kleverscan.org/transaction/${tx.hash}`
+                  }
                   target="_blank"
                   rel="noopener noreferrer"
                   className="explorer-link"

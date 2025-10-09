@@ -17,12 +17,14 @@ This guide provides comprehensive examples for all types of transactions you can
 First, ensure you have the Klever wallet connected:
 
 ```typescript
-import { useKlever } from './hooks/useKlever';
-import { useTransaction } from './hooks/useTransaction';
+import { useKlever, useTransaction } from '@klever/connect-react';
 
 function MyComponent() {
   const { isConnected, address } = useKlever();
-  const { sendKLV, sendKDA, callSmartContract, queryContract } = useTransaction();
+  const { sendKLV, sendKDA } = useTransaction({
+    onSuccess: (receipt) => console.log('Success:', receipt.hash),
+    onError: (error) => console.error('Error:', error)
+  });
   
   if (!isConnected) {
     return <div>Please connect your wallet</div>;
@@ -37,26 +39,18 @@ function MyComponent() {
 Send native KLV tokens to another address:
 
 ```typescript
-import { useTransaction } from './hooks/useTransaction';
+import { useTransaction } from '@klever/connect-react';
+import { parseUnits } from '@klever/connect-core';
 
 function SendKLVExample() {
-  const { sendKLV, waitForTransaction, isLoading } = useTransaction();
+  const { sendKLV, isLoading } = useTransaction({
+    onSuccess: (receipt) => console.log('Transaction confirmed:', receipt.hash),
+  });
   
   const handleSend = async () => {
     try {
-      // Send 10 KLV to the receiver
-      const result = await sendKLV('klv1...receiver', 10);
-      
-      if (result.success && result.hash) {
-        console.log('Transaction sent:', result.hash);
-        
-        // Wait for confirmation
-        const confirmed = await waitForTransaction(result.hash);
-        
-        if (confirmed) {
-          console.log('Transaction confirmed!');
-        }
-      }
+      // Send 10 KLV to the receiver (amount in smallest units)
+      await sendKLV('klv1...receiver', Number(parseUnits('10')));
     } catch (error) {
       console.error('Failed to send KLV:', error);
     }
@@ -75,24 +69,22 @@ function SendKLVExample() {
 Send Klever Digital Assets (KDA) tokens:
 
 ```typescript
-import { useTransaction } from './hooks/useTransaction';
+import { useTransaction } from '@klever/connect-react';
+import { parseUnits } from '@klever/connect-core';
 
 function SendKDAExample() {
-  const { sendKDA, waitForTransaction } = useTransaction();
+  const { sendKDA } = useTransaction({
+    onSuccess: (receipt) => console.log('KDA transfer completed:', receipt.hash),
+  });
   
   const handleSendKDA = async () => {
     try {
-      // Send 100 tokens of KDA-ABC123
-      const result = await sendKDA(
-        'klv1...receiver',  // Receiver address
-        100,                // Amount
-        'KDA-ABC123'        // KDA ID
+      // Send 100 tokens of KFI (amount in smallest units)
+      await sendKDA(
+        'klv1...receiver',           // Receiver address
+        Number(parseUnits('100')),   // Amount
+        'KFI'                         // KDA ID
       );
-      
-      if (result.success && result.hash) {
-        await waitForTransaction(result.hash);
-        console.log('KDA transfer completed!');
-      }
     } catch (error) {
       console.error('Failed to send KDA:', error);
     }
@@ -107,11 +99,11 @@ function SendKDAExample() {
 Read data from smart contracts without sending a transaction (no fees):
 
 ```typescript
-import { useTransaction } from './hooks/useTransaction';
-import { contractParam } from './utils/contractHelpers';
+import { useKlever } from '@klever/connect-react';
+import { Contract, loadABI } from '@klever/connect-contracts';
 
 function QueryContractExample() {
-  const { queryContract, parseContractResponse } = useTransaction();
+  const { wallet } = useKlever();
   
   const getBalance = async (userAddress: string) => {
     try {
@@ -165,7 +157,7 @@ Execute state-changing functions on smart contracts (requires fees):
 
 ```typescript
 import { useTransaction } from './hooks/useTransaction';
-import { contractParam } from './utils/contractHelpers';
+import { contractParam } from '@/utils/contractHelpers';
 
 function ExecuteContractExample() {
   const { callSmartContract, waitForTransaction } = useTransaction();
@@ -204,7 +196,7 @@ function ExecuteContractExample() {
 The contract parameter helpers ensure proper encoding of different data types:
 
 ```typescript
-import { contractParam } from './utils/contractHelpers';
+import { contractParam } from '@/utils/contractHelpers';
 
 // Address parameter
 const addressParam = contractParam.address('klv1...');
@@ -238,7 +230,7 @@ const base64Data = contractParam.bufferFromBase64('SGVsbG8=');  // "Hello" in ba
 
 ```typescript
 import { useTransaction } from './hooks/useTransaction';
-import { contractParam } from './utils/contractHelpers';
+import { contractParam } from '@/utils/contractHelpers';
 
 function ComplexContractExample() {
   const { callSmartContract, queryContract, parseContractResponse } = useTransaction();
@@ -306,7 +298,7 @@ function ComplexContractExample() {
 
 ```typescript
 import { useTransaction } from './hooks/useTransaction';
-import { contractParam } from './utils/contractHelpers';
+import { contractParam } from '@/utils/contractHelpers';
 
 function BatchOperationsExample() {
   const { callSmartContract, waitForTransaction } = useTransaction();
@@ -440,10 +432,10 @@ function ErrorHandlingExample() {
 The starter kit supports mainnet, testnet, and devnet:
 
 ```typescript
-import { useKlever } from './hooks/useKlever';
+import { useKlever } from '@klever/connect-react';
 
 function NetworkExample() {
-  const { network, switchNetwork } = useKlever();
+  const { currentNetwork } = useKlever();
   
   // Always test on testnet first!
   const CONTRACT_ADDRESSES = {
@@ -452,14 +444,12 @@ function NetworkExample() {
     devnet: 'klv1...devnetContract'
   };
   
-  const contractAddress = CONTRACT_ADDRESSES[network];
-  
+  const contractAddress = CONTRACT_ADDRESSES[currentNetwork];
+
   return (
     <div>
-      <p>Current network: {network}</p>
-      <button onClick={() => switchNetwork('testnet')}>
-        Switch to Testnet
-      </button>
+      <p>Current network: {currentNetwork}</p>
+      <p>Contract: {contractAddress}</p>
     </div>
   );
 }

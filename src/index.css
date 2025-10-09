@@ -1,5 +1,5 @@
 :root {
-  /* Brand colors from Klever Labs logo */
+  /* Brand colors from Klever Hub logo */
   --klever-pink: #ff3b9d;
   --klever-purple: #8b5cf6;
   --klever-gradient: linear-gradient(135deg, var(--klever-pink) 0%, var(--klever-purple) 100%);
@@ -213,17 +213,18 @@ button {
 }
 
 /* Mobile adjustments */
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .theme-toggle {
-    bottom: 1.5rem;
-    right: 1.5rem;
-    width: 3rem;
-    height: 3rem;
+    bottom: 1rem;
+    right: 1rem;
+    width: 2.75rem;
+    height: 2.75rem;
+    z-index: 100;
   }
 
   .theme-toggle svg {
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 1.35rem;
+    height: 1.35rem;
   }
 }
 

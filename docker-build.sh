@@ -11,7 +11,7 @@ NC='\033[0m' # No Color
 echo -e "${BLUE}🐳 Building KleverConnect Starter Docker image...${NC}"
 
 # Build the Docker image
-if docker build -f Dockerfile -t kleverconnect-starter:latest .; then
+if docker build -f docker/Dockerfile -t kleverconnect-starter:latest .; then
     echo -e "${GREEN}✅ Docker image built successfully!${NC}"
 else
     echo -e "${RED}❌ Docker build failed!${NC}"

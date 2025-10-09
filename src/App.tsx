@@ -1,9 +1,9 @@
 import { Routes, Route } from 'react-router-dom';
-import { LandingPage } from './components/LandingPage';
-import { StartBuilding } from './components/StartBuilding';
-import { TransactionTriggers } from './components/TransactionTriggers';
-import { ToastContainer } from './components/ToastContainer';
-import { ScrollToTop } from './components/ScrollToTop';
+import { LandingPage } from './components/pages/LandingPage';
+import { StartBuilding } from './components/pages/StartBuilding';
+import { TransactionTriggers } from './components/pages/TransactionTriggers';
+import { ToastContainer } from './components/ui/ToastContainer';
+import { ScrollToTop } from './components/layout/ScrollToTop';
 
 function App() {
   return (
