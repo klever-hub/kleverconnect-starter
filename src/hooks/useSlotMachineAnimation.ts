@@ -24,7 +24,11 @@ export const useSlotMachineAnimation = (
       animationRef.current = null;
     }
 
-    if (targetValue === null) return;
+    if (targetValue === null) {
+      setDisplayValue(null);
+      previousValueRef.current = null;
+      return;
+    }
 
     // Check if value changed
     if (previousValueRef.current !== null && previousValueRef.current !== targetValue) {

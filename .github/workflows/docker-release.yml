@@ -24,14 +24,15 @@ on:
 jobs:
   docker-build:
     if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
-    uses: klever-labs/workflows/.github/workflows/docker-build.yml@main
+    uses: klever-hub/workflows/.github/workflows/docker-build.yml@main
     with:
       environment: ${{ github.event.inputs.environment || (github.ref == 'refs/heads/main' && 'production' || 'staging') }}
       flavor: javascript
       registry_name: gcr.io
       build_dir: .
       pre_build: false
-      use_default_dockerfiles: true
+      use_default_dockerfiles: false
+      dockerfile: docker/Dockerfile
       download_configs: false
       runs_on: ubuntu-latest
       context_path: .

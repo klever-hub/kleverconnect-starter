@@ -1,6 +1,6 @@
 import { createContext, useState, useCallback, useRef, useEffect } from 'react';
 import type { ReactNode } from 'react';
-import type { Toast, ToastOptions } from '../types/toast';
+import type { Toast, ToastOptions } from '@/types/toast';
 
 export interface ToastContextType {
   toasts: Toast[];

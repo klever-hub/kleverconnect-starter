@@ -34,6 +34,8 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
     // Update document root class
     document.documentElement.classList.remove('light', 'dark');
     document.documentElement.classList.add(theme);
+    // Set data-theme attribute for CSS selectors
+    document.documentElement.setAttribute('data-theme', theme);
     // Save to localStorage
     localStorage.setItem('theme', theme);
   }, [theme]);

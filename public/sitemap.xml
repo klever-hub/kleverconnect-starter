@@ -2,23 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- Homepage -->
   <url>
-    <loc>https://kleverconnect-starter.kleverlabs.dev/</loc>
+    <loc>https://kleverconnect-starter.kleverhub.io/</loc>
     <lastmod>2025-01-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
-  
+
   <!-- Start Building Guide -->
   <url>
-    <loc>https://kleverconnect-starter.kleverlabs.dev/start-building</loc>
+    <loc>https://kleverconnect-starter.kleverhub.io/start-building</loc>
     <lastmod>2025-01-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
-  
+
   <!-- Transaction Playground -->
   <url>
-    <loc>https://kleverconnect-starter.kleverlabs.dev/transactions</loc>
+    <loc>https://kleverconnect-starter.kleverhub.io/transactions</loc>
     <lastmod>2025-01-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>

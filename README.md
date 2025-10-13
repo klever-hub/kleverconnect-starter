@@ -17,8 +17,11 @@ This starter kit empowers developers to rapidly build frontend-only Web3 applica
 ## ✨ Features
 
 ### Current Features
-- **🔗 Custom useKlever Hook** - Simplified wallet connection logic
+- **🔗 @klever/connect-react** - Official Klever Connect SDK integration
 - **🎨 ConnectWallet Component** - Ready-to-use UI for wallet interaction
+- **💸 Transaction Support** - Send KLV/KDA tokens with built-in hooks
+- **📜 Smart Contract Integration** - Query and execute contract methods
+- **🌐 Multi-Network Support** - Mainnet, Testnet, and Devnet
 - **⚡ Vite-powered** - Lightning-fast HMR and optimized builds
 - **📦 Zero Backend** - Pure client-side architecture
 - **🔧 TypeScript Support** - Full type safety out of the box
@@ -74,7 +77,7 @@ This starter kit empowers developers to rapidly build frontend-only Web3 applica
 
 ```bash
 # Clone the repository
-git clone https://github.com/klever-labs/kleverconnect-starter.git
+git clone https://github.com/klever-hub/kleverconnect-starter.git
 cd kleverconnect-starter
 
 # Install dependencies
@@ -158,10 +161,8 @@ src/
 ├── lib/                # Utilities and helpers
 │   ├── klever.ts
 │   └── transactions.ts
-├── types/              # TypeScript definitions
-│   └── klever.d.ts
-└── constants/          # Network configs, addresses
-    └── networks.ts
+└── types/              # TypeScript definitions
+    └── klever.d.ts
 ```
 
 ## 🔧 Available Scripts
@@ -192,7 +193,7 @@ Build and run the application using Docker:
 ./docker-build.sh
 
 # Or use Docker commands directly
-docker build -f Dockerfile -t kleverconnect-starter .
+docker build -f docker/Dockerfile -t kleverconnect-starter .
 docker run -d -p 3000:80 --name kleverconnect-app kleverconnect-starter
 
 # Or use Docker Compose
@@ -214,11 +215,11 @@ The application will be available at http://localhost:3000
 
 ### Basic Wallet Connection
 ```jsx
-import { useKlever } from './hooks/useKlever';
-import ConnectWallet from './components/ConnectWallet';
+import { useKlever } from '@klever/connect-react';
+import { ConnectWallet } from './components/ConnectWallet';
 
 function App() {
-  const { address, isConnected, connect, disconnect } = useKlever();
+  const { address, isConnected } = useKlever();
 
   return (
     <div>
@@ -229,53 +230,65 @@ function App() {
 }
 ```
 
-### With Network Switching (Planned)
+### With Network Information
 ```jsx
+import { useKlever } from '@klever/connect-react';
+
 function App() {
-  const { address, network, switchNetwork } = useKlever();
+  const { address, currentNetwork } = useKlever();
 
   return (
     <div>
       <ConnectWallet />
-      <select onChange={(e) => switchNetwork(e.target.value)}>
-        <option value="mainnet">Mainnet</option>
-        <option value="testnet">Testnet</option>
-        <option value="devnet">Devnet</option>
-      </select>
-      <p>Network: {network}</p>
+      <p>Network: {currentNetwork}</p>
+      <p>Address: {address}</p>
     </div>
   );
 }
 ```
 
-### Sending Transactions (Planned)
+### Sending Transactions
 ```jsx
+import { useTransaction } from '@klever/connect-react';
+import { parseUnits } from '@klever/connect-core';
+
 function SendTokens() {
-  const { sendTransaction } = useKlever();
-  
+  const { sendKLV, isLoading } = useTransaction({
+    onSuccess: (receipt) => {
+      console.log('TX Hash:', receipt.hash);
+    },
+  });
+
   const handleSend = async () => {
-    const tx = await sendTransaction({
-      to: 'klv1...',
-      amount: 100,
-      token: 'KLV'
-    });
-    console.log('TX Hash:', tx.hash);
+    await sendKLV('klv1...receiver', Number(parseUnits('100')));
   };
 
-  return <button onClick={handleSend}>Send KLV</button>;
+  return (
+    <button onClick={handleSend} disabled={isLoading}>
+      {isLoading ? 'Sending...' : 'Send KLV'}
+    </button>
+  );
 }
 ```
 
-## 🔐 Key Components
+## 🔐 Key Hooks
 
 ### useKlever Hook
 
-The `useKlever` hook provides:
+The `useKlever` hook from `@klever/connect-react` provides:
 - `address` - Connected wallet address
 - `isConnected` - Connection status
-- `connect()` - Function to initiate connection
-- `disconnect()` - Function to disconnect wallet
-- `balance` - Wallet balance (optional)
+- `currentNetwork` - Current network (mainnet/testnet/devnet)
+- `wallet` - Wallet instance for advanced operations
+- `provider` - Provider instance for blockchain queries
+
+### useTransaction Hook
+
+The `useTransaction` hook provides transaction utilities:
+- `sendKLV(receiver, amount)` - Send KLV tokens
+- `sendKDA(receiver, amount, assetId)` - Send KDA tokens
+- `isLoading` - Transaction loading state
+- `onSuccess` / `onError` callbacks for transaction handling
 
 ### ConnectWallet Component
 
@@ -375,4 +388,4 @@ With KleverConnect-Starter, developers can create:
 
 ---
 
-Built with ❤️ by the Klever Labs team
+Built with ❤️ by the Klever Hub team

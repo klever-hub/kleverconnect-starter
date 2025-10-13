@@ -4,7 +4,7 @@ services:
   kleverconnect:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: docker/Dockerfile
     image: kleverconnect-starter:latest
     container_name: kleverconnect-app
     ports:
