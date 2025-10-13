@@ -38,10 +38,10 @@ async function getAssetPrecision(assetId: string, apiUrl: string): Promise<numbe
       throw new Error(`Failed to fetch asset info: ${response.statusText}`);
     }
     const data = await response.json();
-    return data.data?.asset?.precision ?? 6; // Default to 6 if not found
+    return data.data?.asset?.precision ?? 0; // Default to 0 if not found
   } catch (error) {
-    console.warn(`Failed to fetch precision for ${assetId}, defaulting to 6:`, error);
-    return 6; // Default precision
+    console.warn(`Failed to fetch precision for ${assetId}, defaulting to 0:`, error);
+    return 0; // Default precision
   }
 }
 
