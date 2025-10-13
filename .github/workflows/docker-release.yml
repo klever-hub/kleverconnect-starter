@@ -32,13 +32,14 @@ jobs:
       build_dir: .
       pre_build: false
       use_default_dockerfiles: false
-      dockerfile: docker/Dockerfile
+      dockerfile_path: docker/Dockerfile
       download_configs: false
       runs_on: ubuntu-latest
       context_path: .
       platforms: linux/amd64,linux/arm64
       cache_from: type=gha
       cache_to: type=gha,mode=max
+      additional_tags: ${{ github.ref == 'refs/heads/main' && 'latest' || '' }}
     secrets:
       registry_user: ${{ github.actor }}
       registry_pass: ${{ secrets.GIT_PASS }}
