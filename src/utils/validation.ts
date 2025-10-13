@@ -70,7 +70,7 @@ export const validateContractAddress = (address: string): ValidationResult => {
 export const validateAmount = (
   amount: string,
   balance?: number,
-  tokenSymbol: string = 'tokens'
+  tokenSymbol: string = 'KLV'
 ): ValidationResult => {
   if (!amount || amount.trim() === '') {
     return { isValid: false, error: 'Amount is required' };
@@ -86,7 +86,10 @@ export const validateAmount = (
     return { isValid: false, error: 'Amount must be greater than zero' };
   }
 
-  if (numAmount < VALIDATION_RULES.MIN_TRANSFER_AMOUNT) {
+  if (
+    (tokenSymbol === 'KLV' || tokenSymbol === 'KFI') &&
+    numAmount < VALIDATION_RULES.MIN_TRANSFER_AMOUNT
+  ) {
     return {
       isValid: false,
       error: `Amount must be at least ${VALIDATION_RULES.MIN_TRANSFER_AMOUNT} ${tokenSymbol}`,
