@@ -24,8 +24,8 @@ importers:
         specifier: ^0.1.0
         version: 0.1.0
       '@klever/connect-react':
-        specifier: ^0.1.0
-        version: 0.1.0(react@19.2.0)
+        specifier: ^0.1.1
+        version: 0.1.1(react@19.2.0)
       '@klever/connect-transactions':
         specifier: ^0.1.0
         version: 0.1.0
@@ -424,8 +424,8 @@ packages:
   '@klever/connect-provider@0.1.0':
     resolution: {integrity: sha512-UaXfQrWujOBqjES5uFuElr3ZxRGQTFbdqs905pRb4E+LPD3Di0lYyYTFZKx6OixB3BqWuB1qyhnsXQqz7lIzIg==}
 
-  '@klever/connect-react@0.1.0':
-    resolution: {integrity: sha512-8PJL7YbghNhh3SsdQMO7R4j6LHR8MXTpAkVegKS1opzi+++RdCdg1/PjIS4nggvz6Nt0pqYJzXnyoiqKMgm03Q==}
+  '@klever/connect-react@0.1.1':
+    resolution: {integrity: sha512-rPC10AmIRMlV3U0+tk539lsIt4bnj3/0KmiJvk45xYoGzXl4a52whHzhllTojrfsBD+DQR96fmxw8R0qssD4sw==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
 
@@ -1758,7 +1758,7 @@ snapshots:
       '@klever/connect-core': 0.1.0
       '@klever/connect-crypto': 0.1.0
 
-  '@klever/connect-react@0.1.0(react@19.2.0)':
+  '@klever/connect-react@0.1.1(react@19.2.0)':
     dependencies:
       '@klever/connect': 0.1.0
       '@klever/connect-contracts': 0.1.0
