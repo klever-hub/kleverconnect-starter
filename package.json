@@ -20,7 +20,7 @@
     "@klever/connect-crypto": "^0.1.0",
     "@klever/connect-encoding": "^0.1.0",
     "@klever/connect-provider": "^0.1.0",
-    "@klever/connect-react": "^0.1.0",
+    "@klever/connect-react": "^0.1.1",
     "@klever/connect-transactions": "^0.1.0",
     "@klever/connect-wallet": "^0.1.0",
     "@types/react-syntax-highlighter": "^15.5.13",

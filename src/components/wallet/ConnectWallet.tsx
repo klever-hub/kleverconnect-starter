@@ -79,6 +79,35 @@ export const ConnectWallet = () => {
     }
   };
 
+  if (searchingExtension) {
+    return (
+      <div className="wallet-connect">
+        <button disabled className="btn-connect">
+          <span className="connecting-spinner"></span>
+          Checking Extension...
+        </button>
+      </div>
+    );
+  }
+
+  if (extensionInstalled === false) {
+    return (
+      <div className="wallet-connect">
+        <button
+          className="btn-connect"
+          onClick={() =>
+            window.open(
+              'https://chromewebstore.google.com/detail/klever-wallet/ifclboecfhkjbpmhgehodcjpciihhmif',
+              '_blank'
+            )
+          }
+        >
+          Install Klever Extension
+        </button>
+      </div>
+    );
+  }
+
   if (isConnected && address) {
     return (
       <>
@@ -134,35 +163,6 @@ export const ConnectWallet = () => {
           />
         )}
       </>
-    );
-  }
-
-  if (searchingExtension) {
-    return (
-      <div className="wallet-connect">
-        <button disabled className="btn-connect">
-          <span className="connecting-spinner"></span>
-          Checking Extension...
-        </button>
-      </div>
-    );
-  }
-
-  if (extensionInstalled === false) {
-    return (
-      <div className="wallet-connect">
-        <button
-          className="btn-connect"
-          onClick={() =>
-            window.open(
-              'https://chromewebstore.google.com/detail/klever-wallet/ifclboecfhkjbpmhgehodcjpciihhmif',
-              '_blank'
-            )
-          }
-        >
-          Install Klever Extension
-        </button>
-      </div>
     );
   }
 
