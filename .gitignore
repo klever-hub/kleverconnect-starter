@@ -23,3 +23,8 @@ dist-ssr
 *.sln
 *.sw?
 .env
+
+# Local development files
+pnpm-workspace.yaml
+package.json.backup
+.npmrc
