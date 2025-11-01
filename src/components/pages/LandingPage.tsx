@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom';
 import { useKlever } from '@klever/connect-react';
-import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { NetworkBadge } from '@/components/wallet/NetworkBadge';
 import { CodeBlock } from '@/components/tutorial/steps/CodeBlock';
 import { SEO } from '@/components/seo/SEO';
@@ -29,7 +28,6 @@ export const LandingPage = () => {
       <BreadcrumbSchema />
       <OrganizationSchema />
       <VideoSchema />
-      <ThemeToggle />
       <NetworkBadge floating />
 
       {/* Hero Section */}

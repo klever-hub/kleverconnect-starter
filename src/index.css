@@ -1,3 +1,33 @@
+/* Tailwind CSS v4 - Import directives */
+@import "tailwindcss";
+
+/* Tailwind v4 Theme Configuration */
+@theme {
+  /* Custom colors */
+  --color-klever-pink: #ff3b9d;
+  --color-klever-purple: #8b5cf6;
+
+  /* Custom background images (gradients) */
+  --background-image-klever-gradient: linear-gradient(135deg, #ff3b9d 0%, #8b5cf6 100%);
+  --background-image-playground-gradient: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%);
+
+  /* Custom animations */
+  --animate-float: float 3s ease-in-out infinite;
+
+  /* Dark mode zinc colors (extend default palette) */
+  --color-zinc-800: #27272a;
+
+  /* Custom keyframes */
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+}
+
 :root {
   /* Brand colors from Klever Hub logo */
   --klever-pink: #ff3b9d;
@@ -21,8 +51,9 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Light theme */
-:root.light {
+/* Light theme (default) */
+:root.light,
+:root.light-1 {
   --bg-primary: #ffffff;
   --bg-primary-rgb: 255, 255, 255;
   --bg-secondary: #f7f7f8;
@@ -39,8 +70,27 @@
   --header-bg: rgba(255, 255, 255, 0.95);
 }
 
-/* Dark theme */
-:root.dark {
+/* Light theme variant 2 - Warm/Cream */
+:root.light-2 {
+  --bg-primary: #fdfcfa;
+  --bg-primary-rgb: 253, 252, 250;
+  --bg-secondary: #f8f7f5;
+  --bg-secondary-rgb: 248, 247, 245;
+  --bg-tertiary: #f0eeea;
+  --text-primary: #1f1f1f;
+  --text-secondary: #5a5a5a;
+  --text-tertiary: #8a8a8a;
+  --border-color: #ebe9e5;
+  --shadow-sm: 0 1px 2px 0 rgb(31 31 31 / 0.04);
+  --shadow-md: 0 4px 6px -1px rgb(31 31 31 / 0.08);
+  --shadow-lg: 0 10px 15px -3px rgb(31 31 31 / 0.1);
+  --card-bg: #ffffff;
+  --header-bg: rgba(253, 252, 250, 0.95);
+}
+
+/* Dark theme (default) */
+:root.dark,
+:root.dark-1 {
   --bg-primary: #0a0a0b;
   --bg-primary-rgb: 10, 10, 11;
   --bg-secondary: #18181b;
@@ -55,6 +105,24 @@
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.5);
   --card-bg: #18181b;
   --header-bg: rgba(10, 10, 11, 0.95);
+}
+
+/* Dark theme variant 2 - Klever Style (inspired by klever.org) */
+:root.dark-2 {
+  --bg-primary: #000000;
+  --bg-primary-rgb: 0, 0, 0;
+  --bg-secondary: #111111;
+  --bg-secondary-rgb: 17, 17, 17;
+  --bg-tertiary: #1f1f1f;
+  --text-primary: #ffffff;
+  --text-secondary: #b3b3b3;
+  --text-tertiary: #808080;
+  --border-color: #222222;
+  --shadow-sm: 0 1px 2px 0 rgb(170 51 181 / 0.1);
+  --shadow-md: 0 4px 6px -1px rgb(170 51 181 / 0.15);
+  --shadow-lg: 0 10px 15px -3px rgb(170 51 181 / 0.25), 0 0 30px rgb(6 147 227 / 0.1);
+  --card-bg: #111111;
+  --header-bg: rgba(0, 0, 0, 0.95);
 }
 
 * {

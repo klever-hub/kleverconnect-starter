@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { NetworkBadge } from '@/components/wallet/NetworkBadge';
 import { SEO } from '@/components/seo/SEO';
 import { StructuredData } from '@/components/seo/StructuredData';
@@ -82,7 +81,6 @@ export const StartBuilding = () => {
       <StructuredData type="howTo" />
       <CourseSchema />
       <BreadcrumbSchema />
-      <ThemeToggle />
       <NetworkBadge floating />
 
       <div className="tutorial-wrapper">

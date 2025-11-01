@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useKlever } from '@klever/connect-react';
 import { NetworkBadge } from '@/components/wallet/NetworkBadge';
-import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { CodeBlock } from '@/components/tutorial/steps/CodeBlock';
 import { SEO } from '@/components/seo/SEO';
 import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema';
@@ -61,7 +60,6 @@ export const TransactionTriggers = () => {
       <NetworkBadge floating />
 
       {/* Theme Toggle - floating at bottom right */}
-      <ThemeToggle />
 
       {/* Connection Warning */}
       {!isConnected && (
