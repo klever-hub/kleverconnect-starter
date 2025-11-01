@@ -68,6 +68,19 @@
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
   --card-bg: #ffffff;
   --header-bg: rgba(255, 255, 255, 0.95);
+
+  /* Code block colors */
+  --code-bg: #f6f8fa;
+  --code-header-bg: #f1f3f4;
+  --code-border: #d1d9e0;
+  --code-filename: #6b7280;
+  --code-badge-bg: #e5e7eb;
+  --code-badge-color: #6b7280;
+  --code-copy-bg: #ffffff;
+  --code-copy-border: #e5e7eb;
+  --code-copy-color: #6b7280;
+  --code-copy-hover-bg: #f3f4f6;
+  --code-copy-hover-color: #111827;
 }
 
 /* Light theme variant 2 - Warm/Cream */
@@ -86,6 +99,19 @@
   --shadow-lg: 0 10px 15px -3px rgb(31 31 31 / 0.1);
   --card-bg: #ffffff;
   --header-bg: rgba(253, 252, 250, 0.95);
+
+  /* Code block colors */
+  --code-bg: #faf8f5;
+  --code-header-bg: #f5f3ee;
+  --code-border: #e3dfd5;
+  --code-filename: #5a5a5a;
+  --code-badge-bg: #ebe9e5;
+  --code-badge-color: #5a5a5a;
+  --code-copy-bg: #ffffff;
+  --code-copy-border: #ebe9e5;
+  --code-copy-color: #5a5a5a;
+  --code-copy-hover-bg: #f5f3ee;
+  --code-copy-hover-color: #1f1f1f;
 }
 
 /* Dark theme (default) */
@@ -105,6 +131,19 @@
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.5);
   --card-bg: #18181b;
   --header-bg: rgba(10, 10, 11, 0.95);
+
+  /* Code block colors */
+  --code-bg: #0d1117;
+  --code-header-bg: #161b22;
+  --code-border: #30363d;
+  --code-filename: #9ca3af;
+  --code-badge-bg: #374151;
+  --code-badge-color: #9ca3af;
+  --code-copy-bg: #374151;
+  --code-copy-border: #4b5563;
+  --code-copy-color: #9ca3af;
+  --code-copy-hover-bg: #4b5563;
+  --code-copy-hover-color: #e5e7eb;
 }
 
 /* Dark theme variant 2 - Klever Style (inspired by klever.org) */
@@ -123,6 +162,19 @@
   --shadow-lg: 0 10px 15px -3px rgb(170 51 181 / 0.25), 0 0 30px rgb(6 147 227 / 0.1);
   --card-bg: #111111;
   --header-bg: rgba(0, 0, 0, 0.95);
+
+  /* Code block colors - with purple/cyan accents */
+  --code-bg: #0a0a0a;
+  --code-header-bg: #121212;
+  --code-border: #222222;
+  --code-filename: #b3b3b3;
+  --code-badge-bg: #1f1f1f;
+  --code-badge-color: #aa33b5;
+  --code-copy-bg: #1f1f1f;
+  --code-copy-border: #333333;
+  --code-copy-color: #b3b3b3;
+  --code-copy-hover-bg: #2a2a2a;
+  --code-copy-hover-color: #ffffff;
 }
 
 * {
@@ -296,11 +348,9 @@ button {
   }
 }
 
-/* Container */
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1rem;
+/* Page container - centered layout using Tailwind utilities */
+.page-container {
+  @apply max-w-[1200px] mx-auto px-4;
 }
 
 /* Gradient text */
