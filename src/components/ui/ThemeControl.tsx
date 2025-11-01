@@ -30,9 +30,9 @@ interface ThemeControlProps {
 
 const themes: { value: Theme; label: string; description: string; icon: string }[] = [
   { value: 'light', label: 'Light', description: 'Clean white', icon: '☀️' },
-  { value: 'light-2', label: 'Warm', description: 'Cream tones', icon: '🌤️' },
-  { value: 'dark', label: 'Dark', description: 'Zinc dark', icon: '🌙' },
-  { value: 'dark-2', label: 'OLED', description: 'True black', icon: '🌑' },
+  { value: 'light-2', label: 'Warm', description: 'Soft cream', icon: '🌤️' },
+  { value: 'dark', label: 'Dark', description: 'Zinc gray', icon: '🌙' },
+  { value: 'dark-2', label: 'Klever', description: 'True black', icon: '✨' },
 ];
 
 const positionClasses: Record<Position, { container: string; panel: string }> = {
