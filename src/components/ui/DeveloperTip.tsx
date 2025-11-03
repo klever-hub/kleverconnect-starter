@@ -34,7 +34,9 @@ export const DeveloperTip = ({
     <div className={`rounded-lg p-4 md:p-3.5 mb-6 border-l-4 ${typeStyles[type]}`}>
       <div className="flex items-center gap-2 md:gap-1.5 mb-2">
         <span className="text-xl md:text-lg shrink-0">{icons[type]}</span>
-        <strong className="flex-1 text-base md:text-sm font-semibold text-[var(--text-primary)]">{title}</strong>
+        <strong className="flex-1 text-base md:text-sm font-semibold text-[var(--text-primary)]">
+          {title}
+        </strong>
         {dismissible && (
           <button
             className="bg-transparent border-0 text-2xl leading-none cursor-pointer text-[var(--text-tertiary)] p-0 w-6 h-6 flex items-center justify-center rounded transition-all duration-200 hover:bg-[rgba(0,0,0,0.1)] hover:text-[var(--text-primary)]"
@@ -45,7 +47,9 @@ export const DeveloperTip = ({
           </button>
         )}
       </div>
-      <div className="text-sm md:text-[0.85rem] leading-relaxed text-[var(--text-secondary)] [&_p]:m-0 [&_strong]:text-[var(--text-primary)] [&_strong]:font-semibold">{children}</div>
+      <div className="text-sm md:text-[0.85rem] leading-relaxed text-[var(--text-secondary)] [&_p]:m-0 [&_strong]:text-[var(--text-primary)] [&_strong]:font-semibold">
+        {children}
+      </div>
     </div>
   );
 };

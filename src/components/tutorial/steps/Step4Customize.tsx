@@ -4,14 +4,17 @@ export const Step4Customize = () => (
   <div className="tutorial-section">
     <div className="section-intro">
       <h2>Customize Your dApp</h2>
-      <p>Understand our architecture and learn how to build your own features using the existing patterns.</p>
+      <p>
+        Understand our architecture and learn how to build your own features using the existing
+        patterns.
+      </p>
     </div>
 
     <div className="step-card">
       <h3>Project Architecture</h3>
       <p>
-        This starter is built with production-ready patterns. Each folder has a specific purpose, making it easy to add
-        new features or customize existing ones.
+        This starter is built with production-ready patterns. Each folder has a specific purpose,
+        making it easy to add new features or customize existing ones.
       </p>
       <CodeBlock
         code={`src/
@@ -55,17 +58,28 @@ export const Step4Customize = () => (
     <div className="step-card">
       <h3>How Our Components Connect</h3>
       <p>
-        Understanding the component hierarchy helps you add new features. Here's how everything works together:
+        Understanding the component hierarchy helps you add new features. Here's how everything
+        works together:
       </p>
 
       <div className="info-box">
         <strong>🔗 Component Flow:</strong>
         <ol>
-          <li><code>main.tsx</code> → Wraps app with ThemeProvider & ToastProvider</li>
-          <li><code>App.tsx</code> → Defines routes (/, /start-building, /transactions)</li>
-          <li><code>RootLayout</code> → Wraps pages with Header & ScrollToTop</li>
-          <li><code>Header</code> → Contains ConnectWallet, Balance, NetworkBadge, ThemeControl</li>
-          <li><strong>Pages</strong> → Use hooks (useKlever, useToast) and contexts (ThemeContext)</li>
+          <li>
+            <code>main.tsx</code> → Wraps app with ThemeProvider & ToastProvider
+          </li>
+          <li>
+            <code>App.tsx</code> → Defines routes (/, /start-building, /transactions)
+          </li>
+          <li>
+            <code>RootLayout</code> → Wraps pages with Header & ScrollToTop
+          </li>
+          <li>
+            <code>Header</code> → Contains ConnectWallet, Balance, NetworkBadge, ThemeControl
+          </li>
+          <li>
+            <strong>Pages</strong> → Use hooks (useKlever, useToast) and contexts (ThemeContext)
+          </li>
         </ol>
       </div>
 
@@ -104,11 +118,12 @@ export const LandingPage = () => {
     <div className="step-card">
       <h3>Make Your First Change</h3>
       <p>
-        Let's customize the landing page hero title. Press <strong>Ctrl+P</strong> (or <strong>Cmd+P</strong> on Mac)
-        to quickly open files in VS Code.
+        Let's customize the landing page hero title. Press <strong>Ctrl+P</strong> (or{' '}
+        <strong>Cmd+P</strong> on Mac) to quickly open files in VS Code.
       </p>
       <p>
-        Edit <code>src/components/pages/LandingPage.tsx</code> - find the <code>hero-title</code> section:
+        Edit <code>src/components/pages/LandingPage.tsx</code> - find the <code>hero-title</code>{' '}
+        section:
       </p>
       <CodeBlock
         code={`<h1 className="hero-title">
@@ -117,25 +132,27 @@ export const LandingPage = () => {
         language="tsx"
       />
       <p>
-        Save (<strong>Ctrl+S</strong> / <strong>Cmd+S</strong>) and watch your browser update instantly thanks to Vite's
-        hot module replacement!
+        Save (<strong>Ctrl+S</strong> / <strong>Cmd+S</strong>) and watch your browser update
+        instantly thanks to Vite's hot module replacement!
       </p>
 
       <div className="success-box">
         <strong>🎨 More customizations to try:</strong>
         <ul>
           <li>
-            <strong>Change colors:</strong> Edit CSS variables in <code>src/index.css</code> (look for{' '}
-            <code>--klever-purple</code>, <code>--klever-cyan</code>)
+            <strong>Change colors:</strong> Edit CSS variables in <code>src/index.css</code> (look
+            for <code>--klever-purple</code>, <code>--klever-cyan</code>)
           </li>
           <li>
             <strong>Update logo:</strong> Modify <code>src/components/layout/Header.tsx</code>
           </li>
           <li>
-            <strong>Switch themes:</strong> Use the theme control in the header (6 variants available)
+            <strong>Switch themes:</strong> Use the theme control in the header (6 variants
+            available)
           </li>
           <li>
-            <strong>Modify button text:</strong> Edit <code>src/components/wallet/ConnectWallet.tsx</code>
+            <strong>Modify button text:</strong> Edit{' '}
+            <code>src/components/wallet/ConnectWallet.tsx</code>
           </li>
         </ul>
       </div>
@@ -143,8 +160,9 @@ export const LandingPage = () => {
       <div className="warning-box">
         <strong>🔧 If something breaks:</strong>
         <p>
-          Don't panic! Press <strong>F12</strong> to open the browser console and check for error messages. Most errors
-          show exactly which file and line has the problem. You can always undo with <strong>Ctrl+Z</strong>.
+          Don't panic! Press <strong>F12</strong> to open the browser console and check for error
+          messages. Most errors show exactly which file and line has the problem. You can always
+          undo with <strong>Ctrl+Z</strong>.
         </p>
       </div>
     </div>
@@ -152,55 +170,66 @@ export const LandingPage = () => {
     <div className="step-card">
       <h3>Essential Files & Concepts</h3>
       <p>
-        These are the most important files and SDK concepts you'll work with when building your dApp. Understanding these helps you build faster.
+        These are the most important files and SDK concepts you'll work with when building your
+        dApp. Understanding these helps you build faster.
       </p>
       <div className="key-files">
         <div className="file-item">
           <code className="file-path">@klever/connect-react</code>
           <p className="file-desc">
-            Official Klever SDK - provides React hooks like <code>useKlever()</code> and <code>useTransaction()</code> for wallet and blockchain interactions. This is your main tool for everything blockchain-related.
+            Official Klever SDK - provides React hooks like <code>useKlever()</code> and{' '}
+            <code>useTransaction()</code> for wallet and blockchain interactions. This is your main
+            tool for everything blockchain-related.
           </p>
         </div>
         <div className="file-item">
           <code className="file-path">src/components/wallet/ConnectWallet.tsx</code>
           <p className="file-desc">
-            Wallet connection UI - the button users click to connect their Klever Wallet. Includes QR code modal, connection states, and error handling. Study this to understand wallet integration patterns.
+            Wallet connection UI - the button users click to connect their Klever Wallet. Includes
+            QR code modal, connection states, and error handling. Study this to understand wallet
+            integration patterns.
           </p>
         </div>
         <div className="file-item">
           <code className="file-path">src/components/pages/*</code>
           <p className="file-desc">
-            Your main page components - each page is a route. Start here when adding new features. Pages use hooks (useKlever, useToast) to interact with wallet and show notifications.
+            Your main page components - each page is a route. Start here when adding new features.
+            Pages use hooks (useKlever, useToast) to interact with wallet and show notifications.
           </p>
         </div>
         <div className="file-item">
           <code className="file-path">src/App.tsx</code>
           <p className="file-desc">
-            Route configuration - add new pages here using React Router. Each route maps a URL to a page component. Use lazy loading for better performance.
+            Route configuration - add new pages here using React Router. Each route maps a URL to a
+            page component. Use lazy loading for better performance.
           </p>
         </div>
         <div className="file-item">
           <code className="file-path">src/components/layout/Header.tsx</code>
           <p className="file-desc">
-            Navigation header - contains ConnectWallet, Balance, NetworkBadge, and theme switcher. Customize branding and navigation links here.
+            Navigation header - contains ConnectWallet, Balance, NetworkBadge, and theme switcher.
+            Customize branding and navigation links here.
           </p>
         </div>
         <div className="file-item">
           <code className="file-path">src/index.css</code>
           <p className="file-desc">
-            Global styles and CSS variables - customize colors, fonts, spacing for all themes here. Use variables like <code>--bg-primary</code> to support theme switching.
+            Global styles and CSS variables - customize colors, fonts, spacing for all themes here.
+            Use variables like <code>--bg-primary</code> to support theme switching.
           </p>
         </div>
         <div className="file-item">
           <code className="file-path">src/contexts/ThemeContext.tsx</code>
           <p className="file-desc">
-            Theme system logic - manages theme state and switching between light/dark variants. Modify if you want to add new theme variants.
+            Theme system logic - manages theme state and switching between light/dark variants.
+            Modify if you want to add new theme variants.
           </p>
         </div>
         <div className="file-item">
           <code className="file-path">src/utils/formatters.ts</code>
           <p className="file-desc">
-            Helper functions - address shortening (<code>formatAddress</code>), balance formatting (<code>formatKLV</code>), and more. Reuse these in your components for consistency.
+            Helper functions - address shortening (<code>formatAddress</code>), balance formatting (
+            <code>formatKLV</code>), and more. Reuse these in your components for consistency.
           </p>
         </div>
       </div>
@@ -209,7 +238,8 @@ export const LandingPage = () => {
     <div className="step-card">
       <h3>Building Your Own Features</h3>
       <p>
-        Let's create a new page following our established patterns. This teaches you how to extend the starter kit with your own ideas.
+        Let's create a new page following our established patterns. This teaches you how to extend
+        the starter kit with your own ideas.
       </p>
 
       <h4>Step 1: Create Your Page Component</h4>
@@ -289,12 +319,24 @@ function App() {
       <div className="success-box">
         <strong>✨ Patterns to Follow:</strong>
         <ul>
-          <li><strong>Always use hooks:</strong> useKlever(), useToast(), useTheme() for consistency</li>
-          <li><strong>Check wallet connection:</strong> Before any blockchain interaction</li>
-          <li><strong>Add SEO:</strong> Every page should have SEO component</li>
-          <li><strong>Use Toast notifications:</strong> For user feedback</li>
-          <li><strong>Lazy load pages:</strong> Import with React.lazy() for better performance</li>
-          <li><strong>CSS co-location:</strong> Each component has its .css file in same folder</li>
+          <li>
+            <strong>Always use hooks:</strong> useKlever(), useToast(), useTheme() for consistency
+          </li>
+          <li>
+            <strong>Check wallet connection:</strong> Before any blockchain interaction
+          </li>
+          <li>
+            <strong>Add SEO:</strong> Every page should have SEO component
+          </li>
+          <li>
+            <strong>Use Toast notifications:</strong> For user feedback
+          </li>
+          <li>
+            <strong>Lazy load pages:</strong> Import with React.lazy() for better performance
+          </li>
+          <li>
+            <strong>CSS co-location:</strong> Each component has its .css file in same folder
+          </li>
         </ul>
       </div>
     </div>
@@ -302,7 +344,8 @@ function App() {
     <div className="step-card">
       <h3>Using Our Theme System</h3>
       <p>
-        The starter includes multiple theme variants (light and dark modes). Your components automatically support all themes by using CSS variables.
+        The starter includes multiple theme variants (light and dark modes). Your components
+        automatically support all themes by using CSS variables.
       </p>
 
       <CodeBlock
@@ -329,10 +372,14 @@ function App() {
       <div className="info-box">
         <strong>💡 Theme Best Practices:</strong>
         <ul>
-          <li>Never use hard-coded colors like <code>#fff</code> or <code>rgb(255,255,255)</code></li>
+          <li>
+            Never use hard-coded colors like <code>#fff</code> or <code>rgb(255,255,255)</code>
+          </li>
           <li>Always use CSS variables so your component works across all theme variants</li>
           <li>Test your component in both light and dark modes</li>
-          <li>Use <code>useTheme()</code> hook if you need theme-aware JavaScript logic</li>
+          <li>
+            Use <code>useTheme()</code> hook if you need theme-aware JavaScript logic
+          </li>
         </ul>
       </div>
     </div>
@@ -340,7 +387,8 @@ function App() {
     <div className="step-card">
       <h3>Working with Klever SDK</h3>
       <p>
-        The SDK provides everything you need for blockchain interactions. Here are the most common patterns:
+        The SDK provides everything you need for blockchain interactions. Here are the most common
+        patterns:
       </p>
 
       <div className="code-example">
@@ -406,18 +454,20 @@ function SendTokens() {
         <strong>💡 Key Concepts:</strong>
         <ul>
           <li>
-            <strong>parseUnits:</strong> Converts human-readable amounts (like "10") to blockchain units. KLV has 6
-            decimals, so "10 KLV" becomes "10000000".
+            <strong>parseUnits:</strong> Converts human-readable amounts (like "10") to blockchain
+            units. KLV has 6 decimals, so "10 KLV" becomes "10000000".
           </li>
           <li>
-            <strong>useTransaction:</strong> Provides hooks for sending tokens and monitoring transaction status.
+            <strong>useTransaction:</strong> Provides hooks for sending tokens and monitoring
+            transaction status.
           </li>
           <li>
-            <strong>Callbacks:</strong> <code>onSuccess</code> and <code>onError</code> handle transaction results.
+            <strong>Callbacks:</strong> <code>onSuccess</code> and <code>onError</code> handle
+            transaction results.
           </li>
           <li>
-            <strong>Loading states:</strong> Always disable buttons with <code>isLoading</code> while transactions are
-            processing to prevent double-sends.
+            <strong>Loading states:</strong> Always disable buttons with <code>isLoading</code>{' '}
+            while transactions are processing to prevent double-sends.
           </li>
         </ul>
       </div>
@@ -429,20 +479,20 @@ function SendTokens() {
         <strong>🎯 What to explore next:</strong>
         <ol>
           <li>
-            <strong>Transaction Playground:</strong> Click "Transaction Playground" in the header to test real token
-            transfers and smart contract interactions.
+            <strong>Transaction Playground:</strong> Click "Transaction Playground" in the header to
+            test real token transfers and smart contract interactions.
           </li>
           <li>
-            <strong>EXAMPLES.md:</strong> Check this file in your project root for comprehensive code examples and
-            patterns.
+            <strong>EXAMPLES.md:</strong> Check this file in your project root for comprehensive
+            code examples and patterns.
           </li>
           <li>
-            <strong>Smart Contracts:</strong> Explore the pre-configured contract examples (Adder, Dice, Factorial) in
-            the Transaction Playground.
+            <strong>Smart Contracts:</strong> Explore the pre-configured contract examples (Adder,
+            Dice, Factorial) in the Transaction Playground.
           </li>
           <li>
-            <strong>Network Switching:</strong> Always test your app on Testnet before deploying to Mainnet. Use the
-            network badge in the header.
+            <strong>Network Switching:</strong> Always test your app on Testnet before deploying to
+            Mainnet. Use the network badge in the header.
           </li>
         </ol>
       </div>

@@ -1,5 +1,5 @@
 /* ConnectWallet Component Styles */
-@import "tailwindcss" reference;
+@import 'tailwindcss' reference;
 
 .btn-connect {
   @apply border-0 px-6 py-3 font-semibold;
@@ -113,4 +113,3 @@
     @apply w-3 h-3;
   }
 }
-

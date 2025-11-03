@@ -77,7 +77,10 @@ export const CodeBlock = ({
           </span>
         </div>
       )}
-      <div className="relative flex overflow-hidden rounded-xl sm:rounded-lg" style={{ backgroundColor: 'var(--code-bg)' }}>
+      <div
+        className="relative flex overflow-hidden rounded-xl sm:rounded-lg"
+        style={{ backgroundColor: 'var(--code-bg)' }}
+      >
         <div className="w-full">
           <SyntaxHighlighter
             language={language}

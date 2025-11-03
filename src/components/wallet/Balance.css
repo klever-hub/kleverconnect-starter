@@ -1,5 +1,5 @@
 /* Balance Component Styles */
-@import "tailwindcss" reference;
+@import 'tailwindcss' reference;
 
 .balance-container {
   @apply inline-flex items-center text-sm pr-3 pl-4 py-2;
@@ -129,4 +129,3 @@
     @apply w-[18px] h-[18px] text-[0.625rem];
   }
 }
-

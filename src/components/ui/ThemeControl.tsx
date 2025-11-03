@@ -54,13 +54,17 @@ const positionClasses: Record<Position, { container: string; panel: string }> = 
   },
 };
 
-export const ThemeControl = ({ position = 'bottom-right', showDiscoveryHint = true }: ThemeControlProps) => {
+export const ThemeControl = ({
+  position = 'bottom-right',
+  showDiscoveryHint = true,
+}: ThemeControlProps) => {
   const { theme, themeMode, toggleTheme, setTheme } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
 
-  const currentTheme = themes.find((t) => t.value === theme || t.value === `${theme}-1`) || themes[0];
+  const currentTheme =
+    themes.find((t) => t.value === theme || t.value === `${theme}-1`) || themes[0];
   const positions = positionClasses[position];
 
   // Show discovery tooltip for new users
@@ -154,14 +158,19 @@ export const ThemeControl = ({ position = 'bottom-right', showDiscoveryHint = tr
       {isMenuOpen && (
         <>
           {/* Backdrop for mobile */}
-          <div className="fixed inset-0 bg-black/20 sm:hidden -z-10" onClick={() => setIsMenuOpen(false)} />
+          <div
+            className="fixed inset-0 bg-black/20 sm:hidden -z-10"
+            onClick={() => setIsMenuOpen(false)}
+          />
 
           {/* Theme Options Panel */}
           <div
             className={`absolute ${positions.panel} bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 rounded-lg shadow-lg overflow-hidden animate-in slide-in-from-bottom-2 duration-200`}
           >
             <div className="p-3 border-b border-gray-200 dark:border-zinc-800">
-              <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-50">Choose Theme</h3>
+              <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-50">
+                Choose Theme
+              </h3>
             </div>
             <div className="p-2 flex flex-col gap-1 min-w-[180px] max-h-[300px] overflow-y-auto">
               {themes.map((themeOption) => {

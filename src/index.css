@@ -1,5 +1,5 @@
 /* Tailwind CSS v4 - Import directives */
-@import "tailwindcss";
+@import 'tailwindcss';
 
 /* Tailwind v4 Theme Configuration */
 @theme {
@@ -27,7 +27,12 @@
   --background-image-klever-gradient: linear-gradient(135deg, #ff3b9d 0%, #8b5cf6 100%);
   --background-image-klever-gradient-cyan: linear-gradient(135deg, #00e5cc 0%, #4da6ff 100%);
   --background-image-klever-gradient-neon: linear-gradient(135deg, #00ffee 0%, #a855f7 100%);
-  --background-image-klever-gradient-rainbow: linear-gradient(135deg, #00e5cc 0%, #a855f7 50%, #ffd700 100%);
+  --background-image-klever-gradient-rainbow: linear-gradient(
+    135deg,
+    #00e5cc 0%,
+    #a855f7 50%,
+    #ffd700 100%
+  );
   --background-image-klever-gradient-dark2: linear-gradient(135deg, #00e5cc 0%, #00b8ff 100%);
   --background-image-playground-gradient: linear-gradient(135deg, #00e5cc 0%, #4da6ff 100%);
 
@@ -39,7 +44,8 @@
 
   /* Custom keyframes */
   @keyframes float {
-    0%, 100% {
+    0%,
+    100% {
       transform: translateY(0);
     }
     50% {
@@ -72,9 +78,22 @@
 
   /* Gradients */
   --klever-gradient-cyan: linear-gradient(135deg, var(--klever-cyan) 0%, var(--klever-blue) 100%);
-  --klever-gradient-neon: linear-gradient(135deg, var(--klever-cyan-bright) 0%, var(--klever-purple-accent) 100%);
-  --klever-gradient-rainbow: linear-gradient(135deg, var(--klever-cyan) 0%, var(--klever-purple-accent) 50%, var(--klever-gold) 100%);
-  --klever-gradient-dark2: linear-gradient(135deg, var(--klever-cyan) 0%, var(--klever-holo-blue) 100%);
+  --klever-gradient-neon: linear-gradient(
+    135deg,
+    var(--klever-cyan-bright) 0%,
+    var(--klever-purple-accent) 100%
+  );
+  --klever-gradient-rainbow: linear-gradient(
+    135deg,
+    var(--klever-cyan) 0%,
+    var(--klever-purple-accent) 50%,
+    var(--klever-gold) 100%
+  );
+  --klever-gradient-dark2: linear-gradient(
+    135deg,
+    var(--klever-cyan) 0%,
+    var(--klever-holo-blue) 100%
+  );
 
   /* Font */
   font-family:
@@ -215,15 +234,18 @@
   /* Neon glow shadows */
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.5), 0 0 8px rgb(0 217 255 / 0.3);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.6), 0 0 15px rgb(0 217 255 / 0.4);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.7), 0 0 30px rgb(0 217 255 / 0.5), 0 0 60px rgb(0 217 255 / 0.2);
+  --shadow-lg:
+    0 10px 15px -3px rgb(0 0 0 / 0.7), 0 0 30px rgb(0 217 255 / 0.5), 0 0 60px rgb(0 217 255 / 0.2);
 
   /* Active state glow - for buttons, badges, and navigation */
   --glow-active: 0 0 15px rgb(0 184 230 / 0.5), 0 0 30px rgb(0 184 230 / 0.25);
   --glow-active-hover: 0 0 20px rgb(0 217 255 / 0.6), 0 0 40px rgb(0 217 255 / 0.3);
 
   /* Pulsing glow animation shadows */
-  --glow-pulse-start: 0 0 15px rgb(0 184 230 / 0.5), 0 0 25px rgb(0 217 255 / 0.3), 0 4px 15px rgb(0 153 204 / 0.4);
-  --glow-pulse-mid: 0 0 20px rgb(0 184 230 / 0.7), 0 0 35px rgb(0 217 255 / 0.5), 0 4px 20px rgb(0 153 204 / 0.5);
+  --glow-pulse-start:
+    0 0 15px rgb(0 184 230 / 0.5), 0 0 25px rgb(0 217 255 / 0.3), 0 4px 15px rgb(0 153 204 / 0.4);
+  --glow-pulse-mid:
+    0 0 20px rgb(0 184 230 / 0.7), 0 0 35px rgb(0 217 255 / 0.5), 0 4px 20px rgb(0 153 204 / 0.5);
 
   /* Card and header backgrounds - pure black */
   --card-bg: #0a0a0a;

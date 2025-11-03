@@ -1,5 +1,5 @@
 /* Form Validation Visual Feedback Styles */
-@import "tailwindcss" reference;
+@import 'tailwindcss' reference;
 
 /* Form group with validation states */
 .form-group {
@@ -102,4 +102,3 @@
     @apply text-base; /* Prevent zoom on iOS */
   }
 }
-

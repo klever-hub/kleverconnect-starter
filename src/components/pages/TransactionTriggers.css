@@ -363,8 +363,7 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  filter: drop-shadow(0 0 20px rgba(0, 217, 255, 0.6))
-    drop-shadow(0 0 40px rgba(0, 184, 230, 0.4))
+  filter: drop-shadow(0 0 20px rgba(0, 217, 255, 0.6)) drop-shadow(0 0 40px rgba(0, 184, 230, 0.4))
     drop-shadow(0 0 60px rgba(0, 153, 204, 0.2));
 }
 

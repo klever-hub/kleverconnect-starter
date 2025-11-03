@@ -29,13 +29,16 @@ export const Button = ({
   ...props
 }: ButtonProps) => {
   // Base styles applied to all buttons
-  const baseStyles = 'font-semibold rounded-lg transition-opacity duration-200 border-none cursor-pointer';
+  const baseStyles =
+    'font-semibold rounded-lg transition-opacity duration-200 border-none cursor-pointer';
 
   // Variant-specific styles
   const variants = {
     primary: 'bg-klever-gradient text-white hover:opacity-90',
-    secondary: 'bg-gray-100 dark:bg-zinc-800 text-gray-900 dark:text-gray-50 hover:bg-gray-200 dark:hover:bg-zinc-700',
-    outline: 'border border-gray-300 dark:border-zinc-700 text-gray-900 dark:text-gray-50 hover:bg-gray-50 dark:hover:bg-zinc-900',
+    secondary:
+      'bg-gray-100 dark:bg-zinc-800 text-gray-900 dark:text-gray-50 hover:bg-gray-200 dark:hover:bg-zinc-700',
+    outline:
+      'border border-gray-300 dark:border-zinc-700 text-gray-900 dark:text-gray-50 hover:bg-gray-50 dark:hover:bg-zinc-900',
   };
 
   // Size-specific styles
@@ -46,10 +49,7 @@ export const Button = ({
   };
 
   return (
-    <button
-      className={`${baseStyles} ${variants[variant]} ${sizes[size]} ${className}`}
-      {...props}
-    >
+    <button className={`${baseStyles} ${variants[variant]} ${sizes[size]} ${className}`} {...props}>
       {children}
     </button>
   );
