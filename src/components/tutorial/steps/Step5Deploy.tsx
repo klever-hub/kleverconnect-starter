@@ -111,9 +111,16 @@ export const Step5Deploy = () => (
 
       <h4>Deploy to Cloud Providers:</h4>
       <div className="cloud-deploy-options">
-        <div className="deploy-option">
+        <div
+          className="deploy-option google-cloud"
+          role="button"
+          tabIndex={0}
+          aria-label="Deploy to Google Cloud Run"
+        >
           <div className="deploy-header">
-            <span className="cloud-icon">☁️</span>
+            <span className="cloud-icon" aria-hidden="true">
+              ☁️
+            </span>
             <h5>Google Cloud Run</h5>
           </div>
           <CodeBlock
@@ -131,9 +138,16 @@ gcloud run deploy kleverconnect-app \\
           />
         </div>
 
-        <div className="deploy-option">
+        <div
+          className="deploy-option aws"
+          role="button"
+          tabIndex={0}
+          aria-label="Deploy to AWS ECS or App Runner"
+        >
           <div className="deploy-header">
-            <span className="cloud-icon">🟠</span>
+            <span className="cloud-icon" aria-hidden="true">
+              🟠
+            </span>
             <h5>AWS ECS / App Runner</h5>
           </div>
           <CodeBlock
@@ -152,9 +166,16 @@ docker push 123456789.dkr.ecr.us-east-1.amazonaws.com/kleverconnect-app:latest
           />
         </div>
 
-        <div className="deploy-option">
+        <div
+          className="deploy-option azure"
+          role="button"
+          tabIndex={0}
+          aria-label="Deploy to Azure Container Instances"
+        >
           <div className="deploy-header">
-            <span className="cloud-icon">🔷</span>
+            <span className="cloud-icon" aria-hidden="true">
+              🔷
+            </span>
             <h5>Azure Container Instances</h5>
           </div>
           <CodeBlock

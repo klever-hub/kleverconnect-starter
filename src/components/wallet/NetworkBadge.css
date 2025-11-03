@@ -1,15 +1,17 @@
 /* Network Badge Styles */
+@import "tailwindcss" reference;
+
+/* ==========================================================================
+   Badge Container & Floating Positioning
+   ========================================================================== */
+
 .network-badge-container {
-  position: relative;
-  display: inline-block;
+  @apply relative inline-block;
 }
 
 /* Floating Network Badge */
 .network-badge-container.floating {
-  position: fixed;
-  bottom: 2rem;
-  left: 2rem;
-  z-index: 50;
+  @apply fixed bottom-8 left-8 z-50;
 }
 
 .network-badge-container.floating .network-badge {
@@ -19,81 +21,45 @@
 }
 
 .network-badge-container.floating .network-badge:hover {
-  transform: translateY(-2px);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  @apply -translate-y-0.5;
 }
 
-/* Mobile adjustments for floating */
-@media (max-width: 768px) {
-  .network-badge-container.floating {
-    bottom: 1rem;
-    left: 1rem;
-    z-index: 100;
-  }
-
-  .network-badge-container.floating .network-badge {
-    width: 2.75rem;
-    height: 2.75rem;
-    padding: 0;
-    justify-content: center;
-  }
-
-  .network-badge-container.floating .network-label {
-    display: none;
-  }
-
-  .network-badge-container.floating .network-chevron {
-    display: none;
-  }
-
-  .network-badge-container.floating .network-dropdown {
-    bottom: calc(100% + 0.5rem);
-    top: auto;
-    left: 0;
-    right: auto;
-    min-width: 140px;
-  }
-}
+/* ==========================================================================
+   Badge Component
+   ========================================================================== */
 
 .network-badge {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1rem;
-  background-color: var(--bg-secondary);
-  border: 1px solid var(--border-color);
-  border-radius: 9999px;
-  font-size: 0.875rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
+  @apply flex items-center gap-2 px-4 py-2;
+  @apply bg-[var(--bg-secondary)] border border-[var(--border-color)];
+  @apply rounded-full text-sm font-medium cursor-pointer;
+  @apply transition-all duration-200 ease-in-out;
 }
 
 .network-badge:hover {
-  background-color: var(--bg-tertiary);
+  @apply bg-[var(--bg-tertiary)];
 }
 
 .network-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  flex-shrink: 0;
+  @apply w-2 h-2 rounded-full shrink-0;
 }
 
 .network-label {
-  color: var(--text-primary);
+  @apply text-[var(--text-primary)];
 }
 
 .network-chevron {
-  transition: transform 0.2s ease;
-  color: var(--text-secondary);
+  @apply text-[var(--text-secondary)] transition-transform duration-200 ease-in-out;
 }
 
 .network-chevron.open {
-  transform: rotate(180deg);
+  @apply rotate-180;
 }
 
-/* Network Colors */
+/* ==========================================================================
+   Network Colors
+   ========================================================================== */
+
 .network-mainnet .network-dot,
 .network-dot.network-mainnet {
   background-color: #10b981; /* Green for mainnet */
@@ -109,29 +75,45 @@
   background-color: #8b5cf6; /* Purple for devnet */
 }
 
-/* Dropdown */
+/* ==========================================================================
+   Dropdown Menu
+   ========================================================================== */
+
 .network-dropdown {
-  position: absolute;
-  top: calc(100% + 0.5rem);
-  right: 0;
-  min-width: 150px;
-  background-color: var(--bg-primary);
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  box-shadow: var(--shadow-lg);
-  overflow: hidden;
-  z-index: 50;
+  @apply absolute top-[calc(100%+0.5rem)] right-0 min-w-[150px];
+  @apply bg-[var(--bg-primary)] border border-[var(--border-color)];
+  @apply rounded-lg shadow-[var(--shadow-lg)] overflow-hidden z-50;
   animation: fadeIn 0.2s ease;
 }
 
 /* Floating dropdown adjustments */
 .network-badge-container.floating .network-dropdown {
-  bottom: calc(100% + 0.5rem);
-  top: auto;
-  left: 0;
-  right: auto;
+  @apply bottom-[calc(100%+0.5rem)] top-auto left-0 right-auto;
   animation: fadeInUp 0.2s ease;
 }
+
+.network-option {
+  @apply flex items-center gap-3 w-full px-4 py-3;
+  @apply bg-transparent border-0 text-sm font-medium;
+  @apply text-[var(--text-primary)] cursor-pointer text-left;
+  @apply transition-colors duration-200;
+}
+
+.network-option:hover {
+  @apply bg-[var(--bg-secondary)];
+}
+
+.network-option.active {
+  @apply bg-[var(--bg-secondary)] text-[var(--klever-purple)] font-semibold;
+}
+
+.network-option:not(:last-child) {
+  @apply border-b border-[var(--border-color)];
+}
+
+/* ==========================================================================
+   Animations (Pure CSS)
+   ========================================================================== */
 
 @keyframes fadeInUp {
   from {
@@ -155,49 +137,44 @@
   }
 }
 
-.network-option {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  width: 100%;
-  padding: 0.75rem 1rem;
-  background: transparent;
-  border: none;
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: var(--text-primary);
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-  text-align: left;
-}
+/* ==========================================================================
+   Responsive Design - Mobile First
+   ========================================================================== */
 
-.network-option:hover {
-  background-color: var(--bg-secondary);
-}
+/* Mobile adjustments for floating */
+@media (max-width: 768px) {
+  .network-badge-container.floating {
+    @apply bottom-4 left-4 z-[100];
+  }
 
-.network-option.active {
-  background-color: var(--bg-secondary);
-  color: var(--klever-purple);
-  font-weight: 600;
-}
+  .network-badge-container.floating .network-badge {
+    @apply w-11 h-11 p-0 justify-center;
+  }
 
-.network-option:not(:last-child) {
-  border-bottom: 1px solid var(--border-color);
+  .network-badge-container.floating .network-label {
+    @apply hidden;
+  }
+
+  .network-badge-container.floating .network-chevron {
+    @apply hidden;
+  }
+
+  .network-badge-container.floating .network-dropdown {
+    @apply bottom-[calc(100%+0.5rem)] top-auto left-0 right-auto min-w-[140px];
+  }
 }
 
 /* Mobile Responsive */
 @media (max-width: 640px) {
   .network-badge {
-    padding: 0.4rem 0.8rem;
-    font-size: 0.8125rem;
+    @apply px-3 py-1.5 text-[0.8125rem];
   }
 
   .network-dropdown {
-    min-width: 120px;
+    @apply min-w-[120px];
   }
 
   .network-option {
-    padding: 0.625rem 0.875rem;
-    font-size: 0.8125rem;
+    @apply px-3.5 py-2.5 text-[0.8125rem];
   }
 }
