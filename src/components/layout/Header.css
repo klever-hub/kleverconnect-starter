@@ -244,12 +244,27 @@
 .nav-link.active {
   background-color: var(--klever-purple);
   color: white;
+  font-weight: 600;
 }
 
 .nav-link.active:hover {
   background-color: var(--klever-purple-hover);
   color: white;
   transform: translateX(4px);
+}
+
+/* Enhanced active state for dark-2 theme */
+:root.dark-2 .nav-link.active {
+  background-color: var(--electric-blue-medium);
+  color: #000000;
+  font-weight: 600;
+  box-shadow: var(--glow-active);
+}
+
+:root.dark-2 .nav-link.active:hover {
+  background-color: var(--electric-blue);
+  color: #000000;
+  box-shadow: var(--glow-active-hover);
 }
 
 /* Desktop specific nav link styles */

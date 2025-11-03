@@ -357,6 +357,17 @@
   display: inline-block;
 }
 
+/* Dark-2 theme electric blue glow for gradient text */
+:root.dark-2 .gradient-text {
+  background: linear-gradient(135deg, var(--electric-blue-medium), var(--electric-blue-bright));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 20px rgba(0, 217, 255, 0.6))
+    drop-shadow(0 0 40px rgba(0, 184, 230, 0.4))
+    drop-shadow(0 0 60px rgba(0, 153, 204, 0.2));
+}
+
 /* ===================================
    5. TAB NAVIGATION
    =================================== */
@@ -707,6 +718,24 @@
   border-radius: 25px;
   box-shadow: 0 4px 15px rgba(236, 72, 153, 0.3);
   animation: badgeGlow 2s ease infinite;
+}
+
+/* Dark-2 theme electric blue badge */
+:root.dark-2 .badge-advanced {
+  background: linear-gradient(135deg, var(--electric-blue-medium), var(--electric-blue));
+  color: #000000;
+  box-shadow: var(--glow-pulse-start);
+  animation: badgeGlowDark2 2s ease infinite;
+}
+
+@keyframes badgeGlowDark2 {
+  0%,
+  100% {
+    box-shadow: var(--glow-pulse-start);
+  }
+  50% {
+    box-shadow: var(--glow-pulse-mid);
+  }
 }
 
 /* ===================================

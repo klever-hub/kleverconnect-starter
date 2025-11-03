@@ -327,12 +327,12 @@ h5 .info-tooltip-container {
 /* Special handling for tooltips in clone-method containers */
 .clone-method .info-tooltip-container,
 .clone-options .info-tooltip-container {
-  z-index: 10000;
+  z-index: 1050;
 }
 
 .clone-method .info-tooltip-content,
 .clone-options .info-tooltip-content {
-  z-index: 100000;
+  z-index: 1200;
 }
 
 /* Ensure clone-method doesn't interfere with tooltip stacking */

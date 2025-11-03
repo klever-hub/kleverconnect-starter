@@ -3,13 +3,33 @@
 
 /* Tailwind v4 Theme Configuration */
 @theme {
-  /* Custom colors */
+  /* Custom colors - Original Klever Hub */
   --color-klever-pink: #ff3b9d;
   --color-klever-purple: #8b5cf6;
 
+  /* Custom colors - Klever.org Brand (teal/cyan glow) */
+  --color-klever-cyan: #00e5cc;
+  --color-klever-cyan-bright: #00ffee;
+  --color-klever-cyan-dark: #00c9b8;
+  --color-klever-teal-glow: #00e5cc;
+  --color-klever-blue: #4da6ff;
+  --color-klever-purple-accent: #a855f7;
+  --color-klever-gold: #ffd700;
+
+  /* Holographic color palette for dark-2 theme */
+  --color-klever-cyan-ultra: #0dffff;
+  --color-klever-holo-blue: #00b8ff;
+  --color-klever-holo-purple: #a855f7;
+  --color-klever-holo-magenta: #e91e8c;
+  --color-klever-holo-orange: #ff8c3a;
+
   /* Custom background images (gradients) */
   --background-image-klever-gradient: linear-gradient(135deg, #ff3b9d 0%, #8b5cf6 100%);
-  --background-image-playground-gradient: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%);
+  --background-image-klever-gradient-cyan: linear-gradient(135deg, #00e5cc 0%, #4da6ff 100%);
+  --background-image-klever-gradient-neon: linear-gradient(135deg, #00ffee 0%, #a855f7 100%);
+  --background-image-klever-gradient-rainbow: linear-gradient(135deg, #00e5cc 0%, #a855f7 50%, #ffd700 100%);
+  --background-image-klever-gradient-dark2: linear-gradient(135deg, #00e5cc 0%, #00b8ff 100%);
+  --background-image-playground-gradient: linear-gradient(135deg, #00e5cc 0%, #4da6ff 100%);
 
   /* Custom animations */
   --animate-float: float 3s ease-in-out infinite;
@@ -29,10 +49,32 @@
 }
 
 :root {
-  /* Brand colors from Klever Hub logo */
+  /* Brand colors - Klever Hub (original pink/purple) */
   --klever-pink: #ff3b9d;
   --klever-purple: #8b5cf6;
   --klever-gradient: linear-gradient(135deg, var(--klever-pink) 0%, var(--klever-purple) 100%);
+
+  /* Brand colors - Klever.org (teal/cyan glow) */
+  --klever-cyan: #00e5cc;
+  --klever-cyan-bright: #00ffee;
+  --klever-cyan-dark: #00c9b8;
+  --klever-teal-glow: #00e5cc;
+  --klever-blue: #4da6ff;
+  --klever-purple-accent: #a855f7;
+  --klever-gold: #ffd700;
+
+  /* Holographic color palette for dark-2 theme */
+  --klever-cyan-ultra: #0dffff;
+  --klever-holo-blue: #00b8ff;
+  --klever-holo-purple: #a855f7;
+  --klever-holo-magenta: #e91e8c;
+  --klever-holo-orange: #ff8c3a;
+
+  /* Gradients */
+  --klever-gradient-cyan: linear-gradient(135deg, var(--klever-cyan) 0%, var(--klever-blue) 100%);
+  --klever-gradient-neon: linear-gradient(135deg, var(--klever-cyan-bright) 0%, var(--klever-purple-accent) 100%);
+  --klever-gradient-rainbow: linear-gradient(135deg, var(--klever-cyan) 0%, var(--klever-purple-accent) 50%, var(--klever-gold) 100%);
+  --klever-gradient-dark2: linear-gradient(135deg, var(--klever-cyan) 0%, var(--klever-holo-blue) 100%);
 
   /* Font */
   font-family:
@@ -146,41 +188,94 @@
   --code-copy-hover-color: #e5e7eb;
 }
 
-/* Dark theme variant 2 - Klever Style (inspired by klever.org) */
+/* Dark theme variant 2 - Electric Blue Neon */
 :root.dark-2 {
+  /* Base backgrounds - Pure black */
   --bg-primary: #000000;
   --bg-primary-rgb: 0, 0, 0;
-  --bg-secondary: #111111;
-  --bg-secondary-rgb: 17, 17, 17;
-  --bg-tertiary: #1f1f1f;
-  --text-primary: #ffffff;
-  --text-secondary: #b3b3b3;
-  --text-tertiary: #808080;
-  --border-color: #222222;
-  --shadow-sm: 0 1px 2px 0 rgb(170 51 181 / 0.1);
-  --shadow-md: 0 4px 6px -1px rgb(170 51 181 / 0.15);
-  --shadow-lg: 0 10px 15px -3px rgb(170 51 181 / 0.25), 0 0 30px rgb(6 147 227 / 0.1);
-  --card-bg: #111111;
-  --header-bg: rgba(0, 0, 0, 0.95);
+  --bg-secondary: #0a0a0a;
+  --bg-secondary-rgb: 10, 10, 10;
+  --bg-tertiary: #121212;
 
-  /* Code block colors - with purple/cyan accents */
-  --code-bg: #0a0a0a;
-  --code-header-bg: #121212;
-  --code-border: #222222;
-  --code-filename: #b3b3b3;
-  --code-badge-bg: #1f1f1f;
-  --code-badge-color: #aa33b5;
-  --code-copy-bg: #1f1f1f;
-  --code-copy-border: #333333;
-  --code-copy-color: #b3b3b3;
-  --code-copy-hover-bg: #2a2a2a;
-  --code-copy-hover-color: #ffffff;
+  /* Text colors - Bright whites with blue tint */
+  --text-primary: #e6f7ff;
+  --text-secondary: #99d6ff;
+  --text-tertiary: #5c9db8;
+
+  /* Borders with electric blue glow */
+  --border-color: #1a3344;
+
+  /* Electric blue palette */
+  --electric-blue: #00d9ff;
+  --electric-blue-bright: #00f0ff;
+  --electric-blue-dark: #0099cc;
+  --electric-cyan: #00e5ff;
+  --electric-blue-medium: #00b8e6;
+
+  /* Neon glow shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.5), 0 0 8px rgb(0 217 255 / 0.3);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.6), 0 0 15px rgb(0 217 255 / 0.4);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.7), 0 0 30px rgb(0 217 255 / 0.5), 0 0 60px rgb(0 217 255 / 0.2);
+
+  /* Active state glow - for buttons, badges, and navigation */
+  --glow-active: 0 0 15px rgb(0 184 230 / 0.5), 0 0 30px rgb(0 184 230 / 0.25);
+  --glow-active-hover: 0 0 20px rgb(0 217 255 / 0.6), 0 0 40px rgb(0 217 255 / 0.3);
+
+  /* Pulsing glow animation shadows */
+  --glow-pulse-start: 0 0 15px rgb(0 184 230 / 0.5), 0 0 25px rgb(0 217 255 / 0.3), 0 4px 15px rgb(0 153 204 / 0.4);
+  --glow-pulse-mid: 0 0 20px rgb(0 184 230 / 0.7), 0 0 35px rgb(0 217 255 / 0.5), 0 4px 20px rgb(0 153 204 / 0.5);
+
+  /* Card and header backgrounds - pure black */
+  --card-bg: #0a0a0a;
+  --header-bg: rgba(0, 0, 0, 0.98);
+
+  /* Darker electric blue gradient */
+  --klever-gradient-dark2: linear-gradient(135deg, #0099cc 0%, #00b8e6 50%, #0099cc 100%);
+
+  /* Override primary accent colors with electric blue */
+  --klever-purple: #00d9ff;
+  --klever-purple-hover: #00f0ff;
+  --klever-gradient: var(--klever-gradient-dark2);
+
+  /* Code block colors - electric blue style */
+  --code-bg: #000000;
+  --code-header-bg: #0a0a0a;
+  --code-border: rgba(0, 217, 255, 0.3);
+  --code-filename: #00f0ff;
+  --code-badge-bg: rgba(0, 217, 255, 0.15);
+  --code-badge-color: #00d9ff;
+  --code-copy-bg: #121212;
+  --code-copy-border: rgba(0, 217, 255, 0.3);
+  --code-copy-color: #99d6ff;
+  --code-copy-hover-bg: rgba(0, 217, 255, 0.2);
+  --code-copy-hover-color: #00f0ff;
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+/* Dark-2 theme button overrides - Darker electric blue with subtle glow */
+:root.dark-2 .btn-primary {
+  background: var(--klever-gradient);
+  color: #000000;
+  border: none;
+  box-shadow:
+    0 0 15px rgb(0 153 204 / 0.4),
+    0 0 30px rgb(0 153 204 / 0.2),
+    inset 0 0 15px rgb(0 184 230 / 0.15);
+}
+
+:root.dark-2 .btn-primary:hover {
+  background: linear-gradient(
+    135deg,
+    var(--electric-blue-medium) 0%,
+    var(--electric-blue) 50%,
+    var(--electric-blue-medium) 100%
+  );
+  color: #000000;
+  box-shadow:
+    0 0 20px rgb(0 153 204 / 0.5),
+    0 0 40px rgb(0 153 204 / 0.3),
+    0 0 60px rgb(0 153 204 / 0.15),
+    inset 0 0 20px rgb(0 184 230 / 0.2);
+  filter: brightness(1.1);
 }
 
 body {

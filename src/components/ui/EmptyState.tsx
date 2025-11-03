@@ -35,7 +35,7 @@ export const EmptyState = ({
   return (
     <div className="flex flex-col items-center justify-center py-12 sm:py-8 px-8 sm:px-4 text-center min-h-[300px] sm:min-h-[250px]">
       <div className="text-6xl sm:text-5xl mb-4 mt-8 sm:mt-2 animate-float">{icon}</div>
-      <h3 className="text-2xl sm:text-xl font-semibold mb-2 text-gray-900 dark:text-gray-50">{title}</h3>
+      <h3 className="text-2xl sm:text-xl font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>{title}</h3>
       <p className="text-base sm:text-sm text-gray-600 dark:text-gray-400 max-w-md mb-6 leading-relaxed">
         {description}
       </p>
@@ -70,7 +70,7 @@ export const NoTransactionsEmpty = ({
         : undefined
     }
   >
-    <div className="mt-4 pt-4 border-t border-gray-200 dark:border-zinc-800 flex flex-col gap-2 text-sm text-gray-400 dark:text-gray-500">
+    <div className="mt-4 pt-4 border-t border-gray-200 dark:border-zinc-800 flex flex-col gap-2 text-sm text-gray-400 dark:text-gray-500 w-full max-w-lg">
       <p className="m-0">💡 First time? Try sending a small amount to test</p>
       <p className="m-0">💡 Use the Faucet to get free testnet KLV</p>
       <p className="m-0">💡 All transactions are saved in your browser</p>
