@@ -81,9 +81,9 @@ export const ConnectWallet = () => {
 
   if (searchingExtension) {
     return (
-      <div className="wallet-connect">
+      <div className="inline-flex flex-col items-center gap-2">
         <button disabled className="btn-connect">
-          <span className="connecting-spinner"></span>
+          <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
           Checking Extension...
         </button>
       </div>
@@ -92,7 +92,7 @@ export const ConnectWallet = () => {
 
   if (extensionInstalled === false) {
     return (
-      <div className="wallet-connect">
+      <div className="inline-flex flex-col items-center gap-2">
         <button
           className="btn-connect"
           onClick={() =>
@@ -167,11 +167,11 @@ export const ConnectWallet = () => {
   }
 
   return (
-    <div className="wallet-connect">
+    <div className="inline-flex flex-col items-center gap-2">
       <button onClick={handleConnect} disabled={isConnecting} className="btn-connect">
         {isConnecting ? (
           <>
-            <span className="connecting-spinner"></span>
+            <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
             Connecting...
           </>
         ) : (

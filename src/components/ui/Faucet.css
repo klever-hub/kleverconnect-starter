@@ -1,147 +1,74 @@
 /* Faucet Button */
+@import 'tailwindcss' reference;
+
+/* ==========================================================================
+   Faucet Button
+   ========================================================================== */
+
 .faucet-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1rem;
+  @apply inline-flex items-center gap-2 px-4 py-2;
+  @apply border rounded-full text-sm font-semibold;
+  @apply cursor-pointer transition-all duration-300 ease-in-out relative overflow-hidden;
   background: linear-gradient(135deg, rgba(0, 255, 221, 0.1) 0%, rgba(112, 0, 255, 0.1) 100%);
-  border: 1px solid rgba(0, 255, 221, 0.3);
-  border-radius: 9999px;
-  font-size: 0.875rem;
-  font-weight: 600;
+  border-color: rgba(0, 255, 221, 0.3);
   color: #00ffdd;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
 }
 
 .faucet-button:hover {
   background: linear-gradient(135deg, rgba(0, 255, 221, 0.2) 0%, rgba(112, 0, 255, 0.2) 100%);
   border-color: rgba(0, 255, 221, 0.5);
-  transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(0, 255, 221, 0.2);
+  @apply -translate-y-px;
 }
 
 .faucet-button:active {
-  transform: translateY(0);
+  @apply translate-y-0;
 }
 
 .faucet-icon {
-  font-size: 1rem;
+  @apply text-base;
   animation: drip 2s ease-in-out infinite;
 }
 
-@keyframes drip {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(2px);
-  }
-}
-
 .faucet-label {
-  letter-spacing: 0.02em;
+  @apply tracking-wide;
 }
 
-/* Faucet Modal */
+/* ==========================================================================
+   Modal Structure
+   ========================================================================== */
+
 .faucet-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
+  @apply fixed top-0 left-0 w-screen h-screen z-[9999] p-4;
+  @apply flex items-center justify-center;
   background: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(4px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-  padding: 1rem;
   animation: fadeIn 0.2s ease-out;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
 .faucet-modal {
-  background: var(--bg-primary);
-  border: 1px solid var(--border-color);
-  border-radius: 16px;
-  max-width: 480px;
-  width: 100%;
-  max-height: 90vh;
+  @apply bg-[var(--bg-primary)] border border-[var(--border-color)] rounded-2xl;
+  @apply max-w-[480px] w-full max-h-[90vh] relative overflow-hidden m-auto;
+  @apply flex flex-col;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
   animation: slideDown 0.3s ease-out;
-  position: relative;
-  overflow: hidden;
-  margin: auto;
-  display: flex;
-  flex-direction: column;
 }
 
 .faucet-modal::before {
+  @apply absolute top-0 left-0 right-0 h-0.5;
   content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
   background: linear-gradient(90deg, #00ffdd, #7000ff, #ff00a0);
   background-size: 200% 100%;
   animation: shimmer 3s linear infinite;
 }
 
-@keyframes shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
-}
-
-@keyframes slideUp {
-  from {
-    transform: translateY(20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-@keyframes slideDown {
-  from {
-    transform: translateY(-20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
 .faucet-header {
-  padding: 1.5rem;
-  border-bottom: 1px solid var(--border-color);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  @apply p-6 border-b border-[var(--border-color)];
+  @apply flex items-center justify-between;
 }
 
 .faucet-header h3 {
-  margin: 0;
-  font-size: 1.5rem;
+  @apply m-0 text-2xl;
   background: linear-gradient(135deg, #00ffdd, #7000ff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -149,81 +76,57 @@
 }
 
 .faucet-close {
-  background: none;
-  border: none;
-  font-size: 2rem;
-  color: var(--text-tertiary);
-  cursor: pointer;
-  padding: 0;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  transition: all 0.2s ease;
+  @apply bg-transparent border-0 cursor-pointer p-0;
+  @apply text-3xl text-[var(--text-tertiary)] w-10 h-10;
+  @apply flex items-center justify-center rounded-full;
+  @apply transition-all duration-200 ease-in-out;
+  line-height: 1; /* Fixes vertical alignment of × character */
 }
 
 .faucet-close:hover {
-  background: var(--bg-secondary);
-  color: var(--text-primary);
-  transform: rotate(90deg);
+  @apply bg-[var(--bg-secondary)] text-[var(--text-primary)] rotate-90;
 }
 
 .faucet-content {
-  padding: 1.5rem;
-  overflow-y: auto;
-  flex: 1;
+  @apply p-6 overflow-y-auto flex-1;
 }
 
 .faucet-description {
-  color: var(--text-secondary);
-  margin-bottom: 1.5rem;
-  text-align: center;
+  @apply text-[var(--text-secondary)] mb-6 text-center;
 }
 
-/* Address Display */
+/* ==========================================================================
+   Address Display
+   ========================================================================== */
+
 .faucet-address {
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
-  padding: 1rem;
-  margin-bottom: 1.5rem;
+  @apply bg-[var(--bg-secondary)] border border-[var(--border-color)];
+  @apply rounded-xl p-4 mb-6;
 }
 
 .faucet-address-label {
-  display: block;
-  font-size: 0.75rem;
-  color: var(--text-tertiary);
-  margin-bottom: 0.5rem;
+  @apply block text-xs text-[var(--text-tertiary)] mb-2;
 }
 
 .faucet-address-value {
-  display: block;
-  font-family: monospace;
-  font-size: 0.875rem;
+  @apply block font-mono text-sm break-all;
   color: #00ffdd;
-  word-break: break-all;
 }
 
-/* Status Display */
+/* ==========================================================================
+   Status Display
+   ========================================================================== */
+
 .faucet-status {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.75rem;
-  padding: 1rem;
-  border-radius: 12px;
-  margin-bottom: 1.5rem;
-  border: 1px solid;
-  transition: all 0.3s ease;
+  @apply flex items-start gap-3 p-4 rounded-xl mb-6 border;
+  @apply transition-all duration-300 ease-in-out;
 }
 
 .faucet-status.checking {
+  @apply justify-center items-center;
   background: rgba(245, 158, 11, 0.1);
   border-color: rgba(245, 158, 11, 0.3);
   color: #f59e0b;
-  justify-content: center;
-  align-items: center;
 }
 
 .faucet-status.available {
@@ -238,129 +141,236 @@
   color: #f59e0b;
 }
 
-.faucet-spinner {
-  animation: spin 1s linear infinite;
-  display: inline-block;
-}
-
 .status-icon {
-  font-size: 1.25rem;
-  flex-shrink: 0;
+  @apply text-xl shrink-0;
 }
 
 .status-text {
-  flex: 1;
+  @apply flex-1;
 }
 
 .status-text p {
-  margin: 0;
-  font-size: 0.875rem;
+  @apply m-0 text-sm;
 }
 
 .status-time {
-  margin-top: 0.25rem !important;
-  font-size: 0.75rem !important;
-  color: var(--text-tertiary) !important;
+  @apply mt-1 text-xs text-[var(--text-tertiary)];
 }
 
-/* Request Button */
+/* ==========================================================================
+   Request Button
+   ========================================================================== */
+
 .faucet-request-btn {
-  width: 100%;
-  padding: 0.75rem 1.5rem;
+  @apply w-full px-6 py-3 border-0 rounded-xl text-base font-semibold;
+  @apply cursor-pointer flex items-center justify-center gap-2 mb-6;
+  @apply transition-all duration-300 ease-in-out relative overflow-hidden;
   background: linear-gradient(135deg, #00ffdd 0%, #7000ff 100%);
-  color: #000;
-  border: none;
-  border-radius: 12px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  transition: all 0.3s ease;
-  margin-bottom: 1.5rem;
-  position: relative;
-  overflow: hidden;
+  color: #ffffff;
 }
 
 .faucet-request-btn:hover:not(:disabled) {
   background: linear-gradient(135deg, #00ffdd 0%, #ff00a0 100%);
-  transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(0, 255, 221, 0.3);
+  @apply -translate-y-0.5;
 }
 
 .faucet-request-btn:active:not(:disabled) {
-  transform: translateY(0);
+  @apply translate-y-0;
 }
 
 .faucet-request-btn:disabled {
-  background: var(--bg-secondary);
-  color: var(--text-tertiary);
-  cursor: not-allowed;
+  @apply bg-[var(--bg-secondary)] text-[var(--text-tertiary)] cursor-not-allowed;
   transform: none;
 }
 
 .faucet-request-btn.success {
+  @apply border;
   background: rgba(16, 185, 129, 0.2);
+  border-color: rgba(16, 185, 129, 0.3);
   color: #10b981;
-  border: 1px solid rgba(16, 185, 129, 0.3);
 }
 
-.btn-spinner {
-  animation: spin 0.8s linear infinite;
-  display: inline-block;
-}
+/* ==========================================================================
+   Info Section
+   ========================================================================== */
 
-/* Info Section */
 .faucet-info {
-  font-size: 0.75rem;
-  color: var(--text-tertiary);
+  @apply text-xs text-[var(--text-tertiary)];
 }
 
 .faucet-info p {
-  margin: 0.25rem 0;
+  @apply my-1;
 }
 
-/* Mobile Responsive */
+/* ==========================================================================
+   Animations (Pure CSS)
+   ========================================================================== */
+
+@keyframes drip {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(2px);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.faucet-spinner,
+.btn-spinner {
+  @apply inline-block;
+  animation: spin 1s linear infinite;
+}
+
+.btn-spinner {
+  animation-duration: 0.8s;
+}
+
+/* ==========================================================================
+   Responsive Design - Mobile First
+   ========================================================================== */
+
 @media (max-width: 640px) {
   .faucet-button {
-    font-size: 0.8125rem;
-    padding: 0.4rem 0.8rem;
+    @apply text-[0.8125rem] px-3 py-1.5;
   }
 
   .faucet-overlay {
-    padding: 1rem;
-    align-items: flex-start;
-    padding-top: 4rem;
+    @apply p-4 items-start pt-16;
   }
 
   .faucet-modal {
-    max-height: calc(100vh - 5rem);
-    width: calc(100% - 2rem);
-    max-width: 480px;
-    margin: 0 auto;
+    @apply max-h-[calc(100vh-5rem)] w-[calc(100%-2rem)] max-w-[480px] m-auto;
   }
 
   .faucet-header {
-    padding: 1rem;
+    @apply p-4;
   }
 
   .faucet-header h3 {
-    font-size: 1.25rem;
+    @apply text-xl;
   }
 
   .faucet-content {
-    padding: 1rem;
+    @apply p-4;
   }
 
   .faucet-request-btn {
-    font-size: 0.875rem;
-    padding: 0.625rem 1.25rem;
+    @apply text-sm px-5 py-2.5;
   }
 }
 
-/* Dark theme adjustments */
+/* ==========================================================================
+   Theme Overrides - Light Themes
+   ========================================================================== */
+
+:root.light .faucet-button,
+:root.light-1 .faucet-button,
+:root.light-2 .faucet-button {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.15) 0%, rgba(112, 0, 255, 0.15) 100%);
+  border-color: rgba(139, 92, 246, 0.4);
+  color: #5b21b6; /* purple-800 for strong contrast */
+}
+
+:root.light .faucet-button:hover,
+:root.light-1 .faucet-button:hover,
+:root.light-2 .faucet-button:hover {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.25) 0%, rgba(112, 0, 255, 0.25) 100%);
+  border-color: rgba(139, 92, 246, 0.6);
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+}
+
+:root.light .faucet-icon,
+:root.light-1 .faucet-icon,
+:root.light-2 .faucet-icon {
+  color: #5b21b6; /* Match button text color */
+}
+
+:root.light .faucet-description,
+:root.light-1 .faucet-description,
+:root.light-2 .faucet-description {
+  color: #1f2937 !important; /* gray-800 for strong contrast */
+}
+
+:root.light .faucet-address-label,
+:root.light-1 .faucet-address-label,
+:root.light-2 .faucet-address-label {
+  color: #374151 !important; /* gray-700 for better readability */
+}
+
+:root.light .faucet-address-value,
+:root.light-1 .faucet-address-value,
+:root.light-2 .faucet-address-value {
+  color: #5b21b6 !important; /* purple-800 for readable address */
+}
+
+:root.light .faucet-info,
+:root.light-1 .faucet-info,
+:root.light-2 .faucet-info {
+  color: #4b5563 !important; /* gray-600 for info text */
+}
+
+:root.light .status-time,
+:root.light-1 .status-time,
+:root.light-2 .status-time {
+  color: #6b7280 !important; /* gray-500 for tertiary text */
+}
+
+:root.light .faucet-close,
+:root.light-1 .faucet-close,
+:root.light-2 .faucet-close {
+  color: #6b7280 !important; /* gray-500 for close button */
+}
+
+:root.light .status-text p,
+:root.light-1 .status-text p,
+:root.light-2 .status-text p {
+  color: inherit !important; /* Ensure status messages use their container color */
+}
+
+/* ==========================================================================
+   Theme Overrides - Dark Theme (Legacy Support)
+   ========================================================================== */
+
 [data-theme='dark'] .faucet-modal {
   background: #0a0a0b;
   border-color: #27272a;

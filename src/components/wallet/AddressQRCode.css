@@ -1,196 +1,125 @@
+/* Address QR Code Styles */
+@import 'tailwindcss' reference;
+
+/* ==========================================================================
+   QR Code Container
+   ========================================================================== */
+
 .address-qr-code {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  padding: 0;
+  @apply flex flex-col items-center gap-3 p-0;
+  @apply rounded-[20px] max-w-[340px] mx-auto;
   background: transparent;
-  border-radius: 20px;
-  max-width: 340px;
-  margin: 0 auto;
 }
 
+/* ==========================================================================
+   QR Frame with Gradient Border
+   ========================================================================== */
+
 .qr-frame {
-  position: relative;
-  padding: 16px;
-  background: #ffffff;
-  border-radius: 20px;
+  @apply relative p-4 bg-white rounded-[20px];
+  @apply border-[3px] border-transparent;
   box-shadow: 0 4px 16px rgba(107, 33, 168, 0.15);
-  border: 3px solid transparent;
   background-clip: padding-box;
-  position: relative;
 }
 
 .qr-frame::before {
+  @apply absolute -top-[3px] -left-[3px] -right-[3px] -bottom-[3px];
+  @apply rounded-[20px] -z-10;
   content: '';
-  position: absolute;
-  top: -3px;
-  left: -3px;
-  right: -3px;
-  bottom: -3px;
   background: linear-gradient(135deg, #6b21a8, #a78bfa);
-  border-radius: 20px;
-  z-index: -1;
 }
 
 .qr-canvas {
-  display: block;
-  border-radius: 8px;
+  @apply block rounded-lg;
   image-rendering: pixelated;
   image-rendering: -moz-crisp-edges;
   image-rendering: crisp-edges;
 }
 
-/* Accent corners - Klever purple */
+/* ==========================================================================
+   Corner Accents
+   ========================================================================== */
+
 .qr-accent-corner {
-  position: absolute;
-  width: 24px;
-  height: 24px;
-  border: 3px solid #6b21a8;
-  border-radius: 4px;
+  @apply absolute w-6 h-6 rounded border-[3px];
+  border-color: #6b21a8;
 }
 
 .qr-corner-tl {
-  top: 8px;
-  left: 8px;
-  border-right: none;
-  border-bottom: none;
+  @apply top-2 left-2 border-r-0 border-b-0;
 }
 
 .qr-corner-tr {
-  top: 8px;
-  right: 8px;
-  border-left: none;
-  border-bottom: none;
+  @apply top-2 right-2 border-l-0 border-b-0;
 }
 
 .qr-corner-bl {
-  bottom: 8px;
-  left: 8px;
-  border-right: none;
-  border-top: none;
+  @apply bottom-2 left-2 border-r-0 border-t-0;
 }
 
 .qr-corner-br {
-  bottom: 8px;
-  right: 8px;
-  border-left: none;
-  border-top: none;
+  @apply bottom-2 right-2 border-l-0 border-t-0;
 }
 
+/* ==========================================================================
+   Address & Payment Information
+   ========================================================================== */
+
 .qr-info {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
+  @apply flex flex-col items-center w-full;
 }
 
 .qr-address {
-  padding: 10px 14px;
-  background: rgba(107, 33, 168, 0.05);
-  border: 1px solid rgba(107, 33, 168, 0.15);
-  border-radius: 10px;
-  width: 100%;
-  text-align: center;
-  box-sizing: border-box;
+  @apply py-2.5 px-3.5 w-full text-center rounded-[10px];
+  @apply border box-border;
+  @apply bg-[var(--bg-secondary)] border-[var(--border-color)];
 }
 
 .qr-address code {
+  @apply font-mono text-[13px] font-semibold;
+  @apply text-[var(--text-primary)];
   font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-  font-size: 13px;
-  font-weight: 600;
-  color: #374151;
   letter-spacing: -0.3px;
 }
 
 .qr-payment-info {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  margin-top: 8px;
-  width: 100%;
+  @apply flex flex-col gap-1 mt-2 w-full;
 }
 
 .qr-payment-details {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 6px 12px;
-  background: rgba(107, 33, 168, 0.05);
-  border-radius: 6px;
-  border: 1px solid rgba(107, 33, 168, 0.1);
+  @apply flex justify-between items-center px-3 py-1.5;
+  @apply rounded-md border;
+  @apply bg-[var(--bg-secondary)] border-[var(--border-color)];
 }
 
 .payment-label {
-  font-size: 11px;
-  font-weight: 600;
-  color: #6b7280;
-  text-transform: uppercase;
-  letter-spacing: 0.3px;
+  @apply text-[11px] font-semibold uppercase tracking-wide;
+  @apply text-[var(--text-tertiary)];
 }
 
 .payment-value {
-  font-size: 13px;
-  font-weight: 600;
-  color: #6b21a8;
+  @apply text-[13px] font-semibold;
+  @apply text-[var(--klever-purple)];
   letter-spacing: -0.2px;
 }
 
 .qr-hint {
-  margin: 5px 0 5px 0;
-  font-size: 11px;
-  color: #9ca3af;
-  font-weight: 500;
-  text-align: center;
+  @apply my-1.5 text-[11px] font-medium text-center;
+  @apply text-[var(--text-tertiary)];
 }
 
-/* Dark mode */
-@media (prefers-color-scheme: dark) {
-  .address-qr-code {
-    background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
-  }
+/* ==========================================================================
+   Responsive Design - Mobile First
+   ========================================================================== */
 
-  .qr-frame {
-    background: #ffffff;
-    border-color: #6b21a8;
-    box-shadow: 0 8px 32px rgba(107, 33, 168, 0.3);
-  }
-
-  .qr-address {
-    background: #111827;
-    border-color: #374151;
-  }
-
-  .qr-address code {
-    color: #e5e7eb;
-  }
-
-  .qr-payment-details {
-    background: rgba(107, 33, 168, 0.1);
-    border-color: rgba(107, 33, 168, 0.2);
-  }
-
-  .payment-label {
-    color: #9ca3af;
-  }
-
-  .payment-value {
-    color: #a78bfa;
-  }
-
-  .qr-hint {
-    color: #d1d5db;
-  }
-}
-
-/* Responsive */
 @media (max-width: 640px) {
   .address-qr-code {
-    padding: 20px;
-    max-width: 100%;
+    @apply p-5 max-w-full;
   }
 
   .qr-frame {
-    padding: 16px;
+    @apply p-4;
   }
 }
+
+/* Theme support is handled automatically via CSS variables */

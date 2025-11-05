@@ -1,38 +1,29 @@
 /* Form Validation Visual Feedback Styles */
+@import 'tailwindcss' reference;
 
 /* Form group with validation states */
 .form-group {
-  position: relative;
-  margin-bottom: 1.5rem;
+  @apply relative mb-6;
 }
 
 .form-group label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-weight: 500;
-  color: var(--text-primary);
+  @apply block mb-2 font-medium text-[var(--text-primary)];
 }
 
 /* Input base styles */
 .form-group input,
 .form-group textarea,
 .form-group select {
-  width: 100%;
-  padding: 0.75rem 2.5rem 0.75rem 0.75rem;
-  font-size: 1rem;
-  border: 2px solid var(--border-color);
-  border-radius: 8px;
-  background-color: var(--bg-secondary);
-  color: var(--text-primary);
-  transition: all 0.2s;
+  @apply w-full pr-10 pl-3 py-3 text-base;
+  @apply border-2 border-[var(--border-color)] rounded-lg;
+  @apply bg-[var(--bg-secondary)] text-[var(--text-primary)];
+  @apply transition-all duration-200;
 }
 
 .form-group input:focus,
 .form-group textarea:focus,
 .form-group select:focus {
-  outline: none;
-  border-color: var(--klever-purple);
-  background-color: var(--bg-primary);
+  @apply outline-none border-[var(--klever-purple)] bg-[var(--bg-primary)];
 }
 
 /* Error state */
@@ -42,14 +33,13 @@
 .form-group input.input-error,
 .form-group textarea.input-error,
 .form-group select.input-error {
-  border-color: #ff4444;
-  background-color: rgba(255, 68, 68, 0.05);
+  @apply border-[#ff4444] bg-[rgba(255,68,68,0.05)];
 }
 
 .form-group.error input:focus,
 .form-group.error textarea:focus,
 .form-group.error select:focus {
-  border-color: #ff4444;
+  @apply border-[#ff4444];
   box-shadow: 0 0 0 3px rgba(255, 68, 68, 0.1);
 }
 
@@ -59,12 +49,7 @@
 
 /* Validation icon container */
 .validation-icon {
-  position: absolute;
-  right: 0.75rem;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 1.25rem;
-  pointer-events: none;
+  @apply absolute right-3 top-1/2 -translate-y-1/2 text-xl pointer-events-none;
 }
 
 .form-group label + .validation-icon {
@@ -73,35 +58,27 @@
 
 /* Error message */
 .error-message {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
-  font-size: 0.875rem;
-  color: #ff4444;
+  @apply flex items-center gap-2 mt-2 text-sm text-[#ff4444];
 }
 
 .error-message::before {
+  @apply text-base;
   content: '⚠️';
-  font-size: 1rem;
 }
 
 /* Validation icons in input */
 .error-icon {
-  color: #ff4444;
-  font-size: 1.25rem;
+  @apply text-[#ff4444] text-xl;
 }
 
 /* Helper text */
 .helper-text {
-  margin-top: 0.5rem;
-  font-size: 0.875rem;
-  color: var(--text-tertiary);
+  @apply mt-2 text-sm text-[var(--text-tertiary)];
 }
 
 /* Loading state */
 .form-group.validating input {
-  border-color: var(--klever-purple);
+  @apply border-[var(--klever-purple)];
 }
 
 .validating-icon {
@@ -122,6 +99,6 @@
   .form-group input,
   .form-group textarea,
   .form-group select {
-    font-size: 1rem; /* Prevent zoom on iOS */
+    @apply text-base; /* Prevent zoom on iOS */
   }
 }

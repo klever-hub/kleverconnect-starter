@@ -1,0 +1,442 @@
+/**
+ * PageLoader Styles
+ * Beautiful, performant loading animation with theme support
+ */
+
+@import 'tailwindcss' reference;
+
+/* ==========================================================================
+   Container & Layout
+   ========================================================================== */
+
+.page-loader {
+  @apply fixed inset-0 flex items-center justify-center;
+  background: var(--bg-primary);
+  z-index: 9999;
+  /* Smooth fade-in on mount */
+  animation: page-loader-fade-in 0.3s ease-out;
+}
+
+.page-loader__container {
+  @apply relative flex flex-col items-center justify-center;
+  width: 200px;
+  height: 200px;
+}
+
+/* ==========================================================================
+   Rotating Rings (Orbital Effect)
+   ========================================================================== */
+
+.page-loader__ring {
+  @apply absolute inset-0;
+  border-radius: 50%;
+  border-style: solid;
+  opacity: 0.8;
+  /* Use transform for GPU acceleration */
+  will-change: transform;
+}
+
+/* Outer ring - Larger, slower rotation */
+.page-loader__ring--outer {
+  width: 100%;
+  height: 100%;
+  border-width: 3px;
+  /* Gradient border effect using conic gradient */
+  background: conic-gradient(
+    from 0deg,
+    transparent 0%,
+    var(--klever-purple, #8b5cf6) 50%,
+    transparent 100%
+  );
+  /* Mask to create ring shape */
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask-composite: xor;
+  padding: 3px;
+  animation: page-loader-spin-slow 1.2s linear infinite;
+}
+
+/* Inner ring - Smaller, faster rotation (opposite direction) */
+.page-loader__ring--inner {
+  width: 70%;
+  height: 70%;
+  top: 15%;
+  left: 15%;
+  border-width: 2px;
+  background: conic-gradient(
+    from 180deg,
+    transparent 0%,
+    var(--klever-cyan, #00e5cc) 50%,
+    transparent 100%
+  );
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask-composite: xor;
+  padding: 2px;
+  animation: page-loader-spin-fast 0.8s linear infinite reverse;
+}
+
+/* Dark-2 theme: Use electric blue colors */
+:root.dark-2 .page-loader__ring--outer {
+  background: conic-gradient(
+    from 0deg,
+    transparent 0%,
+    var(--electric-blue, #00d9ff) 50%,
+    transparent 100%
+  );
+  /* Add glow effect for dark-2 theme */
+  filter: drop-shadow(0 0 8px rgba(0, 217, 255, 0.5));
+}
+
+:root.dark-2 .page-loader__ring--inner {
+  background: conic-gradient(
+    from 180deg,
+    transparent 0%,
+    var(--electric-cyan, #00e5ff) 50%,
+    transparent 100%
+  );
+  filter: drop-shadow(0 0 6px rgba(0, 229, 255, 0.5));
+}
+
+/* ==========================================================================
+   Center Glow (Pulsing Effect)
+   ========================================================================== */
+
+.page-loader__glow {
+  @apply absolute;
+  width: 80px;
+  height: 80px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  /* Gradient glow */
+  background: radial-gradient(
+    circle,
+    rgba(139, 92, 246, 0.3) 0%,
+    rgba(139, 92, 246, 0.1) 50%,
+    transparent 100%
+  );
+  animation: page-loader-pulse 1s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+/* Dark-2 theme: Electric blue glow */
+:root.dark-2 .page-loader__glow {
+  background: radial-gradient(
+    circle,
+    rgba(0, 217, 255, 0.4) 0%,
+    rgba(0, 217, 255, 0.2) 50%,
+    transparent 100%
+  );
+}
+
+/* Light themes: More subtle glow */
+:root.light .page-loader__glow,
+:root.light-1 .page-loader__glow,
+:root.light-2 .page-loader__glow {
+  background: radial-gradient(
+    circle,
+    rgba(139, 92, 246, 0.2) 0%,
+    rgba(139, 92, 246, 0.05) 50%,
+    transparent 100%
+  );
+}
+
+/* ==========================================================================
+   Center Dot (Brand Mark)
+   ========================================================================== */
+
+.page-loader__center {
+  @apply absolute;
+  width: 40px;
+  height: 40px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  @apply flex items-center justify-center;
+}
+
+.page-loader__dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: linear-gradient(
+    135deg,
+    var(--klever-purple, #8b5cf6) 0%,
+    var(--klever-cyan, #00e5cc) 100%
+  );
+  box-shadow:
+    0 0 10px rgba(139, 92, 246, 0.5),
+    0 0 20px rgba(0, 229, 204, 0.3);
+  animation: page-loader-dot-pulse 1s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Dark-2 theme: Electric blue dot */
+:root.dark-2 .page-loader__dot {
+  background: linear-gradient(
+    135deg,
+    var(--electric-blue, #00d9ff) 0%,
+    var(--electric-cyan, #00e5ff) 100%
+  );
+  box-shadow:
+    0 0 12px rgba(0, 217, 255, 0.6),
+    0 0 24px rgba(0, 217, 255, 0.4);
+}
+
+/* ==========================================================================
+   Loading Text
+   ========================================================================== */
+
+.page-loader__text {
+  @apply absolute flex items-center gap-1;
+  top: calc(100% + 24px);
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.125rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.page-loader__text-gradient {
+  /* Gradient text effect */
+  background: linear-gradient(
+    90deg,
+    var(--klever-purple, #8b5cf6) 0%,
+    var(--klever-cyan, #00e5cc) 50%,
+    var(--klever-purple, #8b5cf6) 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: page-loader-text-gradient 1.5s ease-in-out infinite;
+}
+
+/* Dark-2 theme: Electric blue gradient text */
+:root.dark-2 .page-loader__text-gradient {
+  background: linear-gradient(
+    90deg,
+    var(--electric-blue, #00d9ff) 0%,
+    var(--electric-cyan, #00e5ff) 50%,
+    var(--electric-blue, #00d9ff) 100%
+  );
+  background-size: 200% 100%;
+}
+
+/* Light themes: Darker gradient for better contrast */
+:root.light .page-loader__text-gradient,
+:root.light-1 .page-loader__text-gradient,
+:root.light-2 .page-loader__text-gradient {
+  background: linear-gradient(90deg, #7c3aed 0%, #0891b2 50%, #7c3aed 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Animated dots */
+.page-loader__dots {
+  @apply flex gap-0.5;
+  color: var(--text-secondary);
+}
+
+.page-loader__dots span {
+  animation: page-loader-dots 1s ease-in-out infinite;
+  opacity: 0;
+}
+
+.page-loader__dots span:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.page-loader__dots span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.page-loader__dots span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+/* ==========================================================================
+   Accessibility
+   ========================================================================== */
+
+/* Screen reader only text */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ==========================================================================
+   Keyframe Animations
+   ========================================================================== */
+
+/* Page fade-in */
+@keyframes page-loader-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Slow rotation for outer ring */
+@keyframes page-loader-spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Fast rotation for inner ring */
+@keyframes page-loader-spin-fast {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Pulsing glow effect */
+@keyframes page-loader-pulse {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.2);
+    opacity: 0.3;
+  }
+}
+
+/* Center dot pulse */
+@keyframes page-loader-dot-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+/* Text gradient animation */
+@keyframes page-loader-text-gradient {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Animated dots */
+@keyframes page-loader-dots {
+  0%,
+  20% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* ==========================================================================
+   Reduced Motion Support (Accessibility)
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  /* Disable all animations for users who prefer reduced motion */
+  .page-loader,
+  .page-loader__ring,
+  .page-loader__glow,
+  .page-loader__dot,
+  .page-loader__text-gradient,
+  .page-loader__dots span {
+    animation: none !important;
+  }
+
+  /* Show static state */
+  .page-loader__ring {
+    opacity: 0.5;
+  }
+
+  .page-loader__glow {
+    opacity: 0.4;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  .page-loader__dot {
+    transform: scale(1);
+  }
+
+  .page-loader__dots span {
+    opacity: 1;
+  }
+
+  /* Keep text gradient visible but static */
+  .page-loader__text-gradient {
+    background-position: 0% 50%;
+  }
+}
+
+/* ==========================================================================
+   Responsive Design
+   ========================================================================== */
+
+@media (max-width: 640px) {
+  .page-loader__container {
+    width: 160px;
+    height: 160px;
+  }
+
+  .page-loader__glow {
+    width: 60px;
+    height: 60px;
+  }
+
+  .page-loader__center {
+    width: 32px;
+    height: 32px;
+  }
+
+  .page-loader__dot {
+    width: 12px;
+    height: 12px;
+  }
+
+  .page-loader__text {
+    font-size: 1rem;
+    top: calc(100% + 20px);
+  }
+}

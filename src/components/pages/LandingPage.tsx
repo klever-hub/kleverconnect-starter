@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom';
 import { useKlever } from '@klever/connect-react';
-import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { NetworkBadge } from '@/components/wallet/NetworkBadge';
 import { CodeBlock } from '@/components/tutorial/steps/CodeBlock';
 import { SEO } from '@/components/seo/SEO';
@@ -29,12 +28,11 @@ export const LandingPage = () => {
       <BreadcrumbSchema />
       <OrganizationSchema />
       <VideoSchema />
-      <ThemeToggle />
       <NetworkBadge floating />
 
       {/* Hero Section */}
       <section className="hero">
-        <div className="container">
+        <div className="page-container">
           <div className="hero-content">
             <img src={'/kleverhub_logo_transparent.png'} alt="Klever Hub" className="logo-hero" />
             <h1 className="hero-title">
@@ -74,7 +72,7 @@ export const LandingPage = () => {
 
       {/* Features Section */}
       <section id="features" className="features">
-        <div className="container">
+        <div className="page-container">
           <h2 className="text-center mb-8">Why KleverConnect?</h2>
           <div className="features-grid">
             <div className="feature-card">
@@ -142,7 +140,7 @@ export const LandingPage = () => {
 
       {/* Resources Section */}
       <section id="resources" className="resources">
-        <div className="container">
+        <div className="page-container">
           <h2 className="text-center mb-6">Resources & Community</h2>
           <div className="resources-grid">
             <a
@@ -181,7 +179,7 @@ export const LandingPage = () => {
 
       {/* Getting Started Section */}
       <section id="getting-started" className="getting-started">
-        <div className="container">
+        <div className="page-container">
           <h2 className="text-center mb-6">Get Started in Minutes</h2>
           <div className="code-examples">
             <div className="code-example">
@@ -212,7 +210,7 @@ const { address, isConnected } = useKlever();`}
 
       {/* CTA Section */}
       <section className="cta">
-        <div className="container text-center">
+        <div className="page-container text-center">
           <h2 className="mb-4">Ready to Build?</h2>
           <p className="mb-6">
             Join the Klever ecosystem and start building Web3 applications today

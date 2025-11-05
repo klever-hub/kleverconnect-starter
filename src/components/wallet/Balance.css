@@ -1,19 +1,11 @@
 /* Balance Component Styles */
+@import 'tailwindcss' reference;
+
 .balance-container {
-  display: inline-flex;
-  align-items: center;
-  font-size: 0.875rem;
-  padding: 0.5rem 0.75rem 0.5rem 1rem;
-  background-color: var(--bg-secondary);
-  border: 1px solid var(--border-color);
-  border-radius: 9999px;
-  min-height: 36px;
-  min-width: 140px;
-  justify-content: center;
-  gap: 0.25rem;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: visible;
+  @apply inline-flex items-center text-sm pr-3 pl-4 py-2;
+  @apply bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-full;
+  @apply min-h-[36px] min-w-[140px] justify-center gap-1;
+  @apply transition-all duration-300 ease-in-out relative overflow-visible;
 }
 
 .balance-container.animating {
@@ -50,117 +42,90 @@
 }
 
 .balance-value {
-  color: var(--klever-purple);
-  font-weight: 600;
+  @apply text-[var(--klever-purple)] font-semibold tracking-wide;
   font-variant-numeric: tabular-nums;
-  letter-spacing: 0.02em;
 }
 
 .balance-loading {
-  color: var(--text-tertiary);
-  font-style: italic;
+  @apply text-[var(--text-tertiary)] italic;
 }
 
 .balance-empty {
-  color: var(--text-tertiary);
+  @apply text-[var(--text-tertiary)];
 }
 
 .balance-hidden {
-  opacity: 0;
-  pointer-events: none;
+  @apply opacity-0 pointer-events-none;
 }
 
 /* Balance controls */
 .balance-controls {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-  margin-left: 0.25rem;
+  @apply flex items-center gap-1 ml-1;
 }
 
 /* Manual refresh button */
 .manual-refresh-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 20px;
-  height: 20px;
-  padding: 0;
-  background: transparent;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-size: 0.75rem;
-  opacity: 0.6;
+  @apply inline-flex items-center justify-center w-5 h-5 p-0;
+  @apply bg-transparent border-0 rounded-full cursor-pointer;
+  @apply transition-all duration-200 ease-in-out text-xs opacity-60;
 }
 
 .manual-refresh-btn:hover {
-  opacity: 1;
-  background: var(--bg-tertiary);
-  transform: rotate(180deg);
+  @apply opacity-100 bg-[var(--bg-tertiary)] rotate-180;
 }
 
 .manual-refresh-btn:active {
-  transform: rotate(360deg);
+  @apply rotate-[360deg];
 }
 
 .manual-refresh-btn.refreshing {
   animation: spin 0.5s ease-in-out;
 }
 
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 /* Auto-refresh toggle */
 .auto-refresh-toggle {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 20px;
-  height: 20px;
-  padding: 0;
-  background: transparent;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-size: 0.625rem;
-  opacity: 0.6;
+  @apply inline-flex items-center justify-center w-5 h-5 p-0;
+  @apply bg-transparent border-0 rounded-full cursor-pointer;
+  @apply transition-all duration-200 ease-in-out text-[0.625rem] opacity-60;
 }
 
 .auto-refresh-toggle:hover {
-  opacity: 1;
-  background: var(--bg-tertiary);
+  @apply opacity-100 bg-[var(--bg-tertiary)];
 }
 
 .auto-refresh-toggle.active {
-  opacity: 1;
-  color: var(--klever-purple);
+  @apply opacity-100 text-[var(--klever-purple)];
 }
 
 .auto-refresh-toggle.active:hover {
-  background: rgba(139, 92, 246, 0.1);
+  @apply bg-[rgba(139,92,246,0.1)];
 }
 
 /* Mobile Responsive */
 @media (max-width: 640px) {
   .balance-container {
-    font-size: 0.8125rem;
-    padding: 0.4rem 0.6rem 0.4rem 0.8rem;
-    min-width: 110px;
+    @apply text-[0.8125rem] pr-2.5 pl-3 py-1.5 min-w-[110px];
   }
 
   .balance-hidden {
-    display: none;
+    @apply hidden;
   }
 
   .balance-controls {
-    gap: 0.125rem;
-    margin-left: 0.125rem;
+    @apply gap-0.5 ml-0.5;
   }
 
   .manual-refresh-btn,
   .auto-refresh-toggle {
-    width: 18px;
-    height: 18px;
-    font-size: 0.625rem;
+    @apply w-[18px] h-[18px] text-[0.625rem];
   }
 }

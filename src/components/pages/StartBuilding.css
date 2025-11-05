@@ -1,85 +1,58 @@
+@import 'tailwindcss' reference;
+
+/* ==========================================================================
+   START BUILDING PAGE - TUTORIAL LAYOUT
+   ========================================================================== */
+
 .start-building-page {
-  min-height: 100vh;
+  @apply min-h-screen pt-20;
   background: var(--bg-primary);
-  padding-top: 80px;
 }
 
 .tutorial-wrapper {
-  display: flex;
-  max-width: 1400px;
-  margin: 0 auto;
-  gap: 3rem;
-  padding: 2rem;
-  align-items: flex-start;
+  @apply flex max-w-[1400px] mx-auto gap-12 p-8 items-start;
 }
 
-/* Navigation */
+/* ==========================================================================
+   NAVIGATION - SIDEBAR
+   ========================================================================== */
+
 .tutorial-nav {
-  position: sticky;
-  top: 100px;
-  height: fit-content;
-  width: 320px;
-  flex-shrink: 0;
+  @apply sticky top-[100px] h-fit w-80 shrink-0;
 }
 
 .tutorial-nav h1 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-  font-weight: 700;
-  line-height: 1.2;
-  height: 3.5rem;
-  display: flex;
-  align-items: center;
+  @apply text-[2rem] mb-4 font-bold leading-tight h-14 flex items-center;
 }
 
 .nav-steps {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
+  @apply flex flex-col gap-3 rounded-2xl p-6 border;
   background: var(--bg-secondary);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 1.5rem;
+  border-color: var(--border);
 }
 
 .nav-step {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 0.875rem 1rem;
+  @apply flex items-center gap-4 py-3.5 px-4 rounded-[10px] cursor-pointer text-left w-full border border-transparent;
   background: var(--bg-primary);
-  border: 1px solid transparent;
-  border-radius: 10px;
-  cursor: pointer;
   transition: all 0.3s ease;
-  text-align: left;
-  width: 100%;
 }
 
 .nav-step:hover {
-  transform: translateX(4px);
+  @apply translate-x-1;
   background: var(--bg-hover);
   border-color: var(--border);
 }
 
 .nav-step.active {
+  @apply translate-x-0.5;
   background: linear-gradient(135deg, rgba(0, 150, 255, 0.1) 0%, rgba(147, 51, 234, 0.1) 100%);
   border-color: var(--primary);
-  transform: translateX(2px);
 }
 
 .step-number {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
+  @apply w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm shrink-0;
   background: var(--gradient);
   color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 0.875rem;
-  flex-shrink: 0;
 }
 
 .nav-step.active .step-number {
@@ -87,183 +60,142 @@
 }
 
 .step-title {
-  font-size: 0.95rem;
+  @apply text-[0.95rem] font-medium;
   color: var(--text-primary);
-  font-weight: 500;
 }
 
-/* Content Area */
+/* ==========================================================================
+   CONTENT AREA - TUTORIAL SECTIONS
+   ========================================================================== */
+
 .tutorial-content {
-  flex: 1;
-  min-width: 0;
-  max-width: 100%;
+  @apply flex-1 min-w-0 max-w-full;
 }
 
 .tutorial-section {
+  @apply relative;
   animation: fadeIn 0.4s ease;
-  position: relative;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 .section-intro {
-  margin-bottom: 1rem;
-  height: 3.5rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  @apply mb-4 h-14 flex flex-col justify-center;
 }
 
 .section-intro h2 {
-  font-size: 2rem;
-  margin-bottom: 0.25rem;
+  @apply text-[2rem] mb-1 mt-0 leading-tight;
   background: var(--gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  margin-top: 0;
-  line-height: 1.2;
 }
 
 .section-intro p {
-  font-size: 0.95rem;
+  @apply text-[0.95rem] leading-snug mb-0;
   color: var(--text-secondary);
-  line-height: 1.4;
-  margin-bottom: 0;
 }
 
-/* Step Cards Container */
+/* ==========================================================================
+   STEP CARDS
+   ========================================================================== */
+
 .steps-container {
-  position: relative;
+  @apply relative;
 }
 
-/* Step Cards */
 .step-card {
+  @apply rounded-2xl p-8 mb-6 border;
   background: var(--bg-secondary);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 2rem;
-  margin-bottom: 1.5rem;
+  border-color: var(--border);
   transition: all 0.3s ease;
-  /* overflow: hidden; Allow tooltip */
 }
 
 .step-card:hover {
+  @apply -translate-y-0.5;
   border-color: var(--primary-dim);
-  transform: translateY(-2px);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 .step-card h3 {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
+  @apply text-2xl mb-4;
   color: var(--text-primary);
 }
 
 .step-card p,
 .step-card .step-instruction {
+  @apply leading-relaxed mb-4;
   color: var(--text-secondary);
-  line-height: 1.6;
-  margin-bottom: 1rem;
 }
 
 .step-card ol,
 .step-card ul {
-  margin: 1rem 0 1.5rem 1.5rem;
+  @apply my-4 mb-6 ml-6;
   color: var(--text-secondary);
 }
 
 .step-card li {
-  margin-bottom: 0.75rem;
-  line-height: 1.6;
+  @apply mb-3 leading-relaxed;
 }
 
-/* Code Blocks */
+/* ==========================================================================
+   CODE BLOCKS
+   ========================================================================== */
+
 .code-block-wrapper {
-  position: relative;
-  margin: 1rem 0;
+  @apply relative my-4;
 }
 
 /* Hide copy button by default, show on hover */
 .code-block-wrapper .copy-button {
-  opacity: 0;
+  @apply opacity-0;
   transition: opacity 0.2s ease;
 }
 
 .code-block-wrapper:hover .copy-button {
-  opacity: 1;
+  @apply opacity-100;
 }
 
 /* Always show on touch devices */
 @media (hover: none) {
   .code-block-wrapper .copy-button {
-    opacity: 1;
+    @apply opacity-100;
   }
 }
 
 pre {
+  @apply rounded-lg p-5 m-0 overflow-x-auto max-w-full relative border;
   background: var(--bg-primary);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 1.25rem;
-  margin: 0;
-  overflow-x: auto;
+  border-color: var(--border);
   font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
-  max-width: 100%;
   -webkit-overflow-scrolling: touch;
-  position: relative;
 }
 
 pre code {
+  @apply text-sm leading-relaxed block whitespace-pre;
   color: var(--text-primary);
-  font-size: 0.875rem;
-  line-height: 1.6;
-  display: block;
-  white-space: pre;
   word-wrap: normal;
 }
 
 /* Copy button */
 .copy-button {
-  position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
+  @apply absolute top-2 right-2 rounded-md py-1.5 px-2.5 cursor-pointer flex items-center gap-1 text-sm z-[1] border;
   background: var(--bg-secondary);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 0.375rem 0.625rem;
-  cursor: pointer;
-  transition: all 0.2s;
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-  font-size: 0.875rem;
+  border-color: var(--border);
   color: var(--text-secondary);
-  z-index: 1;
+  transition: all 0.2s;
 }
 
 .copy-button:hover {
+  @apply -translate-y-px;
   background: var(--bg-hover);
   border-color: var(--primary-dim);
-  transform: translateY(-1px);
 }
 
 .copy-button:active {
-  transform: translateY(0);
+  @apply translate-y-0;
 }
 
 .copy-icon {
-  font-size: 0.875rem;
-  display: inline-block;
+  @apply text-sm inline-block;
 }
 
 /* Success state */
@@ -273,51 +205,43 @@ pre code {
 
 /* For standalone pre blocks without wrapper */
 .step-card > pre {
-  margin: 1rem 0;
+  @apply my-4;
 }
 
 /* Scroll indicator for code blocks */
 pre::after {
+  @apply absolute right-2 bottom-2 opacity-0 pointer-events-none;
   content: '→';
-  position: absolute;
-  right: 0.5rem;
-  bottom: 0.5rem;
   color: var(--text-secondary);
-  opacity: 0;
   transition: opacity 0.2s;
-  pointer-events: none;
 }
 
 pre:hover::after {
-  opacity: 0.5;
+  @apply opacity-50;
 }
 
 @media (max-width: 768px) {
   pre.scrollable::after {
-    opacity: 0.5;
+    @apply opacity-50;
   }
 }
 
 code {
+  @apply py-0.5 px-1.5 rounded font-mono;
   background: var(--bg-primary);
-  padding: 0.125rem 0.375rem;
-  border-radius: 4px;
-  font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
   font-size: 0.875em;
   color: var(--primary);
+  font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
 }
 
-/* Removed conflicting .code-block styles - now handled by CodeBlock component */
+/* ==========================================================================
+   BOXES - WARNING, SUCCESS, INFO
+   ========================================================================== */
 
-/* Boxes */
 .warning-box,
 .success-box,
 .info-box {
-  padding: 1.25rem;
-  border-radius: 12px;
-  margin: 1.5rem 0;
-  font-size: 0.95rem;
-  line-height: 1.6;
+  @apply py-5 px-5 rounded-xl my-6 text-[0.95rem] leading-relaxed;
 }
 
 .warning-box {
@@ -327,26 +251,21 @@ code {
 }
 
 .warning-box strong {
-  display: block;
-  margin-bottom: 0.75rem;
-  font-weight: 600;
+  @apply block mb-3 font-semibold;
   color: var(--text-primary);
 }
 
 .warning-box ul {
-  margin: 0;
-  padding-left: 1.5rem;
-  list-style-type: disc;
+  @apply m-0 pl-6 list-disc;
 }
 
 .warning-box li {
-  margin-bottom: 0.5rem;
-  line-height: 1.5;
+  @apply mb-2 leading-normal;
   color: var(--text-primary);
 }
 
 .warning-box li:last-child {
-  margin-bottom: 0;
+  @apply mb-0;
 }
 
 .success-box {
@@ -362,28 +281,28 @@ code {
 }
 
 .info-box p {
-  margin: 0.5rem 0;
+  @apply my-2;
 }
 
 .info-box ul {
-  margin: 0.5rem 0 0 1.5rem;
+  @apply mt-2 mb-0 ml-6;
 }
 
 .info-box li {
-  margin: 0.25rem 0;
+  @apply my-1;
 }
 
-/* Clone Options */
+/* ==========================================================================
+   CLONE OPTIONS
+   ========================================================================== */
+
 .clone-options {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  margin: 1rem 0;
+  @apply flex flex-col gap-4 my-4;
 }
 
 .clone-method {
+  @apply rounded-lg;
   border: 1px solid var(--border);
-  border-radius: 8px;
   transition: all 0.2s ease;
 }
 
@@ -393,223 +312,108 @@ code {
 }
 
 .clone-method h4 {
-  font-size: 0.9rem;
-  font-weight: 600;
+  @apply text-[0.9rem] font-semibold m-0 mb-2;
   color: var(--text-primary);
-  margin: 0 0 0.5rem 0;
 }
 
 .clone-method p {
-  margin: 0;
-  font-size: 0.875rem;
+  @apply m-0 text-sm;
   color: var(--text-secondary);
 }
 
 .clone-method pre {
-  margin: 0.5rem 0 0 0;
-  font-size: 0.8rem;
+  @apply mt-2 mb-0 text-[0.8rem];
 }
 
-/* Links */
+/* ==========================================================================
+   LINKS
+   ========================================================================== */
+
 .step-card a {
+  @apply font-medium py-0.5 px-1 rounded;
   color: #00d4ff;
   transition: all 0.2s;
-  font-weight: 500;
-  padding: 0.125rem 0.25rem;
-  border-radius: 4px;
 }
 
 .step-card a:hover {
+  @apply -translate-y-px;
   border-bottom-color: transparent;
-  transform: translateY(-1px);
   box-shadow: 0 2px 8px rgba(0, 212, 255, 0.3);
 }
 
-/* Project Structure */
+/* ==========================================================================
+   PROJECT STRUCTURE
+   ========================================================================== */
+
 .project-structure pre {
+  @apply rounded-lg p-6 m-0 overflow-x-auto text-sm leading-relaxed border;
   background: var(--bg-primary);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 1.5rem;
-  margin: 0;
-  overflow-x: auto;
+  border-color: var(--border);
   font-family: 'SF Mono', 'Monaco', 'Cascadia Code', 'Roboto Mono', monospace;
-  font-size: 0.875rem;
-  line-height: 1.6;
 }
 
 .project-structure code {
+  @apply p-0 bg-transparent;
   color: var(--text-primary);
-  background: none;
-  padding: 0;
   font-size: inherit;
 }
 
-/* Key Files */
+/* ==========================================================================
+   KEY FILES
+   ========================================================================== */
+
 .key-files {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  margin-top: 1rem;
+  @apply flex flex-col gap-4 mt-4;
 }
 
 .file-item {
+  @apply rounded-lg p-4 border;
   background: var(--bg-primary);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 1rem;
+  border-color: var(--border);
   transition: all 0.2s ease;
 }
 
 .file-item:hover {
+  @apply -translate-y-px;
   border-color: var(--primary-dim);
-  transform: translateY(-1px);
 }
 
 .file-path {
-  display: block;
+  @apply block text-[0.9rem] mb-2 p-0 font-semibold;
   font-family: 'SF Mono', 'Monaco', 'Cascadia Code', 'Roboto Mono', monospace;
-  font-size: 0.9rem;
   color: var(--primary);
   background: none;
-  padding: 0;
-  margin-bottom: 0.5rem;
-  font-weight: 600;
 }
 
 .file-desc {
-  font-size: 0.875rem;
+  @apply text-sm leading-normal m-0;
   color: var(--text-secondary);
-  line-height: 1.5;
-  margin: 0;
 }
 
-/* Tabs */
+/* ==========================================================================
+   TABS - GIT INSTALL
+   ========================================================================== */
+
 .tabs {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  margin-top: 1rem;
+  @apply flex flex-col gap-6 mt-4;
 }
 
-/* Cloud Deploy Options */
-.cloud-deploy-options {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  margin-top: 1rem;
-}
-
-.deploy-option {
-  background: var(--bg-primary);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  overflow: hidden;
-  transition: all 0.2s ease;
-}
-
-.deploy-option:hover {
-  border-color: var(--primary-dim);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-}
-
-.deploy-header {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 1rem 1.25rem;
-  background: var(--bg-secondary);
-  border-bottom: 1px solid var(--border);
-}
-
-.cloud-icon {
-  font-size: 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.deploy-header h5 {
-  margin: 0;
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
-.deploy-option .code-block-wrapper {
-  margin: 0;
-  border: none;
-  border-radius: 0;
-  box-shadow: none;
-}
-
-.deploy-option .code-block-wrapper:hover {
-  box-shadow: none;
-}
-
-.tab-content {
-  background: var(--bg-primary);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-.tab-content h5 {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin: 0;
-  padding: 0.75rem 1rem;
-  background: var(--bg-secondary);
-  border-bottom: 1px solid var(--border);
-}
-
-.tab-content pre {
-  margin: 0;
-  padding: 1rem;
-  background: transparent;
-  border: none;
-  font-size: 0.8rem;
-}
-
-.tab-content pre code {
-  color: var(--text-primary);
-  line-height: 1.5;
-}
-
-/* Git install tabs */
 .git-install-tabs {
-  display: flex;
-  gap: 0;
-  margin-top: 1.5rem;
+  @apply flex gap-0 mt-6 rounded-xl overflow-hidden;
   background: var(--bg-secondary);
-  border-radius: 12px;
-  overflow: hidden;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .git-tab-nav {
-  display: flex;
-  flex-direction: column;
+  @apply flex flex-col min-w-[140px] p-2 gap-1;
   background: rgba(0, 0, 0, 0.03);
-  min-width: 140px;
-  padding: 0.5rem;
-  gap: 0.25rem;
 }
 
 .git-tab-button {
-  padding: 0.875rem 1.25rem;
+  @apply py-3.5 px-5 rounded-lg border-none text-[0.9rem] font-medium cursor-pointer text-left relative;
   background: transparent;
-  border: none;
-  border-radius: 8px;
   color: var(--text-secondary);
-  font-size: 0.9rem;
-  font-weight: 500;
-  cursor: pointer;
   transition: all 0.2s ease;
-  text-align: left;
-  position: relative;
 }
 
 .git-tab-button:hover:not(.active) {
@@ -618,28 +422,20 @@ code {
 }
 
 .git-tab-button.active {
+  @apply font-semibold;
   background: var(--bg-primary);
   color: var(--primary);
-  font-weight: 600;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .git-tab-button.active::before {
+  @apply absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-[60%] rounded-r;
   content: '';
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 3px;
-  height: 60%;
   background: var(--primary);
-  border-radius: 0 2px 2px 0;
 }
 
 .git-tab-panels {
-  flex: 1;
-  padding: 2rem;
-  min-height: 180px;
+  @apply flex-1 p-8 min-h-[180px];
   background: var(--bg-primary);
 }
 
@@ -648,109 +444,258 @@ code {
 }
 
 .git-tab-panel p {
-  margin-bottom: 1rem;
+  @apply mb-4 leading-relaxed;
   color: var(--text-primary);
-  line-height: 1.6;
 }
 
 .git-tab-panel p:first-child {
-  margin-top: 0;
+  @apply mt-0;
 }
 
 .git-tab-panel .code-block {
-  margin-top: 0.5rem;
+  @apply mt-2;
 }
 
-/* Dark mode adjustments for git tabs */
-[data-theme='dark'] .git-install-tabs {
-  background: rgba(255, 255, 255, 0.02);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+/* ==========================================================================
+   CLOUD DEPLOY OPTIONS - Enhanced Selection-Focused Design
+   ========================================================================== */
+
+.cloud-deploy-options {
+  @apply flex flex-col gap-6 mt-4;
 }
 
-[data-theme='dark'] .git-tab-nav {
-  background: rgba(0, 0, 0, 0.2);
+.deploy-option {
+  @apply rounded-xl overflow-hidden relative cursor-pointer;
+  border: 2px solid var(--border);
+  background: var(--bg-primary);
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform-origin: center;
+  position: relative;
 }
 
-[data-theme='dark'] .git-tab-button:hover:not(.active) {
-  background: rgba(255, 255, 255, 0.05);
+.deploy-option::before {
+  @apply absolute inset-0 opacity-0 pointer-events-none;
+  content: '';
+  background: radial-gradient(
+    circle at top left,
+    rgba(var(--provider-accent-rgb), 0.06) 0%,
+    transparent 70%
+  );
+  transition: opacity 0.35s ease;
 }
 
-[data-theme='dark'] .git-tab-button.active {
-  background: rgba(255, 255, 255, 0.05);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+.deploy-option::after {
+  @apply absolute inset-0 opacity-0 pointer-events-none rounded-xl;
+  content: '';
+  border: 2px solid rgba(var(--provider-accent-rgb), 0.3);
+  transition: opacity 0.35s ease;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateX(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+.deploy-option:hover {
+  transform: translateY(-6px) scale(1.015);
+  box-shadow:
+    0 16px 40px rgba(0, 0, 0, 0.12),
+    0 0 0 1px rgba(var(--provider-accent-rgb), 0.1);
+  border-color: rgba(var(--provider-accent-rgb), 0.3);
 }
 
-/* Navigation */
+.deploy-option:hover::before {
+  @apply opacity-100;
+}
+
+.deploy-option:hover::after {
+  @apply opacity-100;
+}
+
+.deploy-option:focus-visible {
+  @apply outline-none;
+  transform: translateY(-6px) scale(1.015);
+  border-color: var(--klever-purple);
+  box-shadow:
+    0 16px 40px rgba(0, 0, 0, 0.12),
+    0 0 0 4px rgba(139, 92, 246, 0.15);
+}
+
+.deploy-option:active {
+  transform: translateY(-3px) scale(1.005);
+  transition: all 0.15s ease;
+}
+
+/* Provider-specific accent colors */
+.deploy-option.google-cloud {
+  --provider-accent: #4285f4;
+  --provider-accent-rgb: 66, 133, 244;
+}
+
+.deploy-option.aws {
+  --provider-accent: #ff9900;
+  --provider-accent-rgb: 255, 153, 0;
+}
+
+.deploy-option.azure {
+  --provider-accent: #0078d4;
+  --provider-accent-rgb: 0, 120, 212;
+}
+
+.deploy-option:hover {
+  border-color: rgba(var(--provider-accent-rgb), 0.4);
+}
+
+.deploy-option:hover::before {
+  background: radial-gradient(
+    circle at top left,
+    rgba(var(--provider-accent-rgb), 0.05) 0%,
+    transparent 70%
+  );
+}
+
+.deploy-header {
+  @apply flex items-center gap-3 py-4 px-5 border-b relative;
+  background: linear-gradient(
+    135deg,
+    rgba(139, 92, 246, 0.04) 0%,
+    rgba(59, 130, 246, 0.03) 50%,
+    transparent 100%
+  );
+  border-color: var(--border);
+  transition: all 0.35s ease;
+}
+
+.deploy-option:hover .deploy-header {
+  background: linear-gradient(
+    135deg,
+    rgba(var(--provider-accent-rgb), 0.08) 0%,
+    rgba(var(--provider-accent-rgb), 0.04) 50%,
+    transparent 100%
+  );
+  border-color: rgba(var(--provider-accent-rgb), 0.25);
+}
+
+.cloud-icon {
+  @apply text-2xl flex items-center justify-center shrink-0;
+  @apply w-10 h-10 rounded-lg relative;
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+  border: 1px solid var(--border);
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.deploy-option:hover .cloud-icon {
+  background: linear-gradient(
+    135deg,
+    rgba(var(--provider-accent-rgb), 0.12) 0%,
+    rgba(var(--provider-accent-rgb), 0.06) 100%
+  );
+  border-color: rgba(var(--provider-accent-rgb), 0.3);
+  color: var(--provider-accent);
+  transform: scale(1.15) translateY(-2px);
+  box-shadow: 0 4px 12px rgba(var(--provider-accent-rgb), 0.2);
+}
+
+.deploy-header h5 {
+  @apply m-0 text-base font-semibold flex-1;
+  color: var(--text-primary);
+  transition: color 0.3s ease;
+}
+
+.deploy-option:hover .deploy-header h5 {
+  color: var(--provider-accent);
+}
+
+/* Hover indicator - subtle chevron */
+.deploy-header::after {
+  @apply absolute right-5 opacity-0;
+  content: '→';
+  font-size: 1.25rem;
+  color: var(--provider-accent);
+  transform: translateX(-5px);
+  transition: all 0.3s ease;
+}
+
+.deploy-option:hover .deploy-header::after {
+  @apply opacity-100;
+  transform: translateX(0);
+}
+
+.deploy-option:focus-visible .deploy-header::after {
+  @apply opacity-100;
+  transform: translateX(0);
+}
+
+.deploy-option .code-block-wrapper {
+  @apply m-0 border-none rounded-none shadow-none;
+}
+
+.deploy-option .code-block-wrapper:hover {
+  @apply shadow-none;
+}
+
+.tab-content {
+  @apply rounded-lg overflow-hidden border;
+  background: var(--bg-primary);
+  border-color: var(--border);
+}
+
+.tab-content h5 {
+  @apply text-[0.9rem] font-semibold m-0 py-3 px-4 border-b;
+  color: var(--text-primary);
+  background: var(--bg-secondary);
+  border-color: var(--border);
+}
+
+.tab-content pre {
+  @apply m-0 p-4 text-[0.8rem] bg-transparent border-none;
+}
+
+.tab-content pre code {
+  @apply leading-normal;
+  color: var(--text-primary);
+}
+
+/* ==========================================================================
+   NAVIGATION BUTTONS - PREV/NEXT
+   ========================================================================== */
+
 .content-navigation {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 3rem;
-  padding-top: 2rem;
-  border-top: 1px solid var(--border);
+  @apply flex items-center justify-between mt-12 pt-8 border-t;
+  border-color: var(--border);
 }
 
 .nav-button {
-  padding: 0.75rem 1.5rem;
+  @apply py-3 px-6 rounded-lg text-[0.95rem] font-medium cursor-pointer flex items-center gap-2 border;
   background: var(--bg-secondary);
-  border: 1px solid var(--border);
-  border-radius: 8px;
+  border-color: var(--border);
   color: var(--text-primary);
-  font-size: 0.95rem;
-  font-weight: 500;
-  cursor: pointer;
   transition: all 0.2s;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
 }
 
 .nav-button:hover:not(:disabled) {
+  @apply -translate-y-0.5;
   background: var(--bg-hover);
   border-color: var(--primary);
-  transform: translateY(-2px);
 }
 
 .nav-button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+  @apply opacity-50 cursor-not-allowed;
 }
 
 .step-indicator {
-  font-size: 0.875rem;
+  @apply text-sm font-medium;
   color: var(--text-secondary);
-  font-weight: 500;
 }
 
-/* Mobile Navigation */
+/* ==========================================================================
+   MOBILE NAVIGATION - DROPDOWN
+   ========================================================================== */
+
 .mobile-nav {
-  position: relative;
-  width: 100%;
+  @apply relative w-full;
 }
 
 .mobile-menu-toggle {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 1rem 1.25rem;
+  @apply w-full flex items-center gap-4 py-4 px-5 rounded-xl cursor-pointer text-left border;
   background: var(--bg-secondary);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  cursor: pointer;
+  border-color: var(--border);
   transition: all 0.2s;
-  text-align: left;
 }
 
 .mobile-menu-toggle:hover {
@@ -758,43 +703,78 @@ code {
 }
 
 .mobile-menu-toggle .step-number {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
+  @apply w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm shrink-0;
   background: var(--gradient);
   color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 0.875rem;
-  flex-shrink: 0;
 }
 
 .current-step-title {
-  flex: 1;
-  font-size: 0.95rem;
+  @apply flex-1 text-[0.95rem] font-medium;
   color: var(--text-primary);
-  font-weight: 500;
 }
 
 .dropdown-arrow {
-  font-size: 0.75rem;
+  @apply text-xs;
   color: var(--text-secondary);
 }
 
 .mobile-menu-dropdown {
-  position: absolute;
-  top: calc(100% + 0.5rem);
-  left: 0;
-  right: 0;
+  @apply absolute top-[calc(100%+0.5rem)] left-0 right-0 rounded-xl overflow-hidden z-10 border;
   background: var(--bg-secondary);
-  border: 1px solid var(--border);
-  border-radius: 12px;
+  border-color: var(--border);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  z-index: 10;
-  overflow: hidden;
   animation: dropdownOpen 0.2s ease;
+}
+
+.mobile-menu-item {
+  @apply w-full flex items-center gap-4 py-4 px-5 bg-transparent border-none cursor-pointer text-left border-b;
+  border-color: var(--border);
+  transition: all 0.2s;
+}
+
+.mobile-menu-item:last-child {
+  @apply border-b-0;
+}
+
+.mobile-menu-item:hover {
+  background: var(--bg-hover);
+}
+
+.mobile-menu-item.active {
+  background: linear-gradient(135deg, rgba(0, 150, 255, 0.1) 0%, rgba(147, 51, 234, 0.1) 100%);
+}
+
+.mobile-menu-item .step-number {
+  @apply w-7 h-7 rounded-full flex items-center justify-center font-semibold text-xs shrink-0 border;
+  background: var(--bg-primary);
+  border-color: var(--border);
+  color: var(--text-secondary);
+}
+
+.mobile-menu-item.active .step-number {
+  @apply border-none;
+  background: var(--gradient);
+  color: white;
+}
+
+.mobile-menu-item .step-title {
+  @apply text-sm;
+  color: var(--text-primary);
+}
+
+/* ==========================================================================
+   ANIMATIONS
+   ========================================================================== */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes dropdownOpen {
@@ -808,316 +788,239 @@ code {
   }
 }
 
-.mobile-menu-item {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 1rem 1.25rem;
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid var(--border);
-  cursor: pointer;
-  transition: all 0.2s;
-  text-align: left;
-}
+/* ==========================================================================
+   RESPONSIVE - TABLET (1024px)
+   ========================================================================== */
 
-.mobile-menu-item:last-child {
-  border-bottom: none;
-}
-
-.mobile-menu-item:hover {
-  background: var(--bg-hover);
-}
-
-.mobile-menu-item.active {
-  background: linear-gradient(135deg, rgba(0, 150, 255, 0.1) 0%, rgba(147, 51, 234, 0.1) 100%);
-}
-
-.mobile-menu-item .step-number {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: var(--bg-primary);
-  border: 1px solid var(--border);
-  color: var(--text-secondary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 600;
-  font-size: 0.75rem;
-  flex-shrink: 0;
-}
-
-.mobile-menu-item.active .step-number {
-  background: var(--gradient);
-  color: white;
-  border: none;
-}
-
-.mobile-menu-item .step-title {
-  font-size: 0.875rem;
-  color: var(--text-primary);
-}
-
-/* Responsive */
 @media (max-width: 1024px) {
   .tutorial-wrapper {
-    flex-direction: column;
+    @apply flex-col;
   }
 
   .tutorial-nav {
-    width: 100%;
-    position: static;
+    @apply w-full static;
   }
 
   .nav-steps {
-    display: flex;
-    gap: 0.5rem;
-    overflow-x: auto;
-    padding-bottom: 0.5rem;
+    @apply flex gap-2 pb-2 overflow-x-auto;
     -webkit-overflow-scrolling: touch;
   }
 
   .nav-steps::-webkit-scrollbar {
-    height: 6px;
+    @apply h-1.5;
   }
 
   .nav-steps::-webkit-scrollbar-track {
+    @apply rounded;
     background: var(--bg-primary);
-    border-radius: 3px;
   }
 
   .nav-steps::-webkit-scrollbar-thumb {
+    @apply rounded;
     background: var(--border);
-    border-radius: 3px;
   }
 
   .nav-step {
-    flex: 0 0 auto;
-    min-width: 200px;
+    @apply flex-none min-w-[200px];
   }
 }
 
+/* ==========================================================================
+   RESPONSIVE - MOBILE (768px)
+   ========================================================================== */
+
 @media (max-width: 768px) {
   .start-building-page {
-    padding-top: 60px;
+    @apply pt-[60px];
   }
 
   .tutorial-wrapper {
-    padding: 1rem;
-    gap: 1.5rem;
+    @apply p-4 gap-6;
   }
 
   .tutorial-nav {
-    margin-bottom: 1rem;
+    @apply mb-4;
   }
 
   .tutorial-nav h1 {
-    font-size: 1.75rem;
-    text-align: center;
-    margin-bottom: 1rem;
-    height: auto;
+    @apply text-[1.75rem] text-center mb-4 h-auto;
   }
 
   /* Hide desktop navigation */
   .nav-steps {
-    display: none;
+    @apply hidden;
   }
 
   /* Content */
   .section-intro {
-    height: auto;
-    margin-bottom: 1.5rem;
+    @apply h-auto mb-6;
   }
 
   .section-intro h2 {
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
+    @apply text-2xl mb-2;
   }
 
   .section-intro p {
-    font-size: 0.875rem;
+    @apply text-sm;
   }
 
   .step-card {
-    padding: 1.25rem;
-    margin-bottom: 1rem;
+    @apply p-5 mb-4;
   }
 
   .step-card h3 {
-    font-size: 1.25rem;
+    @apply text-xl;
   }
 
   .step-card h4 {
-    font-size: 1rem;
-    margin-top: 1rem;
+    @apply text-base mt-4;
   }
 
   /* Code blocks */
   pre {
-    font-size: 0.75rem;
-    padding: 0.75rem;
-    padding-top: 2.5rem;
-    overflow-x: auto;
-    max-width: 100%;
+    @apply text-xs p-3 pt-10 overflow-x-auto max-w-full;
   }
 
   code {
+    @apply break-words;
     font-size: 0.75em;
-    word-break: break-word;
   }
 
   /* Copy button mobile adjustments */
   .copy-button {
-    padding: 0.5rem 0.75rem;
+    @apply py-2 px-3;
   }
 
   .copy-icon {
-    font-size: 1rem;
+    @apply text-base;
   }
 
   /* Handle long URLs */
   .step-card a {
-    word-break: break-word;
+    @apply break-words;
     overflow-wrap: break-word;
   }
 
   /* Responsive code blocks for mobile */
   .responsive-code {
-    font-size: 0.7rem;
-    padding: 0.75rem 0.5rem;
+    @apply text-[0.7rem] py-3 px-2;
   }
 
   .responsive-code code {
-    font-size: 0.7rem;
+    @apply text-[0.7rem];
   }
 
   /* Clone options mobile */
   .clone-method {
-    padding: 0.75rem;
+    @apply p-3;
   }
 
   .clone-method h4 {
-    font-size: 0.875rem;
+    @apply text-sm;
   }
 
   .clone-method p {
-    font-size: 0.8rem;
+    @apply text-[0.8rem];
   }
 
   .clone-method pre {
-    font-size: 0.7rem;
-    padding: 0.5rem;
+    @apply text-[0.7rem] p-2;
   }
 
   /* Boxes */
   .warning-box,
   .success-box,
   .info-box {
-    padding: 1rem;
-    font-size: 0.875rem;
+    @apply p-4 text-sm;
   }
 
   .info-box ul,
   .warning-box ul {
-    margin-left: 1rem;
-    padding-left: 1.25rem;
+    @apply ml-4 pl-5;
   }
 
   /* Git install tabs - mobile */
   .git-install-tabs {
-    flex-direction: column;
+    @apply flex-col;
   }
 
   .git-tab-nav {
-    flex-direction: row;
-    min-width: unset;
-    padding: 0.375rem;
-    gap: 0.375rem;
-    overflow-x: auto;
+    @apply flex-row min-w-0 p-1.5 gap-1.5 overflow-x-auto;
     -webkit-overflow-scrolling: touch;
   }
 
   .git-tab-button {
-    flex: 1;
-    padding: 0.75rem 1rem;
-    text-align: center;
-    font-size: 0.875rem;
-    min-width: 80px;
-    white-space: nowrap;
+    @apply flex-1 py-3 px-4 text-center text-sm min-w-[80px] whitespace-nowrap;
   }
 
   .git-tab-button.active::before {
-    left: 50%;
-    top: auto;
-    bottom: 0;
-    transform: translateX(-50%);
-    width: 40%;
-    height: 3px;
-    border-radius: 2px 2px 0 0;
+    @apply left-1/2 top-auto bottom-0 -translate-x-1/2 w-[40%] h-[3px] rounded-t;
   }
 
   .git-tab-panels {
-    padding: 1.5rem;
-    min-height: 150px;
+    @apply p-6 min-h-[150px];
   }
 
   /* Cloud deploy options mobile */
   .cloud-deploy-options {
-    gap: 1rem;
+    @apply gap-4;
   }
 
   .deploy-option {
-    border-radius: 8px;
+    @apply rounded-lg;
+  }
+
+  .deploy-option:hover {
+    transform: translateY(-3px) scale(1.01);
+  }
+
+  .deploy-option:active {
+    transform: translateY(-1px) scale(1);
   }
 
   .deploy-header {
-    padding: 0.75rem 1rem;
+    @apply py-3 px-4;
+  }
+
+  .deploy-header::after {
+    font-size: 1rem;
   }
 
   .cloud-icon {
-    font-size: 1.25rem;
+    @apply text-xl w-9 h-9;
   }
 
   .deploy-header h5 {
-    font-size: 0.9rem;
+    @apply text-[0.9rem];
   }
 
   .tab-content h5 {
-    font-size: 0.875rem;
-    padding: 0.5rem 0.75rem;
+    @apply text-sm py-2 px-3;
   }
 
   /* Key files */
   .file-item {
-    padding: 0.75rem;
+    @apply p-3;
   }
 
   .file-path {
-    font-size: 0.8rem;
+    @apply text-[0.8rem];
   }
 
   .file-desc {
-    font-size: 0.8rem;
+    @apply text-[0.8rem];
   }
 
   /* Navigation buttons */
   .content-navigation {
-    padding-top: 1.5rem;
-    margin-top: 2rem;
+    @apply pt-6 mt-8 gap-3;
     display: grid;
     grid-template-columns: 1fr auto 1fr;
-    gap: 0.75rem;
     align-items: center;
   }
 
   .nav-button {
-    padding: 1rem 1.5rem;
-    font-size: 1.125rem;
-    font-weight: 600;
-    min-width: 60px;
-    min-height: 48px;
+    @apply py-4 px-6 text-lg font-semibold min-w-[60px] min-h-[48px];
   }
 
   .nav-button.prev {
@@ -1129,56 +1032,58 @@ code {
   }
 
   .step-indicator {
-    font-size: 0.75rem;
-    text-align: center;
+    @apply text-xs text-center;
   }
 }
 
+/* ==========================================================================
+   RESPONSIVE - SMALL MOBILE (480px)
+   ========================================================================== */
+
 @media (max-width: 480px) {
   .tutorial-nav h1 {
-    font-size: 1.5rem;
+    @apply text-2xl;
   }
 
   .mobile-menu-toggle {
-    padding: 0.875rem 1rem;
+    @apply py-3.5 px-4;
   }
 
   .mobile-menu-toggle .step-number {
-    width: 28px;
-    height: 28px;
-    font-size: 0.75rem;
+    @apply w-7 h-7 text-xs;
   }
 
   .current-step-title {
-    font-size: 0.875rem;
+    @apply text-sm;
   }
 
   .section-intro h2 {
-    font-size: 1.25rem;
+    @apply text-xl;
   }
 
   .step-card {
-    padding: 1rem;
-    border-radius: 12px;
+    @apply p-4 rounded-xl;
   }
 
   .step-card h3 {
-    font-size: 1.125rem;
+    @apply text-lg;
   }
 
   /* Navigation buttons stay large on very small screens */
   .nav-button {
-    padding: 1rem 3rem;
-    font-size: 1rem;
-    min-height: 44px;
+    @apply py-4 px-12 text-base min-h-[44px];
   }
 
   .step-indicator {
-    font-size: 0.7rem;
+    @apply text-[0.7rem];
   }
 }
 
-/* Dark mode adjustments */
+/* ==========================================================================
+   THEME ADJUSTMENTS
+   ========================================================================== */
+
+/* Dark theme adjustments */
 [data-theme='dark'] .step-card {
   background: rgba(255, 255, 255, 0.02);
 }
@@ -1197,4 +1102,71 @@ code {
 
 [data-theme='dark'] code {
   background: rgba(0, 0, 0, 0.4);
+}
+
+[data-theme='dark'] .git-install-tabs {
+  background: rgba(255, 255, 255, 0.02);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme='dark'] .git-tab-nav {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+[data-theme='dark'] .git-tab-button:hover:not(.active) {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme='dark'] .git-tab-button.active {
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Light theme adjustments for cloud deploy cards */
+:root.light .deploy-option,
+:root.light-1 .deploy-option,
+:root.light-2 .deploy-option {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+:root.light .deploy-option:hover,
+:root.light-1 .deploy-option:hover,
+:root.light-2 .deploy-option:hover {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+}
+
+:root.light .deploy-option::before,
+:root.light-1 .deploy-option::before,
+:root.light-2 .deploy-option::before {
+  background: radial-gradient(circle at top left, rgba(139, 92, 246, 0.03) 0%, transparent 70%);
+}
+
+:root.light .deploy-option:hover::before,
+:root.light-1 .deploy-option:hover::before,
+:root.light-2 .deploy-option:hover::before {
+  background: radial-gradient(
+    circle at top left,
+    rgba(var(--provider-accent-rgb), 0.02) 0%,
+    transparent 70%
+  );
+}
+
+/* Light theme adjustments for step numbers */
+:root.light .step-number,
+:root.light-1 .step-number,
+:root.light-2 .step-number,
+:root.light .mobile-menu-toggle .step-number,
+:root.light-1 .mobile-menu-toggle .step-number,
+:root.light-2 .mobile-menu-toggle .step-number,
+:root.light .mobile-menu-item.active .step-number,
+:root.light-1 .mobile-menu-item.active .step-number,
+:root.light-2 .mobile-menu-item.active .step-number {
+  color: #ffffff !important;
+  background: linear-gradient(135deg, #6b21a8 0%, #7c3aed 100%);
+}
+
+:root.light .nav-step.active .step-number,
+:root.light-1 .nav-step.active .step-number,
+:root.light-2 .nav-step.active .step-number {
+  box-shadow: 0 0 20px rgba(107, 33, 168, 0.4);
 }

@@ -25,7 +25,8 @@
 .logo-hero {
   width: 200px;
   height: 200px;
-  margin-bottom: 2rem;
+  margin: 0 auto 2rem auto;
+  display: block;
   filter: drop-shadow(0 0 30px rgba(139, 92, 246, 0.3));
 }
 
@@ -328,7 +329,7 @@
   .logo-hero {
     width: 140px;
     height: 140px;
-    margin-bottom: 1.25rem;
+    margin: 0 auto 1.25rem auto;
   }
 
   .features-grid {
